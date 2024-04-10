@@ -1,10 +1,11 @@
 require("dotenv").config();
 
-const express = require('express')
 const routes = require('./routes/mainRoutes.js')
-
+const bodyparser = require('body-parser')
+const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+
 
 
 const server = express()
@@ -13,6 +14,8 @@ server.use(cors({ credentials: true, origin: `${process.env.FRONTEND_URL}` }))
 server.use(morgan('dev'))
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }));
+server.use(bodyparser.urlencoded({extended: true}))
+server.use(bodyparser.json())
 
 server.use("/", routes);
 

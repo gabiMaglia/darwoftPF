@@ -1,8 +1,16 @@
-const server = require('./src/app')
-const PORT = 3001
+const server = require("./src/app");
+const {conn} = require("./src/db/conn")
+const PORT = 3001;
 
 
-server.listen(PORT, () => {
-    console.log( `Server listening at ${PORT}, running on ${process.env.NODE_ENV.toUpperCase()}_DB enviroment` )
-   
-}) 
+conn().then(()=> {
+  server.listen(PORT, () => {
+    console.log(
+      `Server listening at ${PORT}, running on ${process.env.NODE_ENV.toUpperCase()} enviroment`
+    );
+  });
+}).catch((error) => {
+  console.log(error)
+})
+
+
