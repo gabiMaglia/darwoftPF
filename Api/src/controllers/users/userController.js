@@ -4,8 +4,7 @@ const getUser = async () => {
   const existingUsersCount = await User.countDocuments();
   if (existingUsersCount < 1)
     return { error: true, response: "There are no users" };
-
-  const user = await User.find().populate("role").populate('adress').exec();
+  const user = await User.find().populate("role").populate("adress").exec();
 
   return { error: false, response: user };
 };
