@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const mongoose = require("mongoose");
 const {
   userSchema,
@@ -25,9 +27,9 @@ credentialSchema.pre("save", async function (next) {
 // RElATIONS
 const User = mongoose.model("User", userSchema);
 const UserCredential = mongoose.model("UserCredential", credentialSchema);
-const UserAdress = mongoose.model("UserAdress", userAdressSchema);
 const UserRole = mongoose.model("UserRole", roleSchema);
-
+const UserAdress = mongoose.model("UserAdress", userAdressSchema);
+mongoose.set("debug", true);
 // CONNECTION
 mongoose.Promise = global.Promise;
 const conn = () =>

@@ -1,11 +1,12 @@
 const { Router } = require('express')
+const { getUserHandler, postUserHandler, updateUserHandler, deleteUserHandler } = require('../../handlers/users/userHandlers')
 
 const userRouter = Router()
 
-userRouter.get('/')
-userRouter.post('/')
-userRouter.patch('/')
-userRouter.delete('/')
+userRouter.get('/', getUserHandler)
+userRouter.post('/', postUserHandler)
+userRouter.patch('/', updateUserHandler)
+userRouter.delete('/', deleteUserHandler)
 
 
 module.exports = userRouter
