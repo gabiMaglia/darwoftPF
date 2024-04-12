@@ -6,6 +6,7 @@ const {
   credentialSchema,
   roleSchema,
   userAdressSchema,
+  wishListSchema
 } = require("./models/user/userModel");
 
 // MIDDLEWARES
@@ -26,6 +27,7 @@ credentialSchema.pre("save", async function (next) {
 
 // RElATIONS
 const User = mongoose.model("User", userSchema);
+const UserWishList = mongoose.model("UserWishList", wishListSchema)
 const UserCredential = mongoose.model("UserCredential", credentialSchema);
 const UserRole = mongoose.model("UserRole", roleSchema);
 const UserAdress = mongoose.model("UserAdress", userAdressSchema);
@@ -38,4 +40,4 @@ const conn = () =>
     .then(() => console.log("Conectado a MongoDB"))
     .catch((err) => console.error("No se pudo conectar a MongoDB", err));
 
-module.exports = { conn, User, UserCredential, UserAdress, UserRole };
+module.exports = { conn, User, UserCredential, UserAdress, UserRole, UserWishList };

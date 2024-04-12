@@ -37,12 +37,15 @@ const userSchema = new Schema(
       default: false
     },
 
-
-
     credentials: {
       type: mongoose.Types.ObjectId,
       ref: "UserCredential",
       required: true,
+    },
+    wishList : {     
+      type: mongoose.Types.ObjectId,
+      ref: "UserWishList",
+     
     },
 
     role: { type: mongoose.Types.ObjectId, ref: "UserRole", required: true },
@@ -62,6 +65,7 @@ const roleSchema = new Schema({
 
 const credentialSchema = new Schema(
   {
+    username: { type: String, require: true },
     password: { type: String, require: true },
   },
   { timestamps: true }
@@ -76,4 +80,8 @@ const userAdressSchema = new Schema({
   zipCode: Number,
 });
 
-module.exports = { userSchema, credentialSchema, roleSchema, userAdressSchema };
+const wishListSchema = new Schema({
+  products: Array
+})
+
+module.exports = { userSchema, credentialSchema, roleSchema, userAdressSchema, wishListSchema };

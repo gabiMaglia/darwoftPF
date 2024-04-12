@@ -88,6 +88,7 @@ const postNewUser = async (newUserData) => {
 
   // CREDENTIALS
   const userCredential = new UserCredential({
+    username : email,
     password,
   });
 
