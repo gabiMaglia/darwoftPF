@@ -1,54 +1,66 @@
 const {
   getUser,
+  getUserById,
   postNewUser,
   updateUser,
   deleteUser,
 } = require("../../controllers/users/userController");
-
-const getUserHandler = async (req, res) => {
+// GET USER
+const getUserHandler = async (req, res, next) => {
   try {
     const { response } = await getUser();
-    if (response.error) {
-      return res.status(404).json({ error: true, message: response });
-    }
     return res.status(200).json({ error: false, message: response });
   } catch (error) {
-    return res.status(500).json({ error: true, message: error.message });
+    next(error)
   }
 };
-const postUserHandler = async (req, res) => {
+// GET USERByID
+const getUserbyIdHandler = async (req, res, next) => {
+  const {id} = req.params
+  try {
+    const { response } = await getUserById(id);
+    return res.status(200).json({ error: false, message: response });
+  } catch (error) {
+    next(error)
+  }
+};
+// POST USER
+const postUserHandler = async (req, res, next) => {
   try {
     const { newUserData } = req.body;
+    const { response } = await postNewUser(newUserData);
+    return res.status(200).json({error: false, message: `${response} Successfully created`});
+  } catch (error) {
+    next(error)
+  }
+};
+// UPDATE USER
+const updateUserHandler = async(req, res, next) => {
+  try {
+    const {id} = req.params
+    const { userData } = req.body
 
-    const newUser = await postNewUser(newUserData);
-    if (newUser.error)
-      return res.status(404).json({ error: true, message: newUser.response });
-    else
-      return res
-        .status(200)
-        .json({
-          error: false,
-          message: `${newUser.response} Successfully created`,
-        });
+    const  response  = await updateUser(id, userData) 
+    return res.status(200).json({ error: false, message: response });
+    
   } catch (error) {
-    return res.status(500).json({ error: true, message: error });
+    next(error)
   }
 };
-const updateUserHandler = (req, res) => {
+// DELETE USERByID
+const deleteUserHandler = async(req, res, next) => {
   try {
+    const { id } = req.params
+    const response = await deleteUser(id);
+    return res.status(200).json({ error: false, message: response });
   } catch (error) {
-    res.status(500).json({ error: true, message: error });
-  }
-};
-const deleteUserHandler = (req, res) => {
-  try {
-  } catch (error) {
-    res.status(500).json({ error: true, message: error });
+    next(error)
   }
 };
 
 module.exports = {
   getUserHandler,
+  getUserbyIdHandler,
   postUserHandler,
   updateUserHandler,
   deleteUserHandler,

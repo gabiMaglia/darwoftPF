@@ -16,11 +16,28 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
+    photo: {
+      type: String
+    },
     birthday: {
       type: Date,
       required: true,
     },
     nacionality: String,
+
+    dni: {
+      type: Number,
+      require: true,
+      unique: true
+    }, 
+    
+    isActive: {
+      type: Boolean,
+      require: true,
+      default: false
+    },
+
+
 
     credentials: {
       type: mongoose.Types.ObjectId,
@@ -39,16 +56,16 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
+const roleSchema = new Schema({
+  role: { type: String, enum: ["ADMIN", "USER"], default: "USER" },
+});
+
 const credentialSchema = new Schema(
   {
     password: { type: String, require: true },
   },
   { timestamps: true }
 );
-
-const roleSchema = new Schema({
-  role: { type: String, enum: ["ADMIN", "USER"], default: "USER" },
-});
 
 const userAdressSchema = new Schema({
   country: String,
