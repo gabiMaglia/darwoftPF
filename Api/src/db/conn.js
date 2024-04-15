@@ -6,8 +6,15 @@ const {
   credentialSchema,
   roleSchema,
   userAdressSchema,
-  wishListSchema
 } = require("./models/user/userModel");
+const {
+  productSchema,
+  productStockSchema,
+  productBrandSchema,
+  productCategorySchema,
+} = require("./models/product/productModel");
+const { saleOrderModel } = require("./models/saleOrder");
+const tokenWhiteListSchema = require("./models/auth/tokenWhiteList");
 
 // MIDDLEWARES
 roleSchema.pre("save", async function (next) {
@@ -21,16 +28,28 @@ roleSchema.pre("save", async function (next) {
 });
 credentialSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+  this.password = bcrypt.hash(this.password, 12);
   next();
 });
 
-// RElATIONS
+// MODEL INIT
+const TokenWhiteList = mongoose.model("TokenWhiteList", tokenWhiteListSchema );
+
 const User = mongoose.model("User", userSchema);
-const UserWishList = mongoose.model("UserWishList", wishListSchema)
 const UserCredential = mongoose.model("UserCredential", credentialSchema);
 const UserRole = mongoose.model("UserRole", roleSchema);
 const UserAdress = mongoose.model("UserAdress", userAdressSchema);
+
+const Product = mongoose.model("Product", productSchema);
+const ProductStock = mongoose.model("ProductStock", productStockSchema);
+const ProductBrand = mongoose.model("ProductBrand", productBrandSchema);
+const ProductCategory = mongoose.model(
+  "ProductCategory",
+  productCategorySchema
+);
+
+const SaleOrder = mongoose.model("SaleOrder", saleOrderModel)
+
 mongoose.set("debug", true);
 // CONNECTION
 mongoose.Promise = global.Promise;
@@ -40,4 +59,16 @@ const conn = () =>
     .then(() => console.log("Conectado a MongoDB"))
     .catch((err) => console.error("No se pudo conectar a MongoDB", err));
 
-module.exports = { conn, User, UserCredential, UserAdress, UserRole, UserWishList };
+module.exports = {
+  TokenWhiteList,
+  conn,
+  User,
+  UserCredential,
+  UserAdress,
+  UserRole,
+  Product,
+  ProductStock,
+  ProductBrand,
+  ProductCategory,
+  SaleOrder
+};

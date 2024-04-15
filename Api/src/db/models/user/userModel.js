@@ -43,9 +43,11 @@ const userSchema = new Schema(
       required: true,
     },
     wishList : {     
-      type: mongoose.Types.ObjectId,
-      ref: "UserWishList",
-     
+      type: Array,
+
+    },
+    productCart : {     
+      type: Array,
     },
 
     role: { type: mongoose.Types.ObjectId, ref: "UserRole", required: true },
@@ -80,8 +82,5 @@ const userAdressSchema = new Schema({
   zipCode: Number,
 });
 
-const wishListSchema = new Schema({
-  products: Array
-})
 
-module.exports = { userSchema, credentialSchema, roleSchema, userAdressSchema, wishListSchema };
+module.exports = { userSchema, credentialSchema, roleSchema, userAdressSchema };

@@ -1,4 +1,4 @@
-const { User, UserCredential, UserRole, UserAdress } = require("../../db/conn");
+const { User, UserCredential, UserRole, UserAdress, UserProductCart, UserWishList } = require("../../db/conn");
 // GET
 const getUser = async () => {
   const existingUsersCount = await User.countDocuments();
@@ -84,8 +84,11 @@ const postNewUser = async (newUserData) => {
     number = "",
     zipCode = "",
   } = adress;
-  // USERCREATION
 
+  const userCart = []
+  const userWishList = []
+
+  // USERCREATION
   // CREDENTIALS
   const userCredential = new UserCredential({
     username : email,
@@ -114,7 +117,6 @@ const postNewUser = async (newUserData) => {
     zipCode,
   });
   await userAddress.save();
-
   // USER
   const user = new User({
     firstName,
@@ -124,6 +126,8 @@ const postNewUser = async (newUserData) => {
     birthday,
     nacionality,
     dni,
+    userCart,
+    userWishList,
     credentials: userCredential._id,
     role: userRole._id,
     adress: userAddress._id,
@@ -139,7 +143,7 @@ const deleteUser = async (id) => {
     throw new Error("User not found");
   }
 
-  return { error: false, response: deletedCount };
+  return { error: false, response: "User successfully deleted" };
 };
 
 module.exports = {

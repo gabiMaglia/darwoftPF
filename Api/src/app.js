@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 const routes = require('./routes/mainRoutes.js');
-const ErrorHandler = require("./middleware/ErrorHandler.js");
+const errorHandler = require("./middleware/errorHandler.js");
 
 const server = express()
 
@@ -17,6 +17,6 @@ server.use(express.json())
 server.use("/", routes);
 
 // Error catching endware.
-server.use(ErrorHandler)
+server.use(errorHandler)
 
 module.exports = server
