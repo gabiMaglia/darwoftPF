@@ -1,11 +1,11 @@
 const { Router } = require('express')
-const { login, singIn, singOut } = require('../../handlers/authHandler')
+const { loginHandler, singInHandler, logOutHandler } = require('../../handlers/authHandler')
 const authRouter = Router()
 
-authRouter.post('/login', login)
-authRouter.post('/singin', singIn)
+authRouter.post('/login', loginHandler)
+authRouter.post('/singin', singInHandler)
 
-authRouter.post('/logout/:id', singOut)
+authRouter.post('/logout/:id', logOutHandler)
 
 
 module.exports = authRouter

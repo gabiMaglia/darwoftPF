@@ -155,8 +155,22 @@ const postNewUser = async (newUserData) => {
 };
 // DELETE
 const deleteUser = async (id) => {
+  const user = await User.findById(id); 
+
   const { deletedCount } = await User.deleteOne({ _id: id });
   if (deletedCount === 0) {
+    throw new Error("User not found");
+  }
+  const { deletedCredCount } = await UserCredential.deleteOne({ _id: user.credentials });
+  if (deletedCredCount === 0) {
+    throw new Error("User not found");
+  }
+  const { deletedAdressCount } = await UserAdress.deleteOne({ _id: user.adress });
+  if (deletedAdressCount === 0) {
+    throw new Error("User not found");
+  }
+  const { deletedRoleCount } = await UserRole.deleteOne({ _id: user.role });
+  if (deletedRoleCount === 0) {
     throw new Error("User not found");
   }
 
