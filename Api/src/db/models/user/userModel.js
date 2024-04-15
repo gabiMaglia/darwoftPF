@@ -14,6 +14,8 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+      lowercase: true,
+      match:  /[a-z0–9!#$%&’*+/=?^_`{|}~-]+(?:\.[a-z0–9!#$%&’*+/=?^_`{|}~-]+)*@(?:[a-z0–9](?:[a-z0–9-]*[a-z0–9])?\.)+[a-z0–9](?:[a-z0–  9-]*[a-z0–9])?/,
       unique: true,
     },
     photo: {
@@ -67,7 +69,13 @@ const roleSchema = new Schema({
 
 const credentialSchema = new Schema(
   {
-    username: { type: String, require: true },
+    email: { 
+      type: String,
+      required: true,
+      lowercase: true,
+      match:  /[a-z0–9!#$%&’*+/=?^_`{|}~-]+(?:\.[a-z0–9!#$%&’*+/=?^_`{|}~-]+)*@(?:[a-z0–9](?:[a-z0–9-]*[a-z0–9])?\.)+[a-z0–9](?:[a-z0–  9-]*[a-z0–9])?/,
+      unique: true,
+    },
     password: { type: String, require: true },
   },
   { timestamps: true }

@@ -1,4 +1,11 @@
-const { User, UserCredential, UserRole, UserAdress, UserProductCart, UserWishList } = require("../../db/conn");
+const {
+  User,
+  UserCredential,
+  UserRole,
+  UserAdress,
+} = require("../../db/conn");
+const { sendConfirmationEmail } = require("../../utils/emailTemplate");
+const { tokenSign } = require("../../utils/jwt/tokenGenerator");
 // GET
 const getUser = async () => {
   const existingUsersCount = await User.countDocuments();
@@ -85,13 +92,14 @@ const postNewUser = async (newUserData) => {
     zipCode = "",
   } = adress;
 
-  const userCart = []
-  const userWishList = []
+  const userCart = [];
+  const userWishList = [];
 
   // USERCREATION
+
   // CREDENTIALS
   const userCredential = new UserCredential({
-    username : email,
+    email,
     password,
   });
 
@@ -134,6 +142,15 @@ const postNewUser = async (newUserData) => {
   });
   await user.save();
   // TODO send confirmation email
+  
+  const confirmationEmailToken = tokenSign({ userID: user.id }, "2d");
+  await sendConfirmationEmail(
+    process.env.EMAIL_MAILER,
+    email,
+    confirmationEmailToken,
+    process.env.API_URL
+  );
+
   return { error: false, response: user.firstName };
 };
 // DELETE
