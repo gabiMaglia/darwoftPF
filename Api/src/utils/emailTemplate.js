@@ -66,8 +66,6 @@ const sendResetPasswordEmail = async (
         <b style="max-width: 300px; text-decoration:none;  font-size: small; color: white;word-break: break-all;">${resetPasswordUrl}</b>
         `
     })
-  }
-
-
+}
 
 module.exports = { sendConfirmationEmail, sendResetPasswordEmail };
