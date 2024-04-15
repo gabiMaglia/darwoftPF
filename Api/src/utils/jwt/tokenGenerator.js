@@ -9,38 +9,29 @@ const tokenSign = (dataForToken, tokenTime = "1h") => {
   return token;
 };
 const verifyToken = async (token) => {
-  try {
-    const isWhiteListed = await checkWhiteListedToken(token);
-    if (!isWhiteListed) return { error: true, name: "blackListedToken" };
+  const isWhiteListed = await checkWhiteListedToken(token);
+  if (!isWhiteListed) return { error: true, name: "blackListedToken" };
 
-    const decodedToken = jwt.verify(token, SECRET);
+  const decodedToken = jwt.verify(token, SECRET);
 
-    return decodedToken;
-  } catch (error) {
-    console.log(error.name);
-    return { error: true, name: error.name };
-  }
+  return decodedToken;
 };
 
 const refreshToken = async (token) => {
-  try {
-    const decodedToken = await verifyToken(token.split(" ").pop());
-    if (decodedToken.error) return { error: true, message: decodedToken.name };
+  const decodedToken = await verifyToken(token.split(" ").pop());
+  if (decodedToken.error) return { error: true, message: decodedToken.name };
 
-    const tokenRefreshTime = "3h";
-    
-    const dataForToken = {
-      userId: decodedToken.userId,
-      username: decodedToken.username,
-      userRole: decodedToken.userRole,
-    };
+  const tokenRefreshTime = "3h";
 
-    const newToken = tokenSign(dataForToken, tokenRefreshTime);
+  const dataForToken = {
+    userId: decodedToken.userId,
+    username: decodedToken.username,
+    userRole: decodedToken.userRole,
+  };
 
-    return newToken;
-  } catch (error) {
-    return error;
-  }
+  const newToken = tokenSign(dataForToken, tokenRefreshTime);
+
+  return newToken;
 };
 
 module.exports = {

@@ -10,9 +10,8 @@ const productSchema = new Schema({
     type: Number,
     require: true,
   },
-  soldCount: {
-    type: Number,
-    default: 0,
+  images: {
+    type: Array,
   },
   productDescription: {
     type: Map,
@@ -29,6 +28,10 @@ const productSchema = new Schema({
   isFeatured: {
     type: Boolean,
     default: false,
+  },
+  soldCount: {
+    type: Number,
+    default: 0,
   },
   stock: {
     type: mongoose.Types.ObjectId,
