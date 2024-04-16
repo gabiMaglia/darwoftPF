@@ -8,6 +8,7 @@ const productRouter = require("./productRoutes/productRouter");
 const mainRouter = Router();
 
 mainRouter.use('/auth', authRouter)
+
 mainRouter.use('/jwt', jwtRouter)
 mainRouter.use('/user', userRouter)
 mainRouter.use('/product', productRouter)

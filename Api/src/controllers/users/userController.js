@@ -1,14 +1,8 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
 
-const {
-  User,
-  UserCredential,
-  UserRole,
-  UserAdress,
-} = require("../../db/conn");
+const { User, UserCredential, UserRole, UserAdress } = require("../../db/conn");
 const { sendConfirmationEmail } = require("../../utils/emailTemplate");
 const { tokenSign } = require("../../utils/jwt/tokenGenerator");
-
 
 // GET
 const getUser = async () => {
@@ -104,7 +98,7 @@ const postNewUser = async (newUserData) => {
   // CREDENTIALS
   const userCredential = new UserCredential({
     email,
-    password
+    password,
   });
 
   await userCredential.save();
@@ -146,36 +140,34 @@ const postNewUser = async (newUserData) => {
   });
   await user.save();
   // TODO send confirmation email
-  
-  const confirmationEmailToken = await tokenSign({ userID: user.id }, "2d");
-   
+
+  const confirmationEmailToken = await tokenSign({ userId: user.id }, "2d");
+
   await sendConfirmationEmail(
     process.env.EMAIL_MAILER,
     email,
     confirmationEmailToken,
     process.env.API_URL
   );
-
-  console.log(    process.env.EMAIL_MAILER,
-    email,
-    confirmationEmailToken,
-    process.env.API_URL)
   return { error: false, response: user.firstName };
 };
 // DELETE
 const deleteUser = async (id) => {
-  const user = await User.findById(id); 
-
+  const user = await User.findById(id);
 
   const { deletedCount } = await User.deleteOne({ _id: id });
   if (deletedCount === 0) {
     throw new Error("User not found");
   }
-  const { deletedCredCount } = await UserCredential.deleteOne({ _id: user.credentials });
+  const { deletedCredCount } = await UserCredential.deleteOne({
+    _id: user.credentials,
+  });
   if (deletedCredCount === 0) {
     throw new Error("User not found");
   }
-  const { deletedAdressCount } = await UserAdress.deleteOne({ _id: user.adress });
+  const { deletedAdressCount } = await UserAdress.deleteOne({
+    _id: user.adress,
+  });
   if (deletedAdressCount === 0) {
     throw new Error("User not found");
   }

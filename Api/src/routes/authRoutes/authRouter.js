@@ -7,7 +7,7 @@ authRouter.post('/singin', singInHandler)
 
 authRouter.post('/logout/:id', logOutHandler)
 
-authRouter.get('/auth/:token', confirmAccountHandler)
+authRouter.get('/confirm/:token', confirmAccountHandler)
 
 
 module.exports = authRouter

@@ -1,44 +1,39 @@
 require("dotenv").config();
 const SECRET = process.env.JWT_SECRET_KEY;
 const jwt = require("jsonwebtoken");
-const { checkWhiteListedToken } = require("./tokenUtils");
 const { TokenWhiteList } = require("../../db/conn");
 
 const tokenSign = async (dataForToken, tokenTime = "1h") => {
   const token = jwt.sign(dataForToken, SECRET, { expiresIn: tokenTime });
   await TokenWhiteList.create({
-    token
-  })
+    token,
+  });
   return token;
 };
+
 const verifyToken = async (token) => {
   const isWhiteListed = await checkWhiteListedToken(token);
   if (!isWhiteListed) return { error: true, name: "blackListedToken" };
-
-  const decodedToken = jwt.verify(token, SECRET);
+ 
+  const decodedToken = jwt.verify(token.token, SECRET);
+  
 
   return decodedToken;
 };
 
-const refreshToken = async (token) => {
-  const decodedToken = await verifyToken(token.split(" ").pop());
-  if (decodedToken.error) return { error: true, message: decodedToken.name };
+const extractJwtToken = (inputString) => {
+  const jwt = inputString.split(" ").pop();
+  return jwt;
+};
 
-  const tokenRefreshTime = "3h";
-
-  const dataForToken = {
-    userId: decodedToken.userId,
-    username: decodedToken.username,
-    userRole: decodedToken.userRole,
-  };
-
-  const newToken = tokenSign(dataForToken, tokenRefreshTime);
-
-  return newToken;
+const checkWhiteListedToken = async (token) => {
+  const listedTokens = await TokenWhiteList.exists(token);
+  return listedTokens ? true : false;
 };
 
 module.exports = {
   tokenSign,
   verifyToken,
-  refreshToken,
+  checkWhiteListedToken,
+  extractJwtToken,
 };

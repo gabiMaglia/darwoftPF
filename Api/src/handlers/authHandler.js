@@ -25,8 +25,8 @@ const logOutHandler = async (req, res, next) => {
 const confirmAccountHandler = async (req, res, next) => {
   try {
     const token = req.params
-    const response = await confirmAccount(token)
-    res.status(200).json({login: false, response})
+    await confirmAccount(token)
+    res.status(200).json({error: false, response: "Email succesfully activated"})
   } catch (error) {
     next(error);
   }

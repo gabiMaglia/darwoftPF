@@ -1,7 +1,7 @@
-const { User, UserCredential } = require("../../db/conn");
+const { User, UserCredential, TokenWhiteList } = require("../../db/conn");
 
 const bcrypt = require("bcrypt");
-const { tokenSign } = require("../../utils/jwt/tokenGenerator");
+const { tokenSign, verifyToken, checkWhiteListedToken } = require("../../utils/jwt/tokenGenerator");
 
 const login = async (email, password) => {
   const userCredentials = await UserCredential.findOne({ email });
@@ -19,12 +19,19 @@ const login = async (email, password) => {
     accesToken,
   };
 };
+
 const logOut = async () => {};
 
 const confirmAccount = async (token) => {
 
-    const user = User.findOne({})
+  const isTokenListed =  await checkWhiteListedToken(token);
+  if (!isTokenListed) throw new Error("Wrong Credentials");
 
+  const decodedToken = await verifyToken(token);
+  const response = User.updateOne({_id:decodedToken.userId}, {isActive: true})
+  await TokenWhiteList.deleteOne(token)
+
+  return response
 }
 
 module.exports = { login, logOut, confirmAccount };
