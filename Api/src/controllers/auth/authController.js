@@ -1,8 +1,25 @@
-const { UserCredential } = require("../../db/conn")
+const {User, UserCredential } = require("../../db/conn")
+
+const bcrypt = require('bcrypt');
+const { tokenSign } = require("../../utils/jwt/tokenGenerator");
+
+
 
 const login = async (email, password) => {
     const userCredentials =  await UserCredential.findOne({email})
-    return userCredentials
+    if (!userCredentials) throw new Error("Wrong Credentials");
+    
+    const dbPassword =  userCredentials.password
+    const isPasswordMatching = await bcrypt.compare(password, dbPassword)
+    if (!isPasswordMatching) throw new Error("Wrong Credentials");
+    
+    const user = await User.findOne({email})
+
+    const accesToken = tokenSign({user}, '1h')
+
+    return {
+        accesToken
+    }
 }
 const logOut = async () => {
 

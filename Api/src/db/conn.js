@@ -27,9 +27,10 @@ roleSchema.pre("save", async function (next) {
   next();
 });
 credentialSchema.pre("save", async function (next) {
+  
   if (!this.isModified("password")) return next();
-  console.log("llego al mid")
-  this.password = bcrypt.hash(this.password, 12);
+  this.password = await bcrypt.hash(this.password, 12);
+
   next();
 });
 

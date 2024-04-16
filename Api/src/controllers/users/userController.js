@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+
 const {
   User,
   UserCredential,
@@ -6,6 +8,8 @@ const {
 } = require("../../db/conn");
 const { sendConfirmationEmail } = require("../../utils/emailTemplate");
 const { tokenSign } = require("../../utils/jwt/tokenGenerator");
+
+
 // GET
 const getUser = async () => {
   const existingUsersCount = await User.countDocuments();
@@ -100,7 +104,7 @@ const postNewUser = async (newUserData) => {
   // CREDENTIALS
   const userCredential = new UserCredential({
     email,
-    password,
+    password
   });
 
   await userCredential.save();
@@ -144,6 +148,7 @@ const postNewUser = async (newUserData) => {
   // TODO send confirmation email
   
   const confirmationEmailToken = tokenSign({ userID: user.id }, "2d");
+
   await sendConfirmationEmail(
     process.env.EMAIL_MAILER,
     email,
@@ -156,6 +161,7 @@ const postNewUser = async (newUserData) => {
 // DELETE
 const deleteUser = async (id) => {
   const user = await User.findById(id); 
+
 
   const { deletedCount } = await User.deleteOne({ _id: id });
   if (deletedCount === 0) {
