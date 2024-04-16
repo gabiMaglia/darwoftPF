@@ -6,7 +6,7 @@ const sendConfirmationEmail = async (
   jwtToken,
   gateway
 ) => {
-  const confirmationUrl = `${gateway}/account/confirm/${jwtToken}`;
+  const confirmationUrl = `${gateway}/auth/confirm/${jwtToken}`;
   return transporter.sendMail({
     from: adminEmail,
     to: userEmail,

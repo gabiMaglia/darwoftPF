@@ -147,8 +147,8 @@ const postNewUser = async (newUserData) => {
   await user.save();
   // TODO send confirmation email
   
-  const confirmationEmailToken = tokenSign({ userID: user.id }, "2d");
-
+  const confirmationEmailToken = await tokenSign({ userID: user.id }, "2d");
+   
   await sendConfirmationEmail(
     process.env.EMAIL_MAILER,
     email,
@@ -156,6 +156,10 @@ const postNewUser = async (newUserData) => {
     process.env.API_URL
   );
 
+  console.log(    process.env.EMAIL_MAILER,
+    email,
+    confirmationEmailToken,
+    process.env.API_URL)
   return { error: false, response: user.firstName };
 };
 // DELETE

@@ -1,4 +1,4 @@
-const { login } = require("../controllers/auth/authController");
+const { login, confirmAccount } = require("../controllers/auth/authController");
 
 const loginHandler = async (req, res, next) => {
   try {
@@ -22,5 +22,14 @@ const logOutHandler = async (req, res, next) => {
     next(error);
   }
 };
+const confirmAccountHandler = async (req, res, next) => {
+  try {
+    const token = req.params
+    const response = await confirmAccount(token)
+    res.status(200).json({login: false, response})
+  } catch (error) {
+    next(error);
+  }
+};
 
-module.exports = { loginHandler, singInHandler, logOutHandler };
+module.exports = { loginHandler, singInHandler, logOutHandler, confirmAccountHandler };
