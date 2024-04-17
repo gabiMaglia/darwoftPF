@@ -1,18 +1,15 @@
 const { Router } = require("express");
 const {
-  getAllBrands,
-  getBrandById,
-  createNewBrand,
-  updateBrand,
-  deleteBrand,
-} = require("../../handlers/products/brandsHandler");
+  getAllBrandsHandler,
+  createNewBrandHandler,
+  updateBrandHandler,
+  deleteBrandHandler
+} = require("../../handlers/products/brandHandler");
 const brandRouter = Router();
 
-brandRouter.get("/", getAllBrands);
-brandRouter.get("/:id", getBrandById);
-
-brandRouter.post("/", createNewBrand);
-brandRouter.patch("/:id", updateBrand);
-brandRouter.delete("/:id", deleteBrand);
+brandRouter.get("/", getAllBrandsHandler);
+brandRouter.post("/", createNewBrandHandler);
+brandRouter.patch("/:id", updateBrandHandler);
+brandRouter.delete("/:id", deleteBrandHandler);
 
 module.exports = brandRouter;

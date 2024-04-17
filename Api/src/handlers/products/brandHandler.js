@@ -1,28 +1,22 @@
-const getAllBrands = async (req, res, next) => {
+const getAllBrandsHandler = async (req, res, next) => {
     try {
     } catch (error) {
       next(error);
     }
   };
-  const getBrandById = async (req, res, next) => {
+  const createNewBrandHandler = async (req, res, next) => {
     try {
     } catch (error) {
       next(error);
     }
   };
-  const createNewBrand = async (req, res, next) => {
+  const updateBrandHandler = async (req, res, next) => {
     try {
     } catch (error) {
       next(error);
     }
   };
-  const updateBrand = async (req, res, next) => {
-    try {
-    } catch (error) {
-      next(error);
-    }
-  };
-  const deleteBrand = async (req, res, next) => {
+  const deleteBrandHandler = async (req, res, next) => {
     try {
     } catch (error) {
       next(error);
@@ -30,10 +24,9 @@ const getAllBrands = async (req, res, next) => {
   };
   
   module.exports = {
-    getAllBrands,
-    getBrandById,
-    createNewBrand,
-    updateBrand,
-    deleteBrand,
+    getAllBrandsHandler,
+    createNewBrandHandler,
+    updateBrandHandler,
+    deleteBrandHandler,
   };
   
