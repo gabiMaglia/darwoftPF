@@ -1,6 +1,9 @@
 const errorStatus = (message) => {
   if (message === "User not found") return 404;
   if (message === "Wrong Credentials") return 401;
+  
+  if (message === "Products not found") return 404;
+  if (message === "Product not found") return 404;
 
   return 500;
 };

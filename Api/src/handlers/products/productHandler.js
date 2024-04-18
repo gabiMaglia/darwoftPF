@@ -1,27 +1,35 @@
-const getAllProducts = async(req, res, next) => {
+const {postNewProduct, getAllProducts} = require('../../controllers/products/productController')
+
+const getAllProductsHandler = async(req, res, next) => {
+  try {
+    const { response } = await getAllProducts();
+    return res.status(200).json({ error: false, message: response });
+  } catch (error) { next(error) }
+};
+const getProductByIdHandler = async(req, res, next) => {
   try {
   } catch (error) { next(error) }
 };
-const getProductById = async(req, res, next) => {
+const postNewProductHandler = async(req, res, next) => {
+  const {newProductData} = req.body
+  // console.log(newProductData)
+  const response = await postNewProduct(newProductData)
+  if (response) return res.status(200).json(response)
   try {
   } catch (error) { next(error) }
 };
-const postNewProduct = async(req, res, next) => {
+const updateProductHandler = async(req, res, next) => {
   try {
   } catch (error) { next(error) }
 };
-const updateProduct = async(req, res, next) => {
-  try {
-  } catch (error) { next(error) }
-};
-const deleteProduct = async(req, res, next) => {
+const deleteProductHandler = async(req, res, next) => {
   try {
   } catch (error) { next(error) }
 };
 module.exports = {
-  getAllProducts,
-  getProductById,
-  postNewProduct,
-  updateProduct,
-  deleteProduct,
+  getAllProductsHandler,
+  getProductByIdHandler,
+  postNewProductHandler,
+  updateProductHandler,
+  deleteProductHandler,
 };

@@ -34,8 +34,7 @@ const productSchema = new Schema({
     default: 0,
   },
   stock: {
-    type: mongoose.Types.ObjectId,
-    ref: "ProductStock",
+    type: Array,
     require: true,
   },
   category: {
@@ -50,31 +49,29 @@ const productSchema = new Schema({
   },
 });
 
-const productStockSchema = new Schema({
-  stock: {
-    type: Number,
-    default: 0,
-  },
-});
+
 const productCategorySchema = new Schema({
-  name: {
-    type: Number,
-    default: 0,
+  catName: {
+    type: String,
+    unique:true
   },
   image: {
     type: String,
   },
 });
 const productBrandSchema = new Schema({
-  name: {
-    type: Number,
-    default: 0,
+  brandName: {
+    type: String,
+    unique: true
   },
+  brandHomePage: {
+    type: String
+  }
 });
 
 module.exports = {
   productSchema,
-  productStockSchema,
+
   productCategorySchema,
   productBrandSchema,
 };

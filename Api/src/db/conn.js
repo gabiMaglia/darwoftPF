@@ -9,7 +9,6 @@ const {
 } = require("./models/user/userModel");
 const {
   productSchema,
-  productStockSchema,
   productBrandSchema,
   productCategorySchema,
 } = require("./models/product/productModel");
@@ -43,7 +42,7 @@ const UserRole = mongoose.model("UserRole", roleSchema);
 const UserAdress = mongoose.model("UserAdress", userAdressSchema);
 
 const Product = mongoose.model("Product", productSchema);
-const ProductStock = mongoose.model("ProductStock", productStockSchema);
+
 const ProductBrand = mongoose.model("ProductBrand", productBrandSchema);
 const ProductCategory = mongoose.model(
   "ProductCategory",
@@ -69,7 +68,7 @@ module.exports = {
   UserAdress,
   UserRole,
   Product,
-  ProductStock,
+
   ProductBrand,
   ProductCategory,
   SaleOrder
