@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt");
-
 const { User, UserCredential, UserRole, UserAdress } = require("../../db/conn");
 const { sendConfirmationEmail } = require("../../utils/emailTemplate");
 const { tokenSign } = require("../../utils/jwt/tokenGenerator");
@@ -150,6 +148,7 @@ const postNewUser = async (newUserData) => {
     process.env.API_URL
   );
   return { error: false, response: user.firstName };
+  
 };
 // DELETE
 const deleteUser = async (id) => {

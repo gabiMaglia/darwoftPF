@@ -1,7 +1,7 @@
 const { ProductCategory } = require("../../db/conn");
 
 // GET
-const getCategories = async () => {
+const getAllCategories = async () => {
     const existingCategoryCount = await ProductCategory.countDocuments();
     if (existingCategoryCount < 1) throw new Error("Category not found");
   
@@ -12,12 +12,12 @@ const getCategories = async () => {
 // POST
 const postNewCategory = async (newCategoryData) => {};
 // UPDATE
-const updateCategory = async (newCategoryData) => {};
+const updateCategory = async (UpdateCategoryData, id) => {};
 // DELETE
 const deleteCategory = async (id) => {};
 
 module.exports = {
-    getCategories,
+    getAllCategories,
     postNewCategory,
     updateCategory,
     deleteCategory

@@ -12,7 +12,7 @@ const getAllBrands = async () => {
 // POST
 const createNewBrand = async (newBrandData) => {};
 // UPDATE
-const updateBrand = async (newBrandData) => {};
+const updateBrand = async (brandData) => {};
 // DELETE
 const deleteBrand = async (id) => {};
 

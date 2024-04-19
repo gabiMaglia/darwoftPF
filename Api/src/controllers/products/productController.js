@@ -9,11 +9,13 @@ const getAllProducts = async () => {
 
   return { error: false, response: products };
 };
-const getProductById = async () => {
+const getProductById = async (id) => {
   const existingUsersCount = await Product.countDocuments();
-  if (existingUsersCount < 1) throw new Error("User not found");
+  if (existingUsersCount < 1) throw new Error("Product not found");
 
-  const product = await Product.findOne({ _id: id });
+  const product = await Product.findOne({ _id: id })
+    .populate("category")
+    .populate("brand");
 
   if (!product) throw new Error("Product not found");
 
@@ -26,7 +28,7 @@ const postNewProduct = async (newProductData) => {
     price,
     images,
     productDescription,
-    warranty,
+    warranty = null,
     productStock,
     productCategory,
     productBrand,
@@ -77,19 +79,25 @@ const postNewProduct = async (newProductData) => {
 const updateProduct = async (newUserData) => {};
 // DELETE
 const desactivateProduct = async (id) => {
-  const response = await Product.findOneAndUpdate({ _id: id, isActive: false });
-  return { error: false, response: response };
+  await Product.findOneAndUpdate({ _id: id, isActive: false });
+  return { error: false, response: "Product is now Desactived" };
 };
-const ativateProduct = async (id) => {
-  const response = await Product.findOneAndUpdate({ _id: id, isActive: true });
-  return { error: false, response: response };
+const activateProduct = async (id) => {
+  await Product.findOneAndUpdate({ _id: id, isActive: true });
+  return { error: false, response: "Product is now Active" };
 };
-
+const deleteProduct = async (id) => {
+  const { deletedCount } = await Product.deleteOne({
+    _id: id,
+  });
+  return { error: false, response: "Product deleted" };
+};
 module.exports = {
   getAllProducts,
   getProductById,
   postNewProduct,
   updateProduct,
   desactivateProduct,
-  ativateProduct,
+  activateProduct,
+  deleteProduct,
 };

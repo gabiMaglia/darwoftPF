@@ -7,6 +7,7 @@ const cors = require('cors')
 const routes = require('./routes/mainRoutes.js');
 const errorHandler = require("./middleware/errorHandler.js");
 
+
 const server = express()
 
 server.use(cors({ credentials: true, origin: `${process.env.FRONTEND_URL}` }))
@@ -14,7 +15,7 @@ server.use(morgan('dev'))
 server.use(express.json())
 
 
-server.use("/", routes);
+server.use("/api", routes);
 
 // Error catching endware.
 server.use(errorHandler)

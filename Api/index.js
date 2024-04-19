@@ -1,6 +1,8 @@
 const server = require("./src/app");
 const { conn } = require("./src/db/conn");
-const PORT = 3001;
+const PORT = process.env.PORT;
+
+const {swaggerDocs} = require('./src/utils/swagger')
 
 conn()
   .then(() => {
@@ -8,6 +10,7 @@ conn()
       console.log(
         `Server listening at ${PORT}, running on ${process.env.NODE_ENV.toUpperCase()} enviroment`
       );
+      swaggerDocs(server, PORT)
     });
   })
   .catch((error) => {

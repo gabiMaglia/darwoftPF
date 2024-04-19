@@ -12,14 +12,15 @@ const productSchema = new Schema({
   },
   images: {
     type: Array,
+    require: true,
   },
   productDescription: {
     type: Map,
     of: String,
+    require: true,
   },
   warranty: {
     type: String,
-    require: true,
   },
   isActive: {
     type: Boolean,

@@ -12,11 +12,13 @@ const wishListRouter = require("./wishListRouter");
 
 const userRouter = Router();
 
+// TODO agrupar en punto route 
 userRouter.get("/", getUserHandler);
 userRouter.get("/:id", getUserbyIdHandler);
-userRouter.post("/", postUserHandler);
 userRouter.patch("/:id", updateUserHandler);
 userRouter.delete("/:id", deleteUserHandler);
+
+userRouter.post("/", postUserHandler);
 
 userRouter.use("/wishlist", wishListRouter);
 userRouter.use("/productCart", productCartRouter);

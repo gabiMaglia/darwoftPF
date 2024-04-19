@@ -2,7 +2,7 @@ const {
   login,
   confirmAccount,
   resetPassword,
-  sendEmailToResetPassword
+  sendEmailToResetPassword,
 } = require("../controllers/auth/authController");
 
 const loginHandler = async (req, res, next) => {
@@ -31,7 +31,7 @@ const confirmAccountHandler = async (req, res, next) => {
   try {
     const token = req.params;
     await confirmAccount(token);
-    res
+    return res
       .status(200)
       .json({ error: false, response: "Email succesfully activated" });
   } catch (error) {
@@ -42,9 +42,9 @@ const confirmAccountHandler = async (req, res, next) => {
 const forgetPasswordHandler = async (req, res, next) => {
   try {
     const email = req.params;
-    console.log(email)
+
     const message = `Check your email to continue`;
-    
+
     const response = await sendEmailToResetPassword(email);
     return res.status(200).send(`${response}, ${message}`);
   } catch (error) {

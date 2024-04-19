@@ -26,7 +26,6 @@ roleSchema.pre("save", async function (next) {
   next();
 });
 credentialSchema.pre("save", async function (next) {
-  
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 12);
 
@@ -34,7 +33,7 @@ credentialSchema.pre("save", async function (next) {
 });
 
 // MODEL INIT
-const TokenWhiteList = mongoose.model("TokenWhiteList", tokenWhiteListSchema );
+const TokenWhiteList = mongoose.model("TokenWhiteList", tokenWhiteListSchema);
 
 const User = mongoose.model("User", userSchema);
 const UserCredential = mongoose.model("UserCredential", credentialSchema);
@@ -49,11 +48,11 @@ const ProductCategory = mongoose.model(
   productCategorySchema
 );
 
-const SaleOrder = mongoose.model("SaleOrder", saleOrderModel)
+const SaleOrder = mongoose.model("SaleOrder", saleOrderModel);
 
 mongoose.set("debug", true);
 // CONNECTION
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 const conn = () =>
   mongoose
     .connect(process.env.MONGODB_URI)
@@ -68,8 +67,7 @@ module.exports = {
   UserAdress,
   UserRole,
   Product,
-
   ProductBrand,
   ProductCategory,
-  SaleOrder
+  SaleOrder,
 };
