@@ -1,25 +1,27 @@
+const errors = require("../../utils/errors");
 const { Product, ProductCategory, ProductBrand } = require("../../db/conn");
 
 // GET
 const getAllProducts = async () => {
   const existingProductCount = await Product.countDocuments();
-  if (existingProductCount < 1) throw new Error("Products not found");
+  if (existingProductCount < 1)
+    throw new Error(errors.product.productsNotFound);
 
   const products = await Product.find().populate("category").populate("brand");
 
-  return { error: false, response: products };
+  return products;
 };
 const getProductById = async (id) => {
   const existingUsersCount = await Product.countDocuments();
-  if (existingUsersCount < 1) throw new Error("Product not found");
+  if (existingUsersCount < 1) throw new Error(errors.product.productNotFound);
 
   const product = await Product.findOne({ _id: id })
     .populate("category")
     .populate("brand");
 
-  if (!product) throw new Error("Product not found");
+  if (!product) throw new Error(errors.product.productsNotFound);
 
-  return { error: false, response: product };
+  return product;
 };
 // POST
 const postNewProduct = async (newProductData) => {
@@ -52,7 +54,8 @@ const postNewProduct = async (newProductData) => {
     isFeatured,
   });
 
-  let cat = await ProductCategory.findOne({ name: catName });
+  let cat = await ProductCategory.findOne({ catName: catName });
+
   if (!cat) {
     cat = new ProductCategory({
       catName,
@@ -61,8 +64,8 @@ const postNewProduct = async (newProductData) => {
     await cat.save();
   }
   newProduct.category = cat._id;
+  let brand = await ProductBrand.findOne({ brandName: brandName });
 
-  let brand = await ProductBrand.findOne({ name: brandName });
   if (!brand) {
     brand = new ProductBrand({
       brandName,
@@ -80,17 +83,15 @@ const updateProduct = async (newUserData) => {};
 // DELETE
 const desactivateProduct = async (id) => {
   await Product.findOneAndUpdate({ _id: id, isActive: false });
-  return { error: false, response: "Product is now Desactived" };
+  return "Product is now Desactived";
 };
 const activateProduct = async (id) => {
   await Product.findOneAndUpdate({ _id: id, isActive: true });
-  return { error: false, response: "Product is now Active" };
+  return "Product is now Active";
 };
 const deleteProduct = async (id) => {
-  const { deletedCount } = await Product.deleteOne({
-    _id: id,
-  });
-  return { error: false, response: "Product deleted" };
+  await Product.findByIdAndDelete(id);
+  return "Product deleted";
 };
 module.exports = {
   getAllProducts,

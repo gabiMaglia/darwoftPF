@@ -1,18 +1,32 @@
-const addProductToCart = async(req, res, next) => {
-  try {
-  } catch (error) { next(error)}
-};
-const deleteAllProductsFromCart = async(req, res, next) => {
-  try {
-  } catch (error) { next(error)}
-};
-const deleteProductFromCart = async(req, res, next) => {
-  try {
-  } catch (error) { next(error)}
-};
+
+
+
+const addProductToCart = (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+const deleteAllProductsFromCart= (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+const deleteProductFromCart= (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 
 module.exports = {
-  addProductToCart,
-  deleteAllProductsFromCart,
-  deleteProductFromCart,
-};
+    addProductToCart,
+    deleteAllProductsFromCart,
+    deleteProductFromCart,
+}

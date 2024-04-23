@@ -87,7 +87,7 @@ const userAdressSchema = new Schema({
   city: String,
   street: String,
   number: Number,
-  zipCode: Number,
+  zipCode: Number ,
 });
 
 

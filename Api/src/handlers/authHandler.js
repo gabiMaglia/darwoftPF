@@ -29,6 +29,7 @@ const logOutHandler = async (req, res, next) => {
 };
 const confirmAccountHandler = async (req, res, next) => {
   try {
+    console.log('llego')
     const token = req.params;
     await confirmAccount(token);
     return res

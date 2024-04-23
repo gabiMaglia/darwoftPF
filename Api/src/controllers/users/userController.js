@@ -24,7 +24,14 @@ const getUserById = async (id) => {
   return { error: false, response: user };
 };
 // UPDATE
-const updateUser = async ({ _id: id }, userData) => {
+const updateUser = async (id, userData) => {
+  console.log({ incomeData: { id: id, userData } });
+
+  const existingUser = await User.findById(id);
+  console.log(existingUser)
+  console.log({
+    existingData: { id: existingUser.id, userData: existingUser },
+  });
   const {
     firstName,
     lastName,
@@ -38,27 +45,47 @@ const updateUser = async ({ _id: id }, userData) => {
     adress,
   } = userData;
   // TODO if email changes send confirmation email again and change isActive to false
-  const updatedUser = await User.findOneAndUpdate(id, {
-    firstName,
-    lastName,
-    email,
-    photo,
-    birthday,
-    nacionality,
-    dni,
-  });
 
-  if (role) await UserRole.findOneAndUpdate({ _id: updatedUser.role }, role);
+  if (userData.email && userData.email !== existingUser.email) {
+    await User.findByIdAndUpdate(id, { isActive: false });
+    const confirmationEmailToken = await tokenSign({ id }, "2d");
+    await sendConfirmationEmail(
+      process.env.EMAIL_MAILER,
+      email,
+      confirmationEmailToken,
+      process.env.API_URL
+    );
+  }
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    {
+      firstName,
+      lastName,
+      email,
+      photo,
+      birthday,
+      nacionality,
+      dni,
+    },
+    { new: true }
+  );
+
+  if (role)
+    await UserRole.findOneAndUpdate({ _id: updatedUser.role }, role, {
+      new: true,
+    });
   if (password)
     await UserCredential.findOneAndUpdate(
       { _id: updatedUser.credentials },
-      password
+      password,
+      { new: true }
     );
   if (adress) {
     const { country, state, city, street, number, zipCode } = adress;
     await UserAdress.findOneAndUpdate(
       { _id: updatedUser.adress },
-      { country, state, city, street, number, zipCode }
+      { country, state, city, street, number, zipCode },
+      { new: true }
     );
   }
 
@@ -148,7 +175,6 @@ const postNewUser = async (newUserData) => {
     process.env.API_URL
   );
   return { error: false, response: user.firstName };
-  
 };
 // DELETE
 const deleteUser = async (id) => {

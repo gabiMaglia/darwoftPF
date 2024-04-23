@@ -1,10 +1,21 @@
-const errorStatus = (message) => {
-  if (message === "User not found") return 404;
-  if (message === "Wrong Credentials") return 401;
-  
-  if (message === "Products not found") return 404;
-  if (message === "Product not found") return 404;
+const errors = require("../utils/errors");
 
+const errorStatus = (message) => {
+  if (message === errors.auth.wrongCredentials) return 401;
+
+  if (message === errors.user.userNotFound) return 404;
+
+  if (
+    message === errors.product.productNotFound ||
+    errors.product.productsNotFound
+  )
+    return 404;
+  if (message === errors.product.brandNotFound || errors.product.brandsNotFound)
+    return 404;
+  if (message === errors.product.remainingProductsInBrand) return 404;
+  if (message === errors.product.categoryNotFound || errors.product.categoriesNotFound)
+    return 404;
+  if (message === errors.product.remainingProductsInCategory) return 404
   return 500;
 };
 

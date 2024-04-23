@@ -72,7 +72,6 @@ const productBrandSchema = new Schema({
 
 module.exports = {
   productSchema,
-
   productCategorySchema,
   productBrandSchema,
 };

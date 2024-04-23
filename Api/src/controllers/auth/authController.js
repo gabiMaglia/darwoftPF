@@ -1,7 +1,11 @@
 const { User, UserCredential, TokenWhiteList } = require("../../db/conn");
-const {sendResetPasswordEmail} = require('../../utils/emailTemplate')
+const { sendResetPasswordEmail } = require("../../utils/emailTemplate");
 const bcrypt = require("bcrypt");
-const { tokenSign, verifyToken, checkWhiteListedToken } = require("../../utils/jwt/tokenGenerator");
+const {
+  tokenSign,
+  verifyToken,
+  checkWhiteListedToken,
+} = require("../../utils/jwt/tokenGenerator");
 
 const login = async (email, password) => {
   const userCredentials = await UserCredential.findOne({ email });
@@ -23,17 +27,21 @@ const login = async (email, password) => {
 const logOut = async () => {};
 
 const confirmAccount = async (token) => {
-
-  const isTokenListed =  await checkWhiteListedToken(token);
+  const isTokenListed = await checkWhiteListedToken(token);
   if (!isTokenListed) throw new Error("Wrong Credentials");
 
   const decodedToken = await verifyToken(token);
-  const response = User.updateOne({_id:decodedToken.userId}, {isActive: true})
-  
-  await TokenWhiteList.deleteOne(token)
+ 
+  const response = await User.findByIdAndUpdate(
+    { _id: decodedToken.id },
+    { isActive: true },
+    { new: true }
+  );
 
-  return response
-}
+  await TokenWhiteList.deleteOne(token);
+
+  return response;
+};
 
 const sendEmailToResetPassword = async (email) => {
   const user = await User.findOne(email);
@@ -41,16 +49,16 @@ const sendEmailToResetPassword = async (email) => {
     email: user.email,
     id: user.id,
   };
-  const resetToken = await tokenSign(dataForToken, '2h');
-  console.log("preresponse")
+  const resetToken = await tokenSign(dataForToken, "2h");
+  
   const response = await sendResetPasswordEmail(
     process.env.EMAIL_MAILER,
     dataForToken.email,
     resetToken,
     process.env.FRONTEND_URL
   );
-  console.log({responseDelController: response})
-  
+  console.log({ responseDelController: response });
+
   return response;
 };
 
@@ -75,8 +83,6 @@ const resetPassword = async (newPassword, token) => {
       error: true,
       response: "Credenciales no encontradas",
     };
-
-
   } else {
     await logOutUser(token);
     await userCredentials.update({
@@ -90,4 +96,10 @@ const resetPassword = async (newPassword, token) => {
   }
 };
 
-module.exports = { login, logOut, confirmAccount, sendEmailToResetPassword, resetPassword };
+module.exports = {
+  login,
+  logOut,
+  confirmAccount,
+  sendEmailToResetPassword,
+  resetPassword,
+};

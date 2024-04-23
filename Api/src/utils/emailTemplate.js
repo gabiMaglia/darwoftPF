@@ -6,7 +6,7 @@ const sendConfirmationEmail = async (
   jwtToken,
   gateway
 ) => {
-  const confirmationUrl = `${gateway}/auth/confirm/${jwtToken}`;
+  const confirmationUrl = `${gateway}/api/auth/confirm/${jwtToken}`;
   return transporter
     .sendMail({
       from: adminEmail,
@@ -36,7 +36,7 @@ const sendResetPasswordEmail = async (
   gateway
 ) => {
 
-  const resetPasswordUrl = `${gateway}/changepassword/${jwtToken}`;
+  const resetPasswordUrl = `${gateway}/api/changepassword/${jwtToken}`;
   return transporter
     .sendMail({
       from: adminEmail,

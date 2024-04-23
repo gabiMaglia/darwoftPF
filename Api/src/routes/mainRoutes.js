@@ -13,7 +13,7 @@ mainRouter.use("/jwt", jwtRouter);
 mainRouter.use("/user", userRouter);
 mainRouter.use("/product", productRouter);
 mainRouter.use("/brand", brandRouter);
-mainRouter.use("/category", categoryRouter);
+mainRouter.use("/cat", categoryRouter);
 
 mainRouter.get("/", (req, res) => {
   res.status(400).send("llegando");
