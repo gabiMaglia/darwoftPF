@@ -2,7 +2,7 @@ const errors = require("../utils/errors");
 
 const errorStatus = (message) => {
   if (message === errors.auth.wrongCredentials) return 401;
-
+  
   if (message === errors.user.userNotFound) return 404;
 
   if (
@@ -12,10 +12,13 @@ const errorStatus = (message) => {
     return 404;
   if (message === errors.product.brandNotFound || errors.product.brandsNotFound)
     return 404;
-  if (message === errors.product.remainingProductsInBrand) return 404;
-  if (message === errors.product.categoryNotFound || errors.product.categoriesNotFound)
+  if (message === errors.product.remainingProductsInBrand) return 400;
+  if (
+    message === errors.product.categoryNotFound ||
+    errors.product.categoriesNotFound
+  )
     return 404;
-  if (message === errors.product.remainingProductsInCategory) return 404
+  if (message === errors.product.remainingProductsInCategory) return 400;
   return 500;
 };
 

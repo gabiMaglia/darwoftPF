@@ -1,5 +1,5 @@
 const errors = require("../../utils/errors");
-const { ProductCategory } = require("../../db/conn");
+const { ProductCategory, Product } = require("../../db/conn");
 
 // GET
 const getAllCategories = async () => {
@@ -39,8 +39,16 @@ const updateCategory = async (UpdateCategoryData, id) => {
 };
 // DELETE
 const deleteCategory = async (id) => {
+  const areProdcutsThatBelongsToThisCategory = await Product.find({category:id})
+
+  if (areProdcutsThatBelongsToThisCategory.length !== 0) {
+    throw new Error (
+      errors.product.remainingProductsInCategory
+    )
+  }
   await ProductCategory.findByIdAndDelete(id);
   return "Category deleted";
+
 };
 
 module.exports = {

@@ -1,3 +1,4 @@
+const errors = require("../../utils/errors");
 const { User, UserCredential, UserRole, UserAdress } = require("../../db/conn");
 const { sendConfirmationEmail } = require("../../utils/emailTemplate");
 const { tokenSign } = require("../../utils/jwt/tokenGenerator");
@@ -5,7 +6,7 @@ const { tokenSign } = require("../../utils/jwt/tokenGenerator");
 // GET
 const getUser = async () => {
   const existingUsersCount = await User.countDocuments();
-  if (existingUsersCount < 1) throw new Error("User not found");
+  if (existingUsersCount < 1) throw new Error(errors.user.userNotFound);
 
   const users = await User.find().populate("role").populate("adress").exec();
 
@@ -13,25 +14,19 @@ const getUser = async () => {
 };
 const getUserById = async (id) => {
   const existingUsersCount = await User.countDocuments();
-  if (existingUsersCount < 1) throw new Error("User not found");
+  if (existingUsersCount < 1) throw new Error(errors.user.userNotFound);
 
   const user = await User.findOne({ _id: id })
     .populate("role")
     .populate("adress")
     .exec();
-  if (!user) throw new Error("User not found");
+  if (!user) throw new Error(errors.user.userNotFound);
 
   return { error: false, response: user };
 };
 // UPDATE
 const updateUser = async (id, userData) => {
-  console.log({ incomeData: { id: id, userData } });
-
   const existingUser = await User.findById(id);
-  console.log(existingUser)
-  console.log({
-    existingData: { id: existingUser.id, userData: existingUser },
-  });
   const {
     firstName,
     lastName,
@@ -44,11 +39,12 @@ const updateUser = async (id, userData) => {
     password,
     adress,
   } = userData;
-  // TODO if email changes send confirmation email again and change isActive to false
 
   if (userData.email && userData.email !== existingUser.email) {
     await User.findByIdAndUpdate(id, { isActive: false });
+
     const confirmationEmailToken = await tokenSign({ id }, "2d");
+
     await sendConfirmationEmail(
       process.env.EMAIL_MAILER,
       email,
@@ -164,6 +160,7 @@ const postNewUser = async (newUserData) => {
     adress: userAddress._id,
   });
   await user.save();
+
   // TODO send confirmation email
 
   const confirmationEmailToken = await tokenSign({ userId: user.id }, "2d");
@@ -182,23 +179,23 @@ const deleteUser = async (id) => {
 
   const { deletedCount } = await User.deleteOne({ _id: id });
   if (deletedCount === 0) {
-    throw new Error("User not found");
+    throw new Error(errors.user.userNotFound);
   }
   const { deletedCredCount } = await UserCredential.deleteOne({
     _id: user.credentials,
   });
   if (deletedCredCount === 0) {
-    throw new Error("User not found");
+    throw new Error(errors.user.userNotFound);
   }
   const { deletedAdressCount } = await UserAdress.deleteOne({
     _id: user.adress,
   });
   if (deletedAdressCount === 0) {
-    throw new Error("User not found");
+    throw new Error(errors.user.userNotFound);
   }
   const { deletedRoleCount } = await UserRole.deleteOne({ _id: user.role });
   if (deletedRoleCount === 0) {
-    throw new Error("User not found");
+    throw new Error(errors.user.userNotFound);
   }
 
   return { error: false, response: "User successfully deleted" };

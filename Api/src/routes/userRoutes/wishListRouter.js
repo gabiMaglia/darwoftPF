@@ -1,14 +1,13 @@
 const { Router } = require("express");
 const {
-  addProductToWishList,
-  deleteAllProductsFromWishlist,
-  deleteProductFromWishlist,
+  addProductToWishListHandler,
+  deleteProductFromWishlistHandler,
 } = require("../../handlers/users/wishlistHandler");
+const { checkAuthToken } = require("../../middleware/tokenAuthMiddlewares");
 
 const wishListRouter = Router();
 
-wishListRouter.get("/", addProductToWishList);
-wishListRouter.delete("/", deleteAllProductsFromWishlist);
-wishListRouter.delete("/:id", deleteProductFromWishlist);
+wishListRouter.patch("/add/:id", checkAuthToken, addProductToWishListHandler);
+wishListRouter.patch("/remove/:id", checkAuthToken, deleteProductFromWishlistHandler);
 
 module.exports = wishListRouter;

@@ -17,14 +17,16 @@ const login = async (email, password) => {
 
   const user = await User.findOne({ email });
 
-  const accesToken = await tokenSign({ user }, "1h");
+  const accesToken = await tokenSign({ id: user._id, role: user.role }, "1h");
 
   return {
     accesToken,
   };
 };
 
-const logOut = async () => {};
+const logOut = async (token) => {
+  await TokenWhiteList.deleteOne(token);
+};
 
 const confirmAccount = async (token) => {
   const isTokenListed = await checkWhiteListedToken(token);

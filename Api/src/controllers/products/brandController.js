@@ -42,7 +42,7 @@ const updateBrand = async (id, brandData) => {
 // DELETE
 const deleteBrand = async (id) => {
   const areProductsThatBelongsToThisBrand = await Product.find({ brand: id });
-  console.log(areProductsThatBelongsToThisBrand);
+
   if (areProductsThatBelongsToThisBrand.length !== 0)
     throw new Error(
         errors.product.remainingProductsInBrand

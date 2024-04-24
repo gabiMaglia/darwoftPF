@@ -7,7 +7,6 @@ const {
   deleteUserHandler,
 } = require("../../handlers/users/userHandler");
 
-const productCartRouter = require("./productCartRouter");
 const wishListRouter = require("./wishListRouter");
 
 const userRouter = Router();
@@ -21,6 +20,6 @@ userRouter.delete("/:id", deleteUserHandler);
 userRouter.post("/", postUserHandler);
 
 userRouter.use("/wishlist", wishListRouter);
-userRouter.use("/productCart", productCartRouter);
+
 
 module.exports = userRouter;

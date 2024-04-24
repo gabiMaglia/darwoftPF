@@ -15,11 +15,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
       lowercase: true,
-      match:  /[a-z0–9!#$%&’*+/=?^_`{|}~-]+(?:\.[a-z0–9!#$%&’*+/=?^_`{|}~-]+)*@(?:[a-z0–9](?:[a-z0–9-]*[a-z0–9])?\.)+[a-z0–9](?:[a-z0–  9-]*[a-z0–9])?/,
+      match:
+        /[a-z0–9!#$%&’*+/=?^_`{|}~-]+(?:\.[a-z0–9!#$%&’*+/=?^_`{|}~-]+)*@(?:[a-z0–9](?:[a-z0–9-]*[a-z0–9])?\.)+[a-z0–9](?:[a-z0–  9-]*[a-z0–9])?/,
       unique: true,
     },
     photo: {
-      type: String
+      type: String,
     },
     birthday: {
       type: Date,
@@ -30,13 +31,13 @@ const userSchema = new Schema(
     dni: {
       type: Number,
       require: true,
-      unique: true
-    }, 
-    
+      unique: true,
+    },
+
     isActive: {
       type: Boolean,
       require: true,
-      default: false
+      default: false,
     },
 
     credentials: {
@@ -44,13 +45,8 @@ const userSchema = new Schema(
       ref: "UserCredential",
       required: true,
     },
-    wishList : {     
-      type: Array,
 
-    },
-    productCart : {     
-      type: Array,
-    },
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
 
     role: { type: mongoose.Types.ObjectId, ref: "UserRole", required: true },
 
@@ -69,11 +65,12 @@ const roleSchema = new Schema({
 
 const credentialSchema = new Schema(
   {
-    email: { 
+    email: {
       type: String,
       required: true,
       lowercase: true,
-      match:  /[a-z0–9!#$%&’*+/=?^_`{|}~-]+(?:\.[a-z0–9!#$%&’*+/=?^_`{|}~-]+)*@(?:[a-z0–9](?:[a-z0–9-]*[a-z0–9])?\.)+[a-z0–9](?:[a-z0–  9-]*[a-z0–9])?/,
+      match:
+        /[a-z0–9!#$%&’*+/=?^_`{|}~-]+(?:\.[a-z0–9!#$%&’*+/=?^_`{|}~-]+)*@(?:[a-z0–9](?:[a-z0–9-]*[a-z0–9])?\.)+[a-z0–9](?:[a-z0–  9-]*[a-z0–9])?/,
       unique: true,
     },
     password: { type: String, require: true },
@@ -87,8 +84,7 @@ const userAdressSchema = new Schema({
   city: String,
   street: String,
   number: Number,
-  zipCode: Number ,
+  zipCode: Number,
 });
-
 
 module.exports = { userSchema, credentialSchema, roleSchema, userAdressSchema };

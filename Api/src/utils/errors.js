@@ -1,6 +1,7 @@
 module.exports = {
   auth: {
     wrongCredentials: "Wrong Credentials",
+    unauthorized: "Not Authorized"
   },
   user: {
     userNotFound: "User not found",
@@ -18,7 +19,5 @@ module.exports = {
      categoryNotFound: "Category Not Found", 
      remainingProductsInCategory:
       "Please delete all product in this category before deleting the category",
-    
-     
   },
 };
