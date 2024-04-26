@@ -6,15 +6,11 @@ const saleOrderModel = new Schema({
     type: String,
     require: true,
   },
-  total: {
-    type: String,
-    require: true,
-  },
   products: {
     type: Array,
     require: true,
   },
-  shippingAdress: {
+  total: {
     type: String,
     require: true,
   },
@@ -26,7 +22,11 @@ const saleOrderModel = new Schema({
     type: Date,
     require: true,
   },
-  dateOfExpedition: {
+  shippingAdress: {
+    type: String,
+    require: true,
+  },
+  shippingDate: {
     type: Date,
   },
   trackingCode: {

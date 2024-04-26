@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const {body} = require('express-validator')
 const {
   loginHandler,
   singUpHandler,
@@ -7,14 +6,25 @@ const {
   forgetPasswordHandler,
   changePasswordHandler,
 } = require("../../handlers/authHandler");
-const validateResults = require("../../middleware/expressValidation");
+const validateResults = require("../../middleware/expressValidator/expressValidation");
+const { loginValidation, registerValidation } = require("../../middleware/expressValidator/validators");
 const authRouter = Router();
 
-authRouter.post("/login", body('email').isEmail(), body('password').isLength({min:5}), validateResults, loginHandler);
-authRouter.post("/singup", singUpHandler);
-
+authRouter.post(
+  "/login",
+  loginValidation,
+  validateResults,
+  loginHandler
+);
+authRouter.post(
+  "/singup",
+  registerValidation,
+  validateResults,
+  singUpHandler
+);
 
 authRouter.get("/confirm/:token", confirmAccountHandler);
+
 authRouter.get("/mailtoreset/:email", forgetPasswordHandler);
 authRouter.post("/changepassword/:token", changePasswordHandler);
 
