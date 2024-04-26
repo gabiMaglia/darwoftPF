@@ -4,6 +4,7 @@ const {
   getProductById,
   toggleProductState,
   deleteProduct,
+  updateProduct,
 } = require("../../controllers/products/productController");
 
 const getAllProductsHandler = async (req, res, next) => {
@@ -37,6 +38,12 @@ const postNewProductHandler = async (req, res, next) => {
 };
 const updateProductHandler = async (req, res, next) => {
   try {
+    const {id} = req.params
+    const {productData} = req.body
+    const response = await updateProduct(id, productData)
+    if (response)
+      return res.status(200).json({ error: false, message: response });
+
   } catch (error) {
     next(error);
   }

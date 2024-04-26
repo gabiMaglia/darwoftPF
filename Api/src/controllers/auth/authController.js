@@ -1,5 +1,14 @@
-const { User, UserCredential, TokenWhiteList, UserRole, UserAdress } = require("../../db/conn");
-const { sendResetPasswordEmail, sendConfirmationEmail } = require("../../utils/emailTemplate");
+const {
+  User,
+  UserCredential,
+  TokenWhiteList,
+  UserRole,
+  UserAdress,
+} = require("../../db/conn");
+const {
+  sendResetPasswordEmail,
+  sendConfirmationEmail,
+} = require("../../utils/emailTemplate");
 const bcrypt = require("bcrypt");
 const {
   tokenSign,
@@ -100,9 +109,9 @@ const login = async (email, password) => {
   if (!isPasswordMatching) throw new Error("Wrong Credentials");
 
   const user = await User.findOne({ email });
-  const role = await UserRole.findById(user.role)
+  const role = await UserRole.findById(user.role);
 
-  const accesToken = await tokenSign({ id: user._id,  role }, "2h", false);
+  const accesToken = await tokenSign({ id: user._id, role }, "2h", false);
 
   return {
     accesToken,
@@ -114,7 +123,7 @@ const confirmAccount = async (token) => {
   if (!isTokenListed) throw new Error("Wrong Credentials");
 
   const decodedToken = await verifyToken(token);
- 
+
   const response = await User.findByIdAndUpdate(
     { _id: decodedToken.id },
     { isActive: true },
@@ -133,7 +142,7 @@ const sendEmailToResetPassword = async (email) => {
     id: user.id,
   };
   const resetToken = await tokenSign(dataForToken, "2h");
-  
+
   const response = await sendResetPasswordEmail(
     process.env.EMAIL_MAILER,
     dataForToken.email,

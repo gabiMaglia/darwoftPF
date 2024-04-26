@@ -79,7 +79,61 @@ const postNewProduct = async (newProductData) => {
   return newProduct;
 };
 // UPDATE
-const updateProduct = async (newUserData) => {};
+const updateProduct = async (id, productData) => {
+  const existingProduct = await Product.findById(id);
+  console.log(productData)
+  const {
+    name,
+    price,
+    images,
+    productDescription,
+    warranty,
+    productStock,
+    productCategory,
+    productBrand,
+    soldCount,
+    isActive,
+    isFeatured,
+  } = productData;
+  const { catName, image } = productCategory;
+  const { brandName, brandHomePage } = productBrand;
+
+  const product = new Product({
+    name,
+    price,
+    images,
+    productDescription,
+    warranty,
+    stock: productStock,
+    soldCount,
+    isActive,
+    isFeatured,
+  });
+
+  let cat = await ProductCategory.findOne({ catName: catName });
+
+  if (!cat) {
+    cat = new ProductCategory({
+      catName,
+      image,
+    });
+    await cat.save();
+  }
+  product.category = cat._id;
+  let brand = await ProductBrand.findOne({ brandName: brandName });
+
+  if (!brand) {
+    brand = new ProductBrand({
+      brandName,
+      brandHomePage,
+    });
+    await brand.save();
+  }
+  product.brand = brand._id;
+
+  await product.save();
+  return product;
+};
 // DELETE
 const toggleProductState = async (id) => {
   const dbProduct = await Product.findById(id);
