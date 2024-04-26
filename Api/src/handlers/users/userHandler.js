@@ -50,7 +50,7 @@ const updateUserHandler = async(req, res, next) => {
 // DELETE USERByID
 const deleteUserHandler = async(req, res, next) => {
   try {
-    const { id } = req.params
+    const id = req.userId
     const response = await deleteUser(id);
     return res.status(200).json({ error: false, message: response });
   } catch (error) {

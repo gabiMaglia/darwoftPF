@@ -21,12 +21,7 @@ const singUpHandler = async (req, res, next) => {
     next(error);
   }
 };
-const logOutHandler = async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-};
+
 const confirmAccountHandler = async (req, res, next) => {
   try {
    
@@ -65,7 +60,7 @@ const changePasswordHandler = async (req, res, next) => {
 module.exports = {
   loginHandler,
   singUpHandler,
-  logOutHandler,
+
   confirmAccountHandler,
   forgetPasswordHandler,
   changePasswordHandler,

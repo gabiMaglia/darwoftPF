@@ -8,18 +8,19 @@ const {
 } = require("../../handlers/users/userHandler");
 
 const wishListRouter = require("./wishListRouter");
+const { isAutenticated } = require("../../middleware/tokenAuthMiddlewares");
 
 const userRouter = Router();
 
-// TODO agrupar en punto route 
-userRouter.get("/", getUserHandler);
-userRouter.get("/:id", getUserbyIdHandler);
-userRouter.patch("/:id", updateUserHandler);
-userRouter.delete("/:id", deleteUserHandler);
+userRouter.route('/')
+  .get(getUserHandler)
+  .post(postUserHandler)
+  .delete(isAutenticated, deleteUserHandler)
+userRouter.route('/:id')
+  .get(getUserbyIdHandler)
+  .patch( isAutenticated, updateUserHandler)
 
-userRouter.post("/", postUserHandler);
-
-userRouter.use("/wishlist", wishListRouter);
-
+userRouter.use("/wishlist",  wishListRouter);
+ 
 
 module.exports = userRouter;

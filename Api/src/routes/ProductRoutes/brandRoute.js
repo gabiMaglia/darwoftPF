@@ -4,14 +4,22 @@ const {
   createNewBrandHandler,
   updateBrandHandler,
   deleteBrandHandler,
-  getBrandByIdHandler
+  getBrandByIdHandler,
 } = require("../../handlers/products/brandHandler");
+const {
+  isAutenticated,
+  isAuthorized,
+} = require("../../middleware/tokenAuthMiddlewares");
 const brandRouter = Router();
 
-brandRouter.get("/", getAllBrandsHandler);
-brandRouter.get("/:id", getBrandByIdHandler);
-brandRouter.post("/", createNewBrandHandler);
-brandRouter.patch("/:id", updateBrandHandler);
-brandRouter.delete("/:id", deleteBrandHandler);
+brandRouter
+  .route("/")
+  .get(getAllBrandsHandler)
+  .post(isAutenticated, isAuthorized, createNewBrandHandler);
+brandRouter
+  .route("/:id")
+  .get(getBrandByIdHandler)
+  .patch(isAutenticated, isAuthorized, updateBrandHandler)
+  .delete(isAutenticated, isAuthorized, deleteBrandHandler);
 
 module.exports = brandRouter;

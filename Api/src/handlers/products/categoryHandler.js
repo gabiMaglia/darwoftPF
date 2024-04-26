@@ -3,11 +3,20 @@ const {
   postNewCategory,
   updateCategory,
   deleteCategory,
+  getCategoryById,
 } = require("../../controllers/products/categoryController");
 
 const getAllCategoriesHandler = async (req, res, next) => {
   try {
     const response = await getAllCategories();
+    return res.status(200).json({ error: false, message: response });
+  } catch (error) {
+    next(error);
+  }
+};
+const getCategoriesByIdHandler = async (req, res, next) => {
+  try {
+    const response = await getCategoryById(id);
     return res.status(200).json({ error: false, message: response });
   } catch (error) {
     next(error);
@@ -45,6 +54,7 @@ const deleteCategoryHandler = async (req, res, next) => {
 
 module.exports = {
   getAllCategoriesHandler,
+  getCategoriesByIdHandler,
   createNewCategoryHandler,
   updateCategoryHandler,
   deleteCategoryHandler,

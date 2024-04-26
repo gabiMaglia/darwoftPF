@@ -14,9 +14,8 @@ const tokenSign = async (dataForToken, tokenTime = "1h") => {
 const verifyToken = async (token) => {
   const isWhiteListed = await checkWhiteListedToken(token);
   if (!isWhiteListed) return { error: true, name: "blackListedToken" };
- 
-  const decodedToken = jwt.verify(token.token, SECRET);
   
+  const decodedToken = jwt.verify(token, SECRET);
 
   return decodedToken;
 };
@@ -27,7 +26,7 @@ const extractJwtToken = (inputString) => {
 };
 
 const checkWhiteListedToken = async (token) => {
-  const listedTokens = await TokenWhiteList.exists(token);
+  const listedTokens = await TokenWhiteList.findOne({token:token});
   return listedTokens ? true : false;
 };
 

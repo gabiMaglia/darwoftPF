@@ -2,7 +2,7 @@ const { Router } = require("express");
 const {
   loginHandler,
   singUpHandler,
-  logOutHandler,
+
   confirmAccountHandler,
   forgetPasswordHandler,
   changePasswordHandler,
@@ -12,7 +12,7 @@ const authRouter = Router();
 authRouter.post("/login", loginHandler);
 authRouter.post("/singup", singUpHandler);
 
-authRouter.post("/logout/:id", logOutHandler);
+
 
 authRouter.get("/confirm/:token", confirmAccountHandler);
 

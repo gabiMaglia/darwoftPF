@@ -1,4 +1,4 @@
-const { User, UserCredential, TokenWhiteList } = require("../../db/conn");
+const { User, UserCredential, TokenWhiteList, UserRole } = require("../../db/conn");
 const { sendResetPasswordEmail } = require("../../utils/emailTemplate");
 const bcrypt = require("bcrypt");
 const {
@@ -16,16 +16,13 @@ const login = async (email, password) => {
   if (!isPasswordMatching) throw new Error("Wrong Credentials");
 
   const user = await User.findOne({ email });
-
-  const accesToken = await tokenSign({ id: user._id, role: user.role }, "1h");
+  const role = await UserRole.findById(user.role)
+  console.log(role)
+  const accesToken = await tokenSign({ id: user._id,  role }, "1h", false);
 
   return {
     accesToken,
   };
-};
-
-const logOut = async (token) => {
-  await TokenWhiteList.deleteOne(token);
 };
 
 const confirmAccount = async (token) => {
@@ -100,7 +97,6 @@ const resetPassword = async (newPassword, token) => {
 
 module.exports = {
   login,
-  logOut,
   confirmAccount,
   sendEmailToResetPassword,
   resetPassword,

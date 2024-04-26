@@ -1,16 +1,16 @@
 const {
   postNewProduct,
   getAllProducts,
-  desactivateProduct,
-  activateProduct,
   getProductById,
+  toggleProductState,
   deleteProduct,
 } = require("../../controllers/products/productController");
 
 const getAllProductsHandler = async (req, res, next) => {
   try {
     const response = await getAllProducts();
-    if (response) return res.status(200).json(response);
+    if (response)
+      return res.status(200).json({ error: false, message: response });
   } catch (error) {
     next(error);
   }
@@ -19,7 +19,8 @@ const getProductByIdHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
     const response = await getProductById(id);
-    if (response) return res.status(200).json(response);
+    if (response)
+      return res.status(200).json({ error: false, message: response });
   } catch (error) {
     next(error);
   }
@@ -27,7 +28,8 @@ const getProductByIdHandler = async (req, res, next) => {
 const postNewProductHandler = async (req, res, next) => {
   const { newProductData } = req.body;
   const response = await postNewProduct(newProductData);
-  if (response) return res.status(200).json(response);
+  if (response)
+    return res.status(200).json({ error: false, message: response });
   try {
   } catch (error) {
     next(error);
@@ -39,20 +41,11 @@ const updateProductHandler = async (req, res, next) => {
     next(error);
   }
 };
-const desactivateProductHandler = async (req, res, next) => {
+const toggleProducStateHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const response = await desactivateProduct(id);
-    if (response) return res.status(200).json(response);
-  } catch (error) {
-    next(error);
-  }
-};
-const activateProductHandler = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const response = await activateProduct(id);
-    if (response) return res.status(200).json(response);
+    const response = await toggleProductState(id);
+    if (response) return res.status(200).json({ error: false, message: response});
   } catch (error) {
     next(error);
   }
@@ -62,7 +55,7 @@ const deleteProductHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
     const response = await deleteProduct(id);
-    if (response) return res.status(200).json(response);
+    if (response) return res.status(200).json({ error: false, message: response});
   } catch (error) {
     next(error);
   }
@@ -72,7 +65,6 @@ module.exports = {
   getProductByIdHandler,
   postNewProductHandler,
   updateProductHandler,
-  desactivateProductHandler,
-  activateProductHandler,
+  toggleProducStateHandler,
   deleteProductHandler,
 };

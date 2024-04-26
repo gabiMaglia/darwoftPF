@@ -81,13 +81,10 @@ const postNewProduct = async (newProductData) => {
 // UPDATE
 const updateProduct = async (newUserData) => {};
 // DELETE
-const desactivateProduct = async (id) => {
-  await Product.findOneAndUpdate({ _id: id, isActive: false });
-  return "Product is now Desactived";
-};
-const activateProduct = async (id) => {
-  await Product.findOneAndUpdate({ _id: id, isActive: true });
-  return "Product is now Active";
+const toggleProductState = async (id) => {
+  const dbProduct = await Product.findById(id) 
+  await Product.findOneAndUpdate({ _id: id, isActive: !dbProduct.isActive });
+  return `Product is now ${dbProduct.isActive?"Desactived" :"Activated"} `;
 };
 const deleteProduct = async (id) => {
   await Product.findByIdAndDelete(id);
@@ -98,7 +95,6 @@ module.exports = {
   getProductById,
   postNewProduct,
   updateProduct,
-  desactivateProduct,
-  activateProduct,
+  toggleProductState,
   deleteProduct,
 };

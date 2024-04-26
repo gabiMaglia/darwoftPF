@@ -1,15 +1,19 @@
 const { Router } = require ('express')
-const {getAllProductsHandler, getProductByIdHandler, postNewProductHandler, updateProductHandler, desactivateProductHandler, activateProductHandler, deleteProductHandler } = require('../../handlers/products/productHandler')
+const { isAutenticated, isAuthorized } = require("../../middleware/tokenAuthMiddlewares");
+const {getAllProductsHandler, getProductByIdHandler, postNewProductHandler, toggleProducStateHandler, updateProductHandler, deleteProductHandler } = require('../../handlers/products/productHandler')
+
 const porductRouter = Router()
 
-porductRouter.get("/", getAllProductsHandler)
-porductRouter.get("/:id", getProductByIdHandler)
+porductRouter.route('/')
+  .get(getAllProductsHandler)
+  .post(isAutenticated, isAuthorized, postNewProductHandler)
+  porductRouter.route('/:id')
+  .get(getProductByIdHandler)
+  .patch(isAutenticated, updateProductHandler )
+  .delete(isAutenticated, isAuthorized, deleteProductHandler)
 
-porductRouter.post("/", postNewProductHandler)
-porductRouter.patch("/", updateProductHandler)
-porductRouter.get("/desactivate/:id", desactivateProductHandler)
-porductRouter.get("/activate/:id", activateProductHandler)
+  
+  porductRouter.patch("/toogle_state/:id", isAutenticated, isAuthorized, toggleProducStateHandler)
 
-porductRouter.delete('/:id', deleteProductHandler)
 
 module.exports = porductRouter

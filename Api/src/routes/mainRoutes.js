@@ -6,6 +6,7 @@ const productRouter = require("./productRoutes/productRouter");
 const brandRouter = require("./ProductRoutes/brandRoute");
 const categoryRouter = require("./ProductRoutes/categoryRouter");
 const wishListRouter = require("./userRoutes/wishListRouter");
+const saleOrderRouter = require("./saleOrderRouter");
 
 
 const mainRouter = Router();
@@ -21,5 +22,6 @@ mainRouter.use("/product", productRouter);
 mainRouter.use("/brand", brandRouter);
 mainRouter.use("/cat", categoryRouter);
 
+mainRouter.use("/order", saleOrderRouter)
 
 module.exports = mainRouter;
