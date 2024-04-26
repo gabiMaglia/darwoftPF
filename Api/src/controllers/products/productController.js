@@ -80,8 +80,7 @@ const postNewProduct = async (newProductData) => {
 };
 // UPDATE
 const updateProduct = async (id, productData) => {
-  const existingProduct = await Product.findById(id);
-  console.log(productData)
+  console.log(productData);
   const {
     name,
     price,

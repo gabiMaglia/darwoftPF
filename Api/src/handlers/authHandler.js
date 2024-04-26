@@ -8,6 +8,7 @@ const {
 
 const loginHandler = async (req, res, next) => {
   try {
+   
     const { email, password } = req.body;
     const response = await login(email, password);
    

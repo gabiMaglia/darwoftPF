@@ -87,7 +87,6 @@ const updateUser = async (id, userData) => {
 
   return updatedUser;
 };
-
 // DELETE
 const deleteUser = async (id) => {
   const user = await User.findById(id);
@@ -115,7 +114,6 @@ const deleteUser = async (id) => {
 
   return { error: false, response: "User successfully deleted" };
 };
-
 module.exports = {
   getUser,
   getUserById,
