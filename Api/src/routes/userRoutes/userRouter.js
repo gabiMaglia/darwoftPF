@@ -2,7 +2,6 @@ const { Router } = require("express");
 const {
   getUserHandler,
   getUserbyIdHandler,
-  postUserHandler,
   updateUserHandler,
   deleteUserHandler,
 } = require("../../handlers/users/userHandler");
@@ -14,7 +13,6 @@ const userRouter = Router();
 
 userRouter.route('/')
   .get(getUserHandler)
-  .post(postUserHandler)
   .delete(isAutenticated, deleteUserHandler)
 userRouter.route('/:id')
   .get(getUserbyIdHandler)

@@ -87,92 +87,7 @@ const updateUser = async (id, userData) => {
 
   return updatedUser;
 };
-// POST
-const postNewUser = async (newUserData) => {
-  // DATA
-  const {
-    firstName,
-    lastName,
-    email,
-    photo,
-    birthday,
-    nacionality,
-    dni,
-    password,
-    adress,
-  } = newUserData;
 
-  const {
-    country = "",
-    state = "",
-    city = "",
-    street = "",
-    number = "",
-    zipCode = "",
-  } = adress;
-
-  const userCart = [];
-  const userWishList = [];
-
-  // USERCREATION
-
-  // CREDENTIALS
-  const userCredential = new UserCredential({
-    email,
-    password,
-  });
-
-  await userCredential.save();
-
-  // ROLE
-  const existingUsersCount = await User.countDocuments();
-  const role = existingUsersCount === 0 ? "ADMIN" : "USER";
-
-  const userRole = new UserRole({
-    role,
-  });
-
-  await userRole.save();
-
-  // ADRESS
-  const userAddress = new UserAdress({
-    country,
-    state,
-    city,
-    street,
-    number,
-    zipCode,
-  });
-  await userAddress.save();
-  // USER
-  const user = new User({
-    firstName,
-    lastName,
-    email,
-    photo,
-    birthday,
-    nacionality,
-    dni,
-    userCart,
-    userWishList,
-    credentials: userCredential._id,
-    role: userRole._id,
-    adress: userAddress._id,
-  });
-  await user.save();
-
-  // TODO send confirmation email
-
-  const confirmationEmailToken = await tokenSign({ userId: user.id }, "2d");
-
-  await sendConfirmationEmail(
-    process.env.EMAIL_MAILER,
-    email,
-    confirmationEmailToken,
-    process.env.API_URL
-  );
-  return { error: false, response: user.firstName };
-};
 // DELETE
 const deleteUser = async (id) => {
   const user = await User.findById(id);
@@ -205,6 +120,5 @@ module.exports = {
   getUser,
   getUserById,
   updateUser,
-  postNewUser,
   deleteUser,
 };

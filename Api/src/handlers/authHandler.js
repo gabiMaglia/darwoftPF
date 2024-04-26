@@ -3,13 +3,14 @@ const {
   confirmAccount,
   resetPassword,
   sendEmailToResetPassword,
+  singUp,
 } = require("../controllers/auth/authController");
 
 const loginHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const response = await login(email, password);
-    console.log(response);
+   
     res.status(200).json({ login: true, response });
   } catch (error) {
     next(error);
@@ -17,6 +18,9 @@ const loginHandler = async (req, res, next) => {
 };
 const singUpHandler = async (req, res, next) => {
   try {
+    const {newUserData} = req.body
+    const response = await singUp(newUserData)
+    res.status(200).json({ error: false, response });
   } catch (error) {
     next(error);
   }
@@ -24,7 +28,6 @@ const singUpHandler = async (req, res, next) => {
 
 const confirmAccountHandler = async (req, res, next) => {
   try {
-   
     const token = req.params;
     await confirmAccount(token);
     return res

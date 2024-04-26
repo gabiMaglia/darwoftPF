@@ -82,9 +82,9 @@ const postNewProduct = async (newProductData) => {
 const updateProduct = async (newUserData) => {};
 // DELETE
 const toggleProductState = async (id) => {
-  const dbProduct = await Product.findById(id) 
+  const dbProduct = await Product.findById(id);
   await Product.findOneAndUpdate({ _id: id, isActive: !dbProduct.isActive });
-  return `Product is now ${dbProduct.isActive?"Desactived" :"Activated"} `;
+  return `Product is now ${dbProduct.isActive ? "Desactived" : "Activated"} `;
 };
 const deleteProduct = async (id) => {
   await Product.findByIdAndDelete(id);

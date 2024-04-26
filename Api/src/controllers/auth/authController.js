@@ -1,11 +1,95 @@
-const { User, UserCredential, TokenWhiteList, UserRole } = require("../../db/conn");
-const { sendResetPasswordEmail } = require("../../utils/emailTemplate");
+const { User, UserCredential, TokenWhiteList, UserRole, UserAdress } = require("../../db/conn");
+const { sendResetPasswordEmail, sendConfirmationEmail } = require("../../utils/emailTemplate");
 const bcrypt = require("bcrypt");
 const {
   tokenSign,
   verifyToken,
   checkWhiteListedToken,
 } = require("../../utils/jwt/tokenGenerator");
+
+const singUp = async (newUserData) => {
+  // DATA
+  const {
+    firstName,
+    lastName,
+    email,
+    photo,
+    birthday,
+    nacionality,
+    dni,
+    password,
+    adress,
+  } = newUserData;
+
+  const {
+    country = "",
+    state = "",
+    city = "",
+    street = "",
+    number = "",
+    zipCode = "",
+  } = adress;
+
+  const userCart = [];
+  const userWishList = [];
+
+  // USERCREATION
+
+  // CREDENTIALS
+  const userCredential = new UserCredential({
+    email,
+    password,
+  });
+
+  await userCredential.save();
+
+  // ROLE
+  const existingUsersCount = await User.countDocuments();
+  const role = existingUsersCount === 0 ? "ADMIN" : "USER";
+
+  const userRole = new UserRole({
+    role,
+  });
+
+  await userRole.save();
+
+  // ADRESS
+  const userAddress = new UserAdress({
+    country,
+    state,
+    city,
+    street,
+    number,
+    zipCode,
+  });
+  await userAddress.save();
+  // USER
+  const user = new User({
+    firstName,
+    lastName,
+    email,
+    photo,
+    birthday,
+    nacionality,
+    dni,
+    userCart,
+    userWishList,
+    credentials: userCredential._id,
+    role: userRole._id,
+    adress: userAddress._id,
+  });
+  await user.save();
+
+  const confirmationEmailToken = await tokenSign({ userId: user.id }, "2d");
+
+  await sendConfirmationEmail(
+    process.env.EMAIL_MAILER,
+    email,
+    confirmationEmailToken,
+    process.env.API_URL
+  );
+  return `${user.firstName} succesfolly created`;
+};
 
 const login = async (email, password) => {
   const userCredentials = await UserCredential.findOne({ email });
@@ -17,8 +101,8 @@ const login = async (email, password) => {
 
   const user = await User.findOne({ email });
   const role = await UserRole.findById(user.role)
-  console.log(role)
-  const accesToken = await tokenSign({ id: user._id,  role }, "1h", false);
+
+  const accesToken = await tokenSign({ id: user._id,  role }, "2h", false);
 
   return {
     accesToken,
@@ -96,6 +180,7 @@ const resetPassword = async (newPassword, token) => {
 };
 
 module.exports = {
+  singUp,
   login,
   confirmAccount,
   sendEmailToResetPassword,

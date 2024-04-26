@@ -1,7 +1,6 @@
 const {
   getUser,
   getUserById,
-  postNewUser,
   updateUser,
   deleteUser,
 } = require("../../controllers/users/userController");
@@ -24,16 +23,7 @@ const getUserbyIdHandler = async (req, res, next) => {
     next(error)
   }
 };
-// POST USER
-const postUserHandler = async (req, res, next) => {
-  try {
-    const { newUserData } = req.body;
-    const { response } = await postNewUser(newUserData);
-    return res.status(200).json({error: false, message: `${response} Successfully created`});
-  } catch (error) {
-    next(error)
-  }
-};
+
 // UPDATE USER
 const updateUserHandler = async(req, res, next) => {
   try {
@@ -61,7 +51,6 @@ const deleteUserHandler = async(req, res, next) => {
 module.exports = {
   getUserHandler,
   getUserbyIdHandler,
-  postUserHandler,
   updateUserHandler,
   deleteUserHandler,
 };

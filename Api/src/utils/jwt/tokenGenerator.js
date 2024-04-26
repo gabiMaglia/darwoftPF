@@ -1,9 +1,9 @@
 require("dotenv").config();
-const SECRET = process.env.JWT_SECRET_KEY;
 const jwt = require("jsonwebtoken");
+const SECRET = process.env.JWT_SECRET_KEY;
 const { TokenWhiteList } = require("../../db/conn");
 
-const tokenSign = async (dataForToken, tokenTime = "1h") => {
+const tokenSign = async (dataForToken, tokenTime = "2h") => {
   const token = jwt.sign(dataForToken, SECRET, { expiresIn: tokenTime });
   await TokenWhiteList.create({
     token,
@@ -14,9 +14,7 @@ const tokenSign = async (dataForToken, tokenTime = "1h") => {
 const verifyToken = async (token) => {
   const isWhiteListed = await checkWhiteListedToken(token);
   if (!isWhiteListed) return { error: true, name: "blackListedToken" };
-  
   const decodedToken = jwt.verify(token, SECRET);
-
   return decodedToken;
 };
 
