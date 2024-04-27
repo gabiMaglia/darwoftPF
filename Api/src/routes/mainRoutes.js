@@ -15,7 +15,6 @@ mainRouter.use("/auth", authRouter);
 mainRouter.use("/user", userRouter);
 mainRouter.use("/wish", wishListRouter);
 
-
 mainRouter.use("/product", productRouter);
 mainRouter.use("/brand", brandRouter);
 mainRouter.use("/cat", categoryRouter);

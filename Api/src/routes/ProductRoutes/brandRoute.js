@@ -10,16 +10,32 @@ const {
   isAutenticated,
   isAuthorized,
 } = require("../../middleware/tokenAuthMiddlewares");
+const {
+  brandValidatino,
+} = require("../../middleware/expressValidator/validators");
+const validateResults = require("../../middleware/expressValidator/expressValidation");
 const brandRouter = Router();
 
 brandRouter
   .route("/")
   .get(getAllBrandsHandler)
-  .post(isAutenticated, isAuthorized, createNewBrandHandler);
+  .post(
+    isAutenticated,
+    isAuthorized,
+    brandValidatino,
+    validateResults,
+    createNewBrandHandler
+  );
 brandRouter
   .route("/:id")
   .get(getBrandByIdHandler)
-  .patch(isAutenticated, isAuthorized, updateBrandHandler)
+  .post(
+    isAutenticated,
+    isAuthorized,
+    brandValidatino,
+    validateResults,
+    updateBrandHandler
+  )
   .delete(isAutenticated, isAuthorized, deleteBrandHandler);
 
 module.exports = brandRouter;

@@ -50,9 +50,10 @@ const productValidation = [
 
 const brandValidatino = [
   body("brandData.brandName")
-  .exists({ checkFalsy: true, checkNull: true })
-  .trim()
+    .exists({ checkFalsy: true, checkNull: true })
+    .trim()
     .isLength({ min: 5 }),
+  body("brandData.brandEmail").isEmail(),
 ];
 
 const categoryValidation = [
@@ -103,6 +104,8 @@ const saleOrderValidation = [
 module.exports = {
   loginValidation,
   registerValidation,
+  productValidation,
   brandValidatino,
   categoryValidation,
+  saleOrderValidation,
 };

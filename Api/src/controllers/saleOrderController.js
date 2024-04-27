@@ -4,6 +4,10 @@ const getAllOrders = async() => {
  const orders = SaleOrder.find()
  return orders
 }
+const getOrderById = async(id) => {
+   const order = await SaleOrder.findById(id)
+   return order 
+}
 const postNewOrder = async(orderData) => {
     const {
         status,
@@ -15,10 +19,6 @@ const postNewOrder = async(orderData) => {
         shippingDate,
         trackingCode
     } = orderData
-}
-const getOrderById = async(id) => {
-   const order = await SaleOrder.findById(id)
-   return order 
 }
 const updateOrder = async(id, orderData) => {
    

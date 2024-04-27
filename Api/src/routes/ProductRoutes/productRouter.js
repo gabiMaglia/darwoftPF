@@ -1,19 +1,49 @@
-const { Router } = require ('express')
-const { isAutenticated, isAuthorized } = require("../../middleware/tokenAuthMiddlewares");
-const {getAllProductsHandler, getProductByIdHandler, postNewProductHandler, toggleProducStateHandler, updateProductHandler, deleteProductHandler } = require('../../handlers/products/productHandler')
+const { Router } = require("express");
+const {
+  isAutenticated,
+  isAuthorized,
+} = require("../../middleware/tokenAuthMiddlewares");
+const {
+  getAllProductsHandler,
+  getProductByIdHandler,
+  postNewProductHandler,
+  toggleProducStateHandler,
+  updateProductHandler,
+  deleteProductHandler,
+} = require("../../handlers/products/productHandler");
+const {
+  productValidation,
+} = require("../../middleware/expressValidator/validators");
+const validateResults = require("../../middleware/expressValidator/expressValidation");
 
-const porductRouter = Router()
+const porductRouter = Router();
 
-porductRouter.route('/')
+porductRouter
+  .route("/")
   .get(getAllProductsHandler)
-  .post(isAutenticated, isAuthorized, postNewProductHandler)
-  porductRouter.route('/:id')
+  .post(
+    isAutenticated,
+    isAuthorized,
+    productValidation,
+    validateResults,
+    postNewProductHandler
+  );
+porductRouter
+  .route("/:id")
   .get(getProductByIdHandler)
-  .patch(isAutenticated, updateProductHandler )
-  .delete(isAutenticated, isAuthorized, deleteProductHandler)
+  .patch(
+    isAutenticated,
+    productValidation,
+    validateResults,
+    updateProductHandler
+  )
+  .delete(isAutenticated, isAuthorized, deleteProductHandler);
 
-  
-  porductRouter.patch("/toogle_state/:id", isAutenticated, isAuthorized, toggleProducStateHandler)
+porductRouter.patch(
+  "/toogle_state/:id",
+  isAutenticated,
+  isAuthorized,
+  toggleProducStateHandler
+);
 
-
-module.exports = porductRouter
+module.exports = porductRouter;

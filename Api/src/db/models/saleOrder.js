@@ -11,7 +11,7 @@ const saleOrderModel = new Schema({
     require: true,
   },
   total: {
-    type: String,
+    type: Number,
     require: true,
   },
   paymentMethod: {

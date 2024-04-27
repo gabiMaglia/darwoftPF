@@ -67,6 +67,9 @@ const productBrandSchema = new Schema({
   },
   brandHomePage: {
     type: String
+  },
+  brandEmail: {
+    type: String
   }
 });
 

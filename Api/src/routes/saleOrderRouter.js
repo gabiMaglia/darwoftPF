@@ -4,17 +4,37 @@ const {
   isAutenticated,
   isAuthorized,
 } = require("../middleware/tokenAuthMiddlewares");
-const { getAllOrdersHandler, postNewOrderHandler, getOrderByIdHandler, updateOrderHandler } = require("../handlers/saleOrderHandler");
+const {
+  getAllOrdersHandler,
+  postNewOrderHandler,
+  getOrderByIdHandler,
+  updateOrderHandler,
+} = require("../handlers/saleOrderHandler");
+const {
+  saleOrderValidation,
+} = require("../middleware/expressValidator/validators");
+const validateResults = require("../middleware/expressValidator/expressValidation");
 
 const saleOrderRouter = Router();
 
 saleOrderRouter
   .route("/")
   .get(getAllOrdersHandler)
-  .post(isAutenticated, isAuthorized, postNewOrderHandler);
-  saleOrderRouter
+  .post(
+    isAutenticated,
+    isAuthorized,
+    saleOrderValidation,
+    validateResults,
+    postNewOrderHandler
+  );
+saleOrderRouter
   .route("/:id")
   .get(getOrderByIdHandler)
-  .patch(isAutenticated, updateOrderHandler);
+  .patch(
+    isAutenticated,
+    saleOrderValidation,
+    validateResults,
+    updateOrderHandler
+  );
 
 module.exports = saleOrderRouter;
