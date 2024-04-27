@@ -10,10 +10,9 @@ const {
   getOrderByIdHandler,
   updateOrderHandler,
 } = require("../handlers/saleOrderHandler");
-const {
-  saleOrderValidation,
-} = require("../middleware/expressValidator/validators");
+
 const validateResults = require("../middleware/expressValidator/expressValidation");
+const { saleOrderValidation } = require("../middleware/expressValidator/validators");
 
 const saleOrderRouter = Router();
 

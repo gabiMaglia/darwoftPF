@@ -85,7 +85,7 @@ const saleOrderValidation = [
     .isLength({ min: 2 })
     .toUpperCase(),
 
-  ,
+  
   body("orderData.purchaseDate")
     .exists({ checkFalsy: true, checkNull: true })
     .isDate({ format: String }),
@@ -98,7 +98,7 @@ const saleOrderValidation = [
     .trim()
     .isLength({ min: 6 })
     .toLowerCase(),
-  ,
+  
 ];
 
 module.exports = {
