@@ -16,8 +16,8 @@ const getCategoryById = async (id) => {
   return category;
 };
 // POST
-const postNewCategory = async (newCategoryData) => {
-  const { catName, image } = newCategoryData;
+const postNewCategory = async (categiryData) => {
+  const { catName, image } = categiryData;
   const newCategory = new ProductCategory({
     catName,
     image,

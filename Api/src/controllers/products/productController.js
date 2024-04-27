@@ -24,7 +24,7 @@ const getProductById = async (id) => {
   return product;
 };
 // POST
-const postNewProduct = async (newProductData) => {
+const postNewProduct = async (productData) => {
   const {
     name,
     price,
@@ -37,7 +37,7 @@ const postNewProduct = async (newProductData) => {
     soldCount = 0,
     isActive = true,
     isFeatured = false,
-  } = newProductData;
+  } = productData;
 
   const { catName, image } = productCategory;
   const { brandName, brandHomePage } = productBrand;

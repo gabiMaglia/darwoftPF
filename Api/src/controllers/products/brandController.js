@@ -17,8 +17,8 @@ const getBrandById = async (id) => {
   return brand;
 };
 // POST
-const createNewBrand = async (newBrandData) => {
-  const { brandName, brandHomePage } = newBrandData;
+const createNewBrand = async (brandData) => {
+  const { brandName, brandHomePage } = brandData;
   const newBrand = new ProductBrand({
     brandName,
     brandHomePage,

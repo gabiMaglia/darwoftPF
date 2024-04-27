@@ -27,8 +27,8 @@ const getProductByIdHandler = async (req, res, next) => {
   }
 };
 const postNewProductHandler = async (req, res, next) => {
-  const { newProductData } = req.body;
-  const response = await postNewProduct(newProductData);
+  const { productData } = req.body;
+  const response = await postNewProduct(productData);
   if (response)
     return res.status(200).json({ error: false, message: response });
   try {

@@ -16,7 +16,7 @@ const {
   checkWhiteListedToken,
 } = require("../../utils/jwt/tokenGenerator");
 
-const singUp = async (newUserData) => {
+const singUp = async (userData) => {
   // DATA
   const {
     firstName,
@@ -28,7 +28,7 @@ const singUp = async (newUserData) => {
     dni,
     password,
     adress,
-  } = newUserData;
+  } = userData;
 
   const {
     country = "",

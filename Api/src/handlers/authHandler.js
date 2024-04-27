@@ -19,8 +19,8 @@ const loginHandler = async (req, res, next) => {
 };
 const singUpHandler = async (req, res, next) => {
   try {
-    const {newUserData} = req.body
-    const response = await singUp(newUserData)
+    const {userData} = req.body
+    const response = await singUp(userData)
     res.status(200).json({ error: false, response });
   } catch (error) {
     next(error);
