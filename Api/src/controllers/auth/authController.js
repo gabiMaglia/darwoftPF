@@ -38,7 +38,7 @@ const singUp = async (userData) => {
     number = "",
     zipCode = "",
   } = adress;
-
+  console.log(userData)
   const userCart = [];
   const userWishList = [];
 

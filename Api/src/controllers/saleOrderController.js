@@ -19,6 +19,20 @@ const postNewOrder = async(orderData) => {
         shippingDate,
         trackingCode
     } = orderData
+
+    const newOrder = new SaleOrder ({
+        status,
+        products,
+        total,
+        shippingAdress,
+        paymentMethod,
+        purchaseDate,
+        shippingDate,
+        trackingCode
+    })
+
+    await newOrder.save();
+    return newOrder
 }
 const updateOrder = async(id, orderData) => {
    
