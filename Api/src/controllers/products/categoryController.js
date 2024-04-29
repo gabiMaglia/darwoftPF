@@ -1,60 +1,130 @@
 const errors = require("../../utils/errors");
-const { ProductCategory, Product } = require("../../db/conn");
+const {
+  ProductCategory,
+  Product,
+  ProductCategoryGroup,
+} = require("../../db/conn");
 
 // GET
 const getAllCategories = async () => {
   const existingCategoryCount = await ProductCategory.countDocuments();
-  if (existingCategoryCount < 1) throw new Error(errors.product.categoriesNotFound);
+  if (existingCategoryCount < 1)
+    throw new Error(errors.product.categoriesNotFound);
 
-  const categories = await ProductCategory.find();
+  const categories = await ProductCategory.find().populate("group").exec();
 
   return categories;
 };
+const getAllCategoryGroups = async () => {
+  const existingCategoryCount = await ProductCategoryGroup.countDocuments();
+  if (existingCategoryCount < 1)
+    throw new Error(errors.product.categoriesNotFound);
+
+  const categoryGroup = await ProductCategoryGroup.find();
+
+  return categoryGroup;
+};
 const getCategoryById = async (id) => {
   const category = await ProductCategory.findById(id);
-  if (!category) throw new Error(errors.product.categoryNotFound)
+  if (!category) throw new Error(errors.product.categoryNotFound);
+
   return category;
 };
 // POST
-const postNewCategory = async (categiryData) => {
-  const { catName, image } = categiryData;
+const postNewCategory = async (categoryData) => {
+  const { catName, image, group } = categoryData;
   const newCategory = new ProductCategory({
     catName,
     image,
   });
+  const isGroup = await ProductCategoryGroup.findOne({ name: group });
+  if (isGroup) {
+    newCategory.group = isGroup._id;
+  } else {
+    const newGroup = await ProductCategoryGroup.create({
+      name: group,
+    });
+    newCategory.group = newGroup._id;
+  }
   await newCategory.save();
+
   return newCategory;
 };
+
+const postNewCategoryGroup = async ({ name }) => {
+  const newCategoryGroup = new ProductCategoryGroup({
+    name,
+  });
+  await newCategoryGroup.save();
+
+  return newCategoryGroup;
+};
 // UPDATE
-const updateCategory = async (UpdateCategoryData, id) => {
-  const { catName, image } = UpdateCategoryData;
+const updateCategory = async (id, categoryData) => {
+  let catGroup;
+  const { catName, image, group } = categoryData;
+
+  if (group) catGroup = await ProductCategoryGroup.findOne({ name: group })._id;
+  catGroup = await postNewCategoryGroup({ name: group }).id;
+  
   const response = await ProductCategory.findByIdAndUpdate(
     id,
     {
-      catName, image
+      catName,
+      image,
+      catGroup,
     },
     { new: true }
-  )
+  );
+
+  return response;
+};
+const updateCategoryGroup = async (UpdateCategoryGroupData, id) => {
+  const { name } = UpdateCategoryGroupData;
+  const response = await ProductCategoryGroup.findByIdAndUpdate(
+    id,
+    {
+      name: name,
+    },
+    { new: true }
+  );
+
   return response;
 };
 // DELETE
 const deleteCategory = async (id) => {
-  const areProdcutsThatBelongsToThisCategory = await Product.find({category:id})
+  const areProdcutsThatBelongsToThisCategory = await Product.find({
+    category: id,
+  });
 
   if (areProdcutsThatBelongsToThisCategory.length !== 0) {
-    throw new Error (
-      errors.product.remainingProductsInCategory
-    )
+    throw new Error(errors.product.remainingProductsInCategory);
   }
   await ProductCategory.findByIdAndDelete(id);
-  return "Category deleted";
 
+  return "Category deleted";
+};
+const deleteCategoryGroup = async (id) => {
+  const areCategoriesThatBelongsToThisGroup = await ProductCategory.find({
+    group: id,
+  });
+ console.log(areCategoriesThatBelongsToThisGroup)
+  if (areCategoriesThatBelongsToThisGroup.length !== 0) {
+    throw new Error(errors.product.remainingCategoriesInGroup);
+  }
+  const deletedProduct = await ProductCategoryGroup.findByIdAndDelete(id);
+  if (!deletedProduct) throw new Error(errors.product.categoryNotFound)
+  return "Category Group deleted";
 };
 
 module.exports = {
+  getCategoryById,
   getAllCategories,
+  getAllCategoryGroups,
   postNewCategory,
+  postNewCategoryGroup,
   updateCategory,
+  updateCategoryGroup,
   deleteCategory,
-  getCategoryById
+  deleteCategoryGroup,
 };

@@ -42,10 +42,7 @@ const productValidation = [
     .isArray(),
   body("productData.productDescription")
     .exists({ checkFalsy: true, checkNull: true })
-    .isArray(),
-  body("productData.stock")
-    .exists({ checkFalsy: true, checkNull: true })
-    .isArray(),
+    .isObject(),
 ];
 
 const brandValidatino = [

@@ -11,6 +11,7 @@ const {
   productSchema,
   productBrandSchema,
   productCategorySchema,
+  productCategoryGroupSchema
 } = require("./models/product/productModel");
 const { saleOrderModel } = require("./models/saleOrder");
 const tokenWhiteListSchema = require("./models/auth/tokenWhiteList");
@@ -44,6 +45,7 @@ const UserAdress = mongoose.model("UserAdress", userAdressSchema);
 const Product = mongoose.model("Product", productSchema);
 
 const ProductBrand = mongoose.model("ProductBrand", productBrandSchema);
+const ProductCategoryGroup = mongoose.model('ProductCategoryGroup', productCategoryGroupSchema)
 const ProductCategory = mongoose.model(
   "ProductCategory",
   productCategorySchema
@@ -69,6 +71,7 @@ module.exports = {
   UserRole,
   Product,
   ProductBrand,
+  ProductCategoryGroup,
   ProductCategory,
   SaleOrder,
 };

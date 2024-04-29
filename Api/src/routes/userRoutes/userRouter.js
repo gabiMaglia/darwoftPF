@@ -82,7 +82,7 @@ userRouter.route('/')
 userRouter.route('/:id')
   .get(getUserbyIdHandler)
   .patch( isAutenticated, updateUserHandler)
-
+  
 userRouter.use("/wishlist",  wishListRouter);
  
 

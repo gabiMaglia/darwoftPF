@@ -1,5 +1,5 @@
 const errors = require("../../utils/errors");
-const { Product, ProductCategory, ProductBrand } = require("../../db/conn");
+const { Product, ProductCategory, ProductBrand, ProductCategoryGroup } = require("../../db/conn");
 
 // GET
 const getAllProducts = async () => {
@@ -23,6 +23,14 @@ const getProductById = async (id) => {
 
   return product;
 };
+const getProductByCatBrand = async (catBrand, id) => {
+  const products = await Product.find({ [catBrand]: id })
+    .populate("category")
+    .populate("brand");
+  if (!products) throw new Error(errors.product.productsNotFound);
+  return products;
+};
+
 // POST
 const postNewProduct = async (productData) => {
   const {
@@ -32,6 +40,7 @@ const postNewProduct = async (productData) => {
     productDescription,
     warranty = null,
     productStock,
+    categoryGroup,
     productCategory,
     productBrand,
     soldCount = 0,
@@ -61,9 +70,24 @@ const postNewProduct = async (productData) => {
       catName,
       image,
     });
+    let catGroup = await ProductCategoryGroup.findOne({ name: categoryGroup });
+
+    if (!catGroup) {
+      catGroup = new ProductCategoryGroup({
+        name: categoryGroup,
+      });
+      await catGroup.save();
+    }
+  
+    cat.group = catGroup._id;
     await cat.save();
   }
+
   newProduct.category = cat._id;
+
+ 
+
+
   let brand = await ProductBrand.findOne({ brandName: brandName });
 
   if (!brand) {

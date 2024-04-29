@@ -50,6 +50,13 @@ const productSchema = new Schema({
   },
 });
 
+const productCategoryGroupSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+
+});
 
 const productCategorySchema = new Schema({
   catName: {
@@ -59,7 +66,13 @@ const productCategorySchema = new Schema({
   image: {
     type: String,
   },
+  group: {
+    type: mongoose.Types.ObjectId,
+    ref: 'ProductCategoryGroup',
+    required: true
+  }
 });
+
 const productBrandSchema = new Schema({
   brandName: {
     type: String,
@@ -77,4 +90,5 @@ module.exports = {
   productSchema,
   productCategorySchema,
   productBrandSchema,
+  productCategoryGroupSchema
 };

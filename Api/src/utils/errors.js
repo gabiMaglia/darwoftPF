@@ -19,5 +19,7 @@ module.exports = {
      categoryNotFound: "Category Not Found", 
      remainingProductsInCategory:
       "Please delete all product in this category before deleting the category",
+     remainingCategoriesInGroup:
+      "Please delete all categories in this group before deleting the group",
   },
 };

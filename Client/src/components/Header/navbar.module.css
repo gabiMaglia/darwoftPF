@@ -1,0 +1,12 @@
+.navBar {
+    /* width: 100%; */
+    /* position: sticky; */
+    /* top: 0; */
+    border: 2px solid white;
+    display: flex;
+}
+
+.links{
+    display: flex;
+    align-items: center;
+}
