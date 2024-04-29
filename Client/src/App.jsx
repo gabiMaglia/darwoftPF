@@ -1,11 +1,12 @@
+import ThemeSwitcher from './componenets/ui/ThemeSwitcher/ThemeSwitcher'
 import './App.css'
-import Header from  '../src/components/Header/Header'
+
 function App() {
 
 
   return (
     <>
-     <Header/>
+    <ThemeSwitcher/>
     </>
   )
 }

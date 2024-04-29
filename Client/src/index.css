@@ -1,21 +1,230 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poiret+One&family=Shanti&display=swap");
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+button {
+  font: inherit;
+  border: none;
+  cursor: pointer;
+}
 
+input,
+label {
+  font: inherit;
+}
 
 :root {
-  
-  line-height: 1.5;
-  font-weight: 400;
-  background-color: #242424;
+  --_hue: 60;
+  --_size: 1.8rem;
+  --_radius: 0.2em;
+  --_tspeed_fast: 180ms;
+  --_tspeed_slow: 300ms;
+  --_ttype_squish: cubic-bezier(0.86, -0.1, 0.27, 1.15);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Color Palette */
+  /* Colores de la marca y de interfaz */
+  --color-primary: hsl(348, 99%, 50%); /* Rojo Vibrante */
+  --color-secondary: hsl(199, 96%, 49%); /* Azul Claro */
+  --color-background: hsl(150, 21%, 79%); /* Verde Azulado Suave */
+  --color-accent: hsl(60, 97%, 67%); /* Amarillo Brillante */
+  --color-alert: hsl(62, 93%, 35%); /* Verde Oliva */
+
+  /* Colores de soporte */
+  --color-info: hsl(199, 96%, 49%); /* Reutilizando el azul para información */
+  --color-success: hsl(
+    62,
+    93%,
+    35%
+  ); /* Reutilizando el verde oliva para éxito */
+  --color-warning: hsl(
+    60,
+    97%,
+    67%
+  ); /* Reutilizando el amarillo para advertencias */
+  --color-danger: hsl(348, 99%, 50%); /* Reutilizando el rojo para peligro */
+
+  /* Colores de interfaz */
+  --color-background-light: var(--_hue) 30% 94%;
+  --color-background-dark: var(--_hue) 15% 10%;
+  --color-muted: #6c757d;
+
+  /* Light Mode */
+  --bg--light: var(--color-background-light);
+  --txt--light: var(--_hue) 40% 5%;
+  --accent--light: var(--_hue) 55% 50%;
+  --accent1--light: 10 80% 60%;
+  --muted--light: var(--_hue) 30% 99%;
+  /* Dark Mode */
+  --bg--dark: var(--color-background-dark);
+  --txt--dark: var(--_hue) 30% 88%;
+  --accent--dark: var(--_hue) 50% 50%;
+  --accent1--dark: 10 55% 50%;
+  --muted--dark: var(--_hue) 20% 4%;
+
+  /* Pesos y estilos de fuente */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --font-style-normal: normal;
+  --font-style-italic: italic;
+
+  /* Tamaños de fuente */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-small: 0.875rem; /* 14px */
+  --font-size-large: 1.25rem; /* 20px */
+
+  /* Espaciado (márgenes y paddings) */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 3rem;
+
+  /* Bordes y radios */
+  --border-width: 1px;
+  --border-style: solid;
+  --border-radius: 0.25rem;
+
+  /* Radios específicos para elementos como botones, tarjetas */
+  --border-radius-sm: 0.2rem;
+  --border-radius-lg: 0.3rem;
+  /* Transiciones y animaciones */
+  --transition-fast: 0.3s ease-in-out;
+  --transition-slow: 0.6s ease-in-out;
+
+  /* Duraciones específicas para hover, carga de página, etc. */
+  --duration-fast: 200ms;
+  --duration-slow: 500ms;
 }
+
+body {
+  font-family: 'Poiret One', cursive;
+}
+
+h1 {
+  font-family: 'Kanit', sans-serif;
+  font-size: 2.5em; /* Ajustar según el diseño */
+}
+
+h2, h3 {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700; /* Para un poco más de énfasis */
+}
+
+p, li, button, input {
+  font-family: 'Shanti', sans-serif;
+}
+
+i, span {
+  font-family: 'Kanit', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--bg--dark);
+    --txt: var(--txt--dark);
+    --accent: var(--accent--dark);
+    --accent1: var(--accent1--dark);
+    --muted: var(--muted--dark);
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: var(--bg--light);
+    --txt: var(--txt--light);
+    --accent: var(--accent--light);
+    --accent1: var(--accent1--light);
+    --muted: var(--muted--light);
+    color-scheme: light;
+  }
+}
+
+[color-scheme="dark"] {
+  --bg: var(--bg--dark);
+  --txt: var(--txt--dark);
+  --accent: var(--accent--dark);
+  --accent1: var(--accent1--dark);
+  --muted: var(--muted--dark);
+  color-scheme: dark;
+}
+
+[color-scheme="light"] {
+  --bg: var(--bg--light);
+  --txt: var(--txt--light);
+  --accent: var(--accent--light);
+  --accent1: var(--accent1--light);
+  --muted: var(--muted--light);
+  color-scheme: light;
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --_size: 1.3rem;
+  }
+}
+
+/* prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --_tspeed_slow: 50ms;
+    --_tspeed_fast: 50ms;
+  }
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  background-color: hsl(var(--bg));
+  color: hsl(var(--txt));
+}
+
+.btn {
+  max-width: fit-content;
+  display: flex;
+  place-items: center;
+  gap: 0.5em;
+  background-color: hsl(var(--accent));
+  color: hsl(var(--bg));
+  text-decoration: none;
+  padding: 0.5em;
+  border-radius: var(--_radius);
+  box-shadow: 0.05em 0.1em 0.9em hsl(var(--accent) / 0.3),
+    0 0 0 -0.1em hsl(var(--bg)), 0 0 0 -0.2em hsl(var(--accent));
+  transition: box-shadow var(--_tspeed_fast) var(--_ttype_squish),
+    background-color var(--_tspeed_fast) var(--_ttype_squish);
+}
+
+.btn :where(svg, img, span) {
+  pointer-events: none;
+}
+
+.btn :where(svg, img) {
+  width: var(--_size);
+  height: var(--_size);
+}
+
+.btn:where(:active, :hover) {
+  background-color: hsl(var(--accent) / 0.7);
+  box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 -0.1em hsl(var(--bg)),
+    0 0 0 -0.2em hsl(var(--accent));
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 0.2em hsl(var(--bg)),
+    0 0 0 0.4em hsl(var(--accent) / 0.7);
+}
+
+
+
 
 
 .shanti-regular {
@@ -23,7 +232,6 @@
   font-weight: 400;
   font-style: normal;
 }
-
 .poiret-one-regular {
   font-family: "Poiret One", sans-serif;
   font-weight: 400;
@@ -135,13 +343,4 @@
   font-family: "Kanit", sans-serif;
   font-weight: 900;
   font-style: italic;
-}
-
-
-body,
-html {
-  margin: 0;
-  padding: 0;
-  width: 100dvw;
-  height: 100svh;
 }
