@@ -66,7 +66,7 @@ const updateCategory = async (id, categoryData) => {
 
   if (group) catGroup = await ProductCategoryGroup.findOne({ name: group })._id;
   catGroup = await postNewCategoryGroup({ name: group }).id;
-  
+
   const response = await ProductCategory.findByIdAndUpdate(
     id,
     {
@@ -100,20 +100,22 @@ const deleteCategory = async (id) => {
   if (areProdcutsThatBelongsToThisCategory.length !== 0) {
     throw new Error(errors.product.remainingProductsInCategory);
   }
-  await ProductCategory.findByIdAndDelete(id);
-
+  // FIND BY ID AND DELETE SI NO ENCUENTA DEVUELVE NULL POR ENDE SI NO EXISTE EL REGISTRO NO VA A CAER EN EL CATCH
+  const deletedGroup = await ProductCategory.findByIdAndDelete(id);
+  if (!deletedGroup) throw new Error(errors.product.categoryNotFound);
   return "Category deleted";
 };
 const deleteCategoryGroup = async (id) => {
   const areCategoriesThatBelongsToThisGroup = await ProductCategory.find({
     group: id,
   });
- console.log(areCategoriesThatBelongsToThisGroup)
+  console.log(areCategoriesThatBelongsToThisGroup);
+
   if (areCategoriesThatBelongsToThisGroup.length !== 0) {
     throw new Error(errors.product.remainingCategoriesInGroup);
   }
   const deletedProduct = await ProductCategoryGroup.findByIdAndDelete(id);
-  if (!deletedProduct) throw new Error(errors.product.categoryNotFound)
+  if (!deletedProduct) throw new Error(errors.product.categoryNotFound);
   return "Category Group deleted";
 };
 

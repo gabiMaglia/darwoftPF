@@ -9,7 +9,8 @@ const {
 
 const getAllProductsHandler = async (req, res, next) => {
   try {
-    const response = await getAllProducts();
+    const params = req.query
+    const response = await getAllProducts(params);
     if (response)
       return res.status(200).json({ error: false, message: response });
   } catch (error) {

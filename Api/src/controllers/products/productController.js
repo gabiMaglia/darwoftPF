@@ -8,16 +8,20 @@ const {
 
 // GET
 const getAllProducts = async (params = {}) => {
-  const { offset = 0, limit = 0, isFeatured } = params;
+  const { offset = 0, limit = 0, isFeatured, filter } = params;
+ 
   const existingProductCount = await Product.countDocuments();
   if (existingProductCount < 1)
     throw new Error(errors.product.productsNotFound);
 
-  const query = {}  
-  isFeatured? query.isFeatured = isFeatured : {}
-  
 
-  const products = await Product.find(query)
+  const query = {};
+  isFeatured ? (query.isFeatured = isFeatured) : null;
+  filter? (Object.assign(query, JSON.parse(filter)) ): null
+  
+//  console.log({query: query})
+  
+ const products = await Product.find(query)
     .populate("category")
     .populate("brand")
     .skip(offset)
@@ -36,13 +40,6 @@ const getProductById = async (id) => {
   if (!product) throw new Error(errors.product.productsNotFound);
 
   return product;
-};
-const getProductByCatBrand = async (catBrand, id) => {
-  const products = await Product.find({ [catBrand]: id })
-    .populate("category")
-    .populate("brand");
-  if (!products) throw new Error(errors.product.productsNotFound);
-  return products;
 };
 
 // POST

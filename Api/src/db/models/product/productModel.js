@@ -61,7 +61,8 @@ const productCategoryGroupSchema = new Schema({
 const productCategorySchema = new Schema({
   catName: {
     type: String,
-    unique:true
+    unique:true,
+    require: true
   },
   image: {
     type: String,

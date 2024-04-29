@@ -19,6 +19,12 @@ const validateResults = require("../../middleware/expressValidator/expressValida
 const porductRouter = Router();
 
 porductRouter
+/* /?offset=0&limit=1&isFeatured=false&filter={"brand":"662ed41f2f96948245a52d18"}
+*   offset Number   
+*   limit Number
+*   isFeatured Boolean
+*   Filter Object{parametrDeBusqueda:idDeParametro}
+*/
   .route("/")
   .get(getAllProductsHandler)
   .post(
