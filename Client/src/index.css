@@ -52,15 +52,19 @@ label {
   --color-background-light: var(--_hue) 30% 94%;
   --color-background-dark: var(--_hue) 15% 10%;
   --color-muted: #6c757d;
-
+  --nav-bg-dark: #1C1C1C;    
+  --nav-bg-light: #999999;    
+  
   /* Light Mode */
   --bg--light: var(--color-background-light);
+  --nav-bg-light: var(--nav-bg-light);    
   --txt--light: var(--_hue) 40% 5%;
   --accent--light: var(--_hue) 55% 50%;
   --accent1--light: 10 80% 60%;
   --muted--light: var(--_hue) 30% 99%;
   /* Dark Mode */
   --bg--dark: var(--color-background-dark);
+  --nav-bg-dark: var(--nav-bg-dark);  
   --txt--dark: var(--_hue) 30% 88%;
   --accent--dark: var(--_hue) 50% 50%;
   --accent1--dark: 10 55% 50%;
@@ -92,6 +96,7 @@ label {
   /* Radios específicos para elementos como botones, tarjetas */
   --border-radius-sm: 0.2rem;
   --border-radius-lg: 0.3rem;
+  --border-radius-xl: 0.7rem;
   /* Transiciones y animaciones */
   --transition-fast: 0.3s ease-in-out;
   --transition-slow: 0.6s ease-in-out;
@@ -102,29 +107,36 @@ label {
 }
 
 body {
-  font-family: 'Poiret One', cursive;
+  font-family: "Poiret One", cursive;
 }
 
 h1 {
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   font-size: 2.5em; /* Ajustar según el diseño */
 }
 
-h2, h3 {
-  font-family: 'Kanit', sans-serif;
+h2,
+h3 {
+  font-family: "Kanit", sans-serif;
   font-weight: 700; /* Para un poco más de énfasis */
 }
 
-p, li, button, input {
-  font-family: 'Shanti', sans-serif;
+p,
+li,
+button,
+input {
+  font-family: "Shanti", sans-serif;
 }
 
-i, span {
-  font-family: 'Kanit', sans-serif;
+i,
+span {
+  font-family: "Kanit", sans-serif;
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: var(--bg--dark);
+    --navbg: var(var(--nav-bg-dark));
     --txt: var(--txt--dark);
     --accent: var(--accent--dark);
     --accent1: var(--accent1--dark);
@@ -136,6 +148,7 @@ i, span {
 @media (prefers-color-scheme: light) {
   :root {
     --bg: var(--bg--light);
+    --navbg: var(var(--nav-bg-light));
     --txt: var(--txt--light);
     --accent: var(--accent--light);
     --accent1: var(--accent1--light);
@@ -184,14 +197,13 @@ body {
 }
 
 .btn {
-  max-width: fit-content;
   display: flex;
   place-items: center;
   gap: 0.5em;
   background-color: hsl(var(--accent));
   color: hsl(var(--bg));
   text-decoration: none;
-  padding: 0.5em;
+  padding: 0.2em;
   border-radius: var(--_radius);
   box-shadow: 0.05em 0.1em 0.9em hsl(var(--accent) / 0.3),
     0 0 0 -0.1em hsl(var(--bg)), 0 0 0 -0.2em hsl(var(--accent));
@@ -223,9 +235,14 @@ body {
     0 0 0 0.4em hsl(var(--accent) / 0.7);
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
 
-
-
+li {
+  list-style-type: none;
+}
 
 .shanti-regular {
   font-family: "Shanti", sans-serif;

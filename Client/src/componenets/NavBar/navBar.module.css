@@ -1,0 +1,34 @@
+.navBar {
+  background-color: var(--navbg);
+  width: 100svw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 7rem;
+  padding: var(--spacing-md);
+  border: 1px solid black;
+}
+.logo {
+  width: 100px;
+}
+.navGroup1 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+.navLinks {
+  display: flex;
+  gap: var(--spacing-md);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-bold);
+}
+
+.userControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.userControls div:nth-child(1) {
+  margin-right: 120px;
+}

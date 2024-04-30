@@ -1,14 +1,14 @@
-import ThemeSwitcher from './componenets/ui/ThemeSwitcher/ThemeSwitcher'
-import './App.css'
+import ThemeSwitcher from "./componenets/ui/ThemeSwitcher/ThemeSwitcher";
+import Header from "./componenets/layout/Header/Header";
+import "./App.css";
 
 function App() {
-
-
   return (
     <>
-    <ThemeSwitcher/>
+      <Header />
+      <ThemeSwitcher />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

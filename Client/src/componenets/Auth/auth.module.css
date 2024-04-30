@@ -1,0 +1,11 @@
+.authPanel{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 80px;
+}
+.authPanel button{
+    padding: var(--spacing-sm);
+    display: flex;
+    justify-content: end;
+}
