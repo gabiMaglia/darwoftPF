@@ -1,6 +1,8 @@
-import styles from "./layout.module.css";
 import Header from "./Header/Header.jsx";
 import Footer from "./Footer/Footer.jsx";
+import WhatsApp from '../ui/WatsAppIcon/WatsApp.jsx'
+
+import styles from "./layout.module.css";
 const Layout = ({ children }) => {
   return (
     <>
@@ -8,6 +10,9 @@ const Layout = ({ children }) => {
       <main>
         {children}
       </main>
+       <span className={styles.whatsApp}>
+         <WhatsApp number = '3133322233' /> 
+       </span>
       <Footer />
     </>
   );

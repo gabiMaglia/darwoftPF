@@ -1,0 +1,13 @@
+.whatsApp{
+    position: absolute;
+    bottom: 48px;
+    right: 48px;
+    z-index: 1;
+    cursor: pointer;
+}
+.whatsApp svg{
+    background-color: chartreuse;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}

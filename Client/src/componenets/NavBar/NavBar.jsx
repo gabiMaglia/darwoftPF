@@ -4,9 +4,12 @@ import ThemeSwitcher from "../ui/ThemeSwitcher/ThemeSwitcher";
 import ShoppintCart from "../ShoppingCart/ShoppintCart";
 import SearchBar from "../SearchBar/SearchBar";
 import Auth from "../Auth/Auth";
-import Logo from "../ui/Logo/Logo";
+import Img from "../ui/Img/Img";
 import styles from "./navBar.module.css";
+
 import { capitalizeFirstLetter } from "../../utils/strings";
+
+import mainLogoColor from "../../assets/logos_png/logos folk-02.png";
 
 const NavBar = () => {
   const categoriesGroups = [
@@ -30,7 +33,7 @@ const NavBar = () => {
         <div className={styles.navGroup1}>
           <div className={styles.logo}>
             <Link to="/">
-              <Logo color={true} />
+              <Img img={mainLogoColor} alt="Folk tecnotienda" />
             </Link>
           </div>
 
@@ -44,6 +47,7 @@ const NavBar = () => {
         </div>
 
         <div className={styles.userControls}>
+
           <SearchBar />
           <ThemeSwitcher/>
           <Auth />

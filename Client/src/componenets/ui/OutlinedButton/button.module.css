@@ -1,46 +1,50 @@
 .dark {
-    border: 2px solid #343a40; /* Color oscuro para el borde */
-    background-color: transparent; /* Fondo transparente */
-    color: #343a40; /* Color del texto */
-    padding: 0.375rem 0.75rem; /* Padding similar al de Bootstrap */
-    font-size: 1rem; /* Tamaño de fuente estándar */
-    line-height: 1.5; /* Altura de línea para centrar texto verticalmente */
-    border-radius: 0.25rem; /* Bordes redondeados */
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Suave transición para efectos de hover */
-    cursor: pointer; /* Cursor en forma de mano al pasar el mouse */
+    border: 2px solid #343a40; 
+    background-color: transparent;
+    color: #343a40;
+    padding: 0.375rem 0.75rem; 
+    font-size: 1rem; 
+    line-height: 1.5; 
+    border-radius: 0.25rem; 
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    cursor: pointer; 
 }
 
 .dark:hover, .dark:focus {
-    color: #ffffff; /* Color del texto en hover/focus */
-    background-color: #343a40; /* Color de fondo en hover/focus */
-    border-color: #343a40; /* Color del borde en hover/focus */
-    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5); /* Sombra para efecto flotante */
+    color: #ffffff;
+    background-color: #343a40;
+    border-color: #343a40; 
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5); 
 }
 
 .dark:focus {
-    outline: none; /* Elimina el contorno predeterminado al enfocar */
+    outline: none; 
 }
 
 .light {
-    border: 2px solid #f8f9fa91; /* Color claro para el borde */
-    background-color: transparent; /* Fondo transparente */
-    color: #f8f9fa; /* Color del texto */
-    padding: 0.375rem 0.75rem; /* Padding similar al de Bootstrap */
-    font-size: 1rem; /* Tamaño de fuente estándar */
-    line-height: 1.5; /* Altura de línea para centrar texto verticalmente */
-    border-radius: 0.25rem; /* Bordes redondeados */
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transiciones suaves para efectos de hover */
-    cursor: pointer; /* Cursor en forma de mano al pasar el mouse */
+    border: 2px solid #f8f9fa91; 
+    background-color: transparent; 
+    color: #f8f9fa;
+    padding: 0.375rem 0.75rem; 
+    font-size: 1rem; 
+    line-height: 1.5; 
+    border-radius: 0.25rem; 
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; 
+    cursor: pointer; 
 }
 
 .light:hover, .light:focus {
-    color: #343a40; /* Color del texto en hover/focus para contraste */
-    background-color: #f8f9fa; /* Color de fondo en hover/focus */
-    border-color: #f8f9fa; /* Color del borde en hover/focus */
-    box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5); /* Sombra para efecto flotante y enfoque */
+    color: #343a40; 
+    background-color: #f8f9fa; 
+    border-color: #f8f9fa; 
+    box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5); 
 }
 
 .light:focus {
-    outline: none; /* Elimina el contorno predeterminado al enfocar */
+    outline: none; 
 }
 
+button {
+    display: grid;
+    place-content: center;
+}

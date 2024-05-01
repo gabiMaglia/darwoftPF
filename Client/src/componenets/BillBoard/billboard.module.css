@@ -1,0 +1,31 @@
+.billboard {
+  position: relative;
+  padding: var(--spacing-md);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(182deg, var(--bg) 63%, var(--olive) 37%);
+  background-image: url('../../assets/logos_png/logos\ folk-06.png');
+  background-position: center;
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.pagintionDots {
+  display: flex;
+  gap: 1rem;
+  margin-inline: auto;
+}
+.pagintionDots div {
+  margin-top: 1rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.active {
+  background-color: yellow !important;
+  transform: scale(1.2);
+}

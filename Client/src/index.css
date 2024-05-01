@@ -8,34 +8,36 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100dvh;
   width: 100dvw;
 }
-button, input, label {
+button,
+input,
+label {
   font: inherit;
   border: none;
   cursor: pointer;
 }
 
-:root{
+:root {
   --_size: 1.8rem;
   --_radius: 0.2em;
   --_tspeed_fast: 180ms;
   --_tspeed_slow: 300ms;
   --_ttype_squish: cubic-bezier(0.86, -0.1, 0.27, 1.15);
-  
+
   /* Base Colors */
-  --red: #FB044C;
+  --red: #fb044c;
   --yellow: #fafb55;
-  --blue: #CDD129;
+  --blue: #cdd129;
   --teal: #bad7c3;
   --olive: #a6ab06;
   --black: #000000;
 
-
-  --jet-stream: #B4D4CB;
-  --fun-green: #047C21;
+  --jet-stream: #b4d4cb;
+  --fun-green: #047c21;
 
   /* Light Mode */
   --color-primary-light: var(--red);
@@ -55,11 +57,23 @@ button, input, label {
   --color-alert-dark: var(--fun-green);
   --txt--dark: #eeeeee;
   --muted--dark: #bbbbbb;
-  --nav-background-dark:  #2a2a2a;
+  --nav-background-dark: #2a2a2a;
+
+  /* Breakpoints for mobile devices */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+
+  /* Breakpoints for tablets */
+  --breakpoint-md: 768px;
+
+  /* Breakpoints for desktops */
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1440px;
 
   /* Font Sizes */
-  --font-size-base: 1rem;
   --font-size-small: 0.875rem;
+  --font-size-base: 1rem;
   --font-size-large: 1.25rem;
 
   /* Spacing */
@@ -107,23 +121,26 @@ button, input, label {
 }
 
 [color-scheme="dark"] {
-  --bg: var(--color-background-dark);    /* Fondo general para modo oscuro */
-  --txt: #dddddd;                        /* Color de texto principal para modo oscuro */
-  --nav-bg: var(--nav-background-dark);  /* Fondo de navegación para modo oscuro */
-  --accent: var(--color-accent-dark);    /* Color de acento para modo oscuro */
-  --alert: var(--color-alert-dark);      /* Color de alerta para modo oscuro */
-  --muted: #bbbbbb;                      /* Color de texto secundario/muted para modo oscuro */
+  --bg: var(--color-background-dark); /* Fondo general para modo oscuro */
+  --txt: #dddddd; /* Color de texto principal para modo oscuro */
+  --nav-bg: var(
+    --nav-background-dark
+  ); /* Fondo de navegación para modo oscuro */
+  --accent: var(--color-accent-dark); /* Color de acento para modo oscuro */
+  --alert: var(--color-alert-dark); /* Color de alerta para modo oscuro */
+  --muted: #bbbbbb; /* Color de texto secundario/muted para modo oscuro */
 }
 
 [color-scheme="light"] {
-  --bg: var(--color-background-light);   /* Fondo general para modo claro */
-  --txt: #333333;                        /* Color de texto principal para modo claro */
-  --nav-bg: var(--nav-background-light); /* Fondo de navegación para modo claro */
-  --accent: var(--color-accent-light);   /* Color de acento para modo claro */
-  --alert: var(--color-alert-light);     /* Color de alerta para modo claro */
-  --muted: #666666;                      /* Color de texto secundario/muted para modo claro */
+  --bg: var(--color-background-light); /* Fondo general para modo claro */
+  --txt: #333333; /* Color de texto principal para modo claro */
+  --nav-bg: var(
+    --nav-background-light
+  ); /* Fondo de navegación para modo claro */
+  --accent: var(--color-accent-light); /* Color de acento para modo claro */
+  --alert: var(--color-alert-light); /* Color de alerta para modo claro */
+  --muted: #666666; /* Color de texto secundario/muted para modo claro */
 }
-
 
 @media screen and (max-width: 768px) {
   :root {
@@ -146,7 +163,9 @@ body {
   font-family: "Poiret One", cursive;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: "Kanit", sans-serif;
 }
 
@@ -154,15 +173,21 @@ h1 {
   font-size: 2.5em;
 }
 
-h2, h3 {
+h2,
+h3 {
   font-weight: var(--font-weight-bold);
 }
 
-p, li, button, input, span, i {
+p,
+li,
+button,
+input,
+span,
+i {
   font-family: "Shanti", sans-serif;
 }
 
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
@@ -171,11 +196,12 @@ li {
   list-style-type: none;
 }
 
-
 /* Establecimiento de la familia de fuentes base */
-.shanti-regular, .poiret-one-regular, .kanit-style {
+.shanti-regular,
+.poiret-one-regular,
+.kanit-style {
   font-style: normal;
-  font-family: sans-serif; /* Valor predeterminado que será sobreescrito */
+  font-family: sans-serif;
 }
 
 .shanti-regular {
@@ -194,19 +220,43 @@ li {
 }
 
 /* Clases para cada peso y estilo de Kanit */
-.kanit-thin { font-weight: 100; }
-.kanit-extralight { font-weight: 200; }
-.kanit-light { font-weight: 300; }
-.kanit-regular { font-weight: 400; }
-.kanit-medium { font-weight: 500; }
-.kanit-semibold { font-weight: 600; }
-.kanit-bold { font-weight: 700; }
-.kanit-extrabold { font-weight: 800; }
-.kanit-black { font-weight: 900; }
+.kanit-thin {
+  font-weight: 100;
+}
+.kanit-extralight {
+  font-weight: 200;
+}
+.kanit-light {
+  font-weight: 300;
+}
+.kanit-regular {
+  font-weight: 400;
+}
+.kanit-medium {
+  font-weight: 500;
+}
+.kanit-semibold {
+  font-weight: 600;
+}
+.kanit-bold {
+  font-weight: 700;
+}
+.kanit-extrabold {
+  font-weight: 800;
+}
+.kanit-black {
+  font-weight: 900;
+}
 
 /* Clases para estilos itálicos de Kanit */
-.kanit-thin-italic, .kanit-extralight-italic, .kanit-light-italic,
-.kanit-regular-italic, .kanit-medium-italic, .kanit-semibold-italic,
-.kanit-bold-italic, .kanit-extrabold-italic, .kanit-black-italic {
+.kanit-thin-italic,
+.kanit-extralight-italic,
+.kanit-light-italic,
+.kanit-regular-italic,
+.kanit-medium-italic,
+.kanit-semibold-italic,
+.kanit-bold-italic,
+.kanit-extrabold-italic,
+.kanit-black-italic {
   font-style: italic;
 }
