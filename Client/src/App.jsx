@@ -1,12 +1,12 @@
-import ThemeSwitcher from "./componenets/ui/ThemeSwitcher/ThemeSwitcher";
-import Header from "./componenets/layout/Header/Header";
+import Layout from "./componenets/Layout/Layout";
 import "./App.css";
 
 function App() {
   return (
     <>
-      <Header />
-      <ThemeSwitcher />
+     <Layout>
+
+     </Layout>
     </>
   );
 }

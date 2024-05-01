@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poiret+One&family=Shanti&display=swap");
+
 *,
 *::after,
 *::before {
@@ -7,173 +8,122 @@
   padding: 0;
 }
 
-button {
+html, body {
+  height: 100dvh;
+  width: 100dvw;
+}
+button, input, label {
   font: inherit;
   border: none;
   cursor: pointer;
 }
 
-input,
-label {
-  font: inherit;
-}
-
-:root {
-  --_hue: 60;
+:root{
   --_size: 1.8rem;
   --_radius: 0.2em;
   --_tspeed_fast: 180ms;
   --_tspeed_slow: 300ms;
   --_ttype_squish: cubic-bezier(0.86, -0.1, 0.27, 1.15);
-
-  /* Color Palette */
-  /* Colores de la marca y de interfaz */
-  --color-primary: hsl(348, 99%, 50%); /* Rojo Vibrante */
-  --color-secondary: hsl(199, 96%, 49%); /* Azul Claro */
-  --color-background: hsl(150, 21%, 79%); /* Verde Azulado Suave */
-  --color-accent: hsl(60, 97%, 67%); /* Amarillo Brillante */
-  --color-alert: hsl(62, 93%, 35%); /* Verde Oliva */
-
-  /* Colores de soporte */
-  --color-info: hsl(199, 96%, 49%); /* Reutilizando el azul para información */
-  --color-success: hsl(
-    62,
-    93%,
-    35%
-  ); /* Reutilizando el verde oliva para éxito */
-  --color-warning: hsl(
-    60,
-    97%,
-    67%
-  ); /* Reutilizando el amarillo para advertencias */
-  --color-danger: hsl(348, 99%, 50%); /* Reutilizando el rojo para peligro */
-
-  /* Colores de interfaz */
-  --color-background-light: var(--_hue) 30% 94%;
-  --color-background-dark: var(--_hue) 15% 10%;
-  --color-muted: #6c757d;
-  --nav-bg-dark: #1C1C1C;    
-  --nav-bg-light: #999999;    
   
+  /* Base Colors */
+  --red: #FB044C;
+  --yellow: #fafb55;
+  --blue: #CDD129;
+  --teal: #bad7c3;
+  --olive: #a6ab06;
+  --black: #000000;
+
+
+  --jet-stream: #B4D4CB;
+  --fun-green: #047C21;
+
   /* Light Mode */
-  --bg--light: var(--color-background-light);
-  --nav-bg-light: var(--nav-bg-light);    
-  --txt--light: var(--_hue) 40% 5%;
-  --accent--light: var(--_hue) 55% 50%;
-  --accent1--light: 10 80% 60%;
-  --muted--light: var(--_hue) 30% 99%;
+  --color-primary-light: var(--red);
+  --color-secondary-light: var(--blue);
+  --color-background-light: #ffffff;
+  --color-accent-light: var(--teal);
+  --color-alert-light: var(--olive);
+  --txt--light: #333333;
+  --muted--light: #666666;
+  --nav-background-light: #f0f0f0;
+
   /* Dark Mode */
-  --bg--dark: var(--color-background-dark);
-  --nav-bg-dark: var(--nav-bg-dark);  
-  --txt--dark: var(--_hue) 30% 88%;
-  --accent--dark: var(--_hue) 50% 50%;
-  --accent1--dark: 10 55% 50%;
-  --muted--dark: var(--_hue) 20% 4%;
+  --color-primary-dark: var(--red);
+  --color-secondary-dark: var(--teal);
+  --color-background-dark: #333333;
+  --color-accent-dark: var(--olive);
+  --color-alert-dark: var(--fun-green);
+  --txt--dark: #eeeeee;
+  --muted--dark: #bbbbbb;
+  --nav-background-dark:  #2a2a2a;
 
-  /* Pesos y estilos de fuente */
-  --font-weight-normal: 400;
-  --font-weight-bold: 700;
-  --font-style-normal: normal;
-  --font-style-italic: italic;
+  /* Font Sizes */
+  --font-size-base: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-large: 1.25rem;
 
-  /* Tamaños de fuente */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-small: 0.875rem; /* 14px */
-  --font-size-large: 1.25rem; /* 20px */
-
-  /* Espaciado (márgenes y paddings) */
+  /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 3rem;
 
-  /* Bordes y radios */
+  /* Borders */
   --border-width: 1px;
   --border-style: solid;
   --border-radius: 0.25rem;
-
-  /* Radios específicos para elementos como botones, tarjetas */
   --border-radius-sm: 0.2rem;
   --border-radius-lg: 0.3rem;
   --border-radius-xl: 0.7rem;
-  /* Transiciones y animaciones */
+
+  /* Transitions and Animations */
   --transition-fast: 0.3s ease-in-out;
   --transition-slow: 0.6s ease-in-out;
 
-  /* Duraciones específicas para hover, carga de página, etc. */
+  /* Durations */
   --duration-fast: 200ms;
   --duration-slow: 500ms;
 }
 
-body {
-  font-family: "Poiret One", cursive;
-}
-
-h1 {
-  font-family: "Kanit", sans-serif;
-  font-size: 2.5em; /* Ajustar según el diseño */
-}
-
-h2,
-h3 {
-  font-family: "Kanit", sans-serif;
-  font-weight: 700; /* Para un poco más de énfasis */
-}
-
-p,
-li,
-button,
-input {
-  font-family: "Shanti", sans-serif;
-}
-
-i,
-span {
-  font-family: "Kanit", sans-serif;
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: var(--bg--dark);
-    --navbg: var(var(--nav-bg-dark));
+    --bg: var(--color-background-dark);
     --txt: var(--txt--dark);
-    --accent: var(--accent--dark);
-    --accent1: var(--accent1--dark);
-    --muted: var(--muted--dark);
-    color-scheme: dark;
+    --nav-bg: var(--nav-background-dark);
+    --accent: var(--color-accent-dark);
+    --alert: var(--color-alert-dark);
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: var(--bg--light);
-    --navbg: var(var(--nav-bg-light));
+    --bg: var(--color-background-light);
     --txt: var(--txt--light);
-    --accent: var(--accent--light);
-    --accent1: var(--accent1--light);
-    --muted: var(--muted--light);
-    color-scheme: light;
+    --nav-bg: var(--nav-background-light);
+    --accent: var(--color-accent-light);
+    --alert: var(--color-alert-light);
   }
 }
 
 [color-scheme="dark"] {
-  --bg: var(--bg--dark);
-  --txt: var(--txt--dark);
-  --accent: var(--accent--dark);
-  --accent1: var(--accent1--dark);
-  --muted: var(--muted--dark);
-  color-scheme: dark;
+  --bg: var(--color-background-dark);    /* Fondo general para modo oscuro */
+  --txt: #dddddd;                        /* Color de texto principal para modo oscuro */
+  --nav-bg: var(--nav-background-dark);  /* Fondo de navegación para modo oscuro */
+  --accent: var(--color-accent-dark);    /* Color de acento para modo oscuro */
+  --alert: var(--color-alert-dark);      /* Color de alerta para modo oscuro */
+  --muted: #bbbbbb;                      /* Color de texto secundario/muted para modo oscuro */
 }
 
 [color-scheme="light"] {
-  --bg: var(--bg--light);
-  --txt: var(--txt--light);
-  --accent: var(--accent--light);
-  --accent1: var(--accent1--light);
-  --muted: var(--muted--light);
-  color-scheme: light;
+  --bg: var(--color-background-light);   /* Fondo general para modo claro */
+  --txt: #333333;                        /* Color de texto principal para modo claro */
+  --nav-bg: var(--nav-background-light); /* Fondo de navegación para modo claro */
+  --accent: var(--color-accent-light);   /* Color de acento para modo claro */
+  --alert: var(--color-alert-light);     /* Color de alerta para modo claro */
+  --muted: #666666;                      /* Color de texto secundario/muted para modo claro */
 }
+
 
 @media screen and (max-width: 768px) {
   :root {
@@ -181,58 +131,35 @@ span {
   }
 }
 
-/* prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --_tspeed_slow: 50ms;
     --_tspeed_fast: 50ms;
+    --_tspeed_slow: 50ms;
   }
 }
 
 body {
   min-height: 100vh;
   display: grid;
-  background-color: hsl(var(--bg));
-  color: hsl(var(--txt));
+  background-color: var(--bg);
+  color: var(--txt);
+  font-family: "Poiret One", cursive;
 }
 
-.btn {
-  display: flex;
-  place-items: center;
-  gap: 0.5em;
-  background-color: hsl(var(--accent));
-  color: hsl(var(--bg));
-  text-decoration: none;
-  padding: 0.2em;
-  border-radius: var(--_radius);
-  box-shadow: 0.05em 0.1em 0.9em hsl(var(--accent) / 0.3),
-    0 0 0 -0.1em hsl(var(--bg)), 0 0 0 -0.2em hsl(var(--accent));
-  transition: box-shadow var(--_tspeed_fast) var(--_ttype_squish),
-    background-color var(--_tspeed_fast) var(--_ttype_squish);
+h1, h2, h3 {
+  font-family: "Kanit", sans-serif;
 }
 
-.btn :where(svg, img, span) {
-  pointer-events: none;
+h1 {
+  font-size: 2.5em;
 }
 
-.btn :where(svg, img) {
-  width: var(--_size);
-  height: var(--_size);
+h2, h3 {
+  font-weight: var(--font-weight-bold);
 }
 
-.btn:where(:active, :hover) {
-  background-color: hsl(var(--accent) / 0.7);
-  box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 -0.1em hsl(var(--bg)),
-    0 0 0 -0.2em hsl(var(--accent));
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:focus-visible {
-  box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 0.2em hsl(var(--bg)),
-    0 0 0 0.4em hsl(var(--accent) / 0.7);
+p, li, button, input, span, i {
+  font-family: "Shanti", sans-serif;
 }
 
 a{
@@ -244,120 +171,42 @@ li {
   list-style-type: none;
 }
 
+
+/* Establecimiento de la familia de fuentes base */
+.shanti-regular, .poiret-one-regular, .kanit-style {
+  font-style: normal;
+  font-family: sans-serif; /* Valor predeterminado que será sobreescrito */
+}
+
 .shanti-regular {
   font-family: "Shanti", sans-serif;
   font-weight: 400;
-  font-style: normal;
 }
+
 .poiret-one-regular {
   font-family: "Poiret One", sans-serif;
   font-weight: 400;
-  font-style: normal;
-}
-.kanit-thin {
-  font-family: "Kanit", sans-serif;
-  font-weight: 100;
-  font-style: normal;
 }
 
-.kanit-extralight {
+/* Configuración genérica para Kanit con diferentes pesos y estilos */
+.kanit-style {
   font-family: "Kanit", sans-serif;
-  font-weight: 200;
-  font-style: normal;
 }
 
-.kanit-light {
-  font-family: "Kanit", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
+/* Clases para cada peso y estilo de Kanit */
+.kanit-thin { font-weight: 100; }
+.kanit-extralight { font-weight: 200; }
+.kanit-light { font-weight: 300; }
+.kanit-regular { font-weight: 400; }
+.kanit-medium { font-weight: 500; }
+.kanit-semibold { font-weight: 600; }
+.kanit-bold { font-weight: 700; }
+.kanit-extrabold { font-weight: 800; }
+.kanit-black { font-weight: 900; }
 
-.kanit-regular {
-  font-family: "Kanit", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.kanit-medium {
-  font-family: "Kanit", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.kanit-semibold {
-  font-family: "Kanit", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.kanit-bold {
-  font-family: "Kanit", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.kanit-extrabold {
-  font-family: "Kanit", sans-serif;
-  font-weight: 800;
-  font-style: normal;
-}
-
-.kanit-black {
-  font-family: "Kanit", sans-serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-.kanit-thin-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 100;
-  font-style: italic;
-}
-
-.kanit-extralight-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 200;
-  font-style: italic;
-}
-
-.kanit-light-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.kanit-regular-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.kanit-medium-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.kanit-semibold-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.kanit-bold-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.kanit-extrabold-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 800;
-  font-style: italic;
-}
-
-.kanit-black-italic {
-  font-family: "Kanit", sans-serif;
-  font-weight: 900;
+/* Clases para estilos itálicos de Kanit */
+.kanit-thin-italic, .kanit-extralight-italic, .kanit-light-italic,
+.kanit-regular-italic, .kanit-medium-italic, .kanit-semibold-italic,
+.kanit-bold-italic, .kanit-extrabold-italic, .kanit-black-italic {
   font-style: italic;
 }

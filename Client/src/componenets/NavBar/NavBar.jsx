@@ -1,25 +1,26 @@
 import { Link } from "react-router-dom";
 
+import ThemeSwitcher from "../ui/ThemeSwitcher/ThemeSwitcher";
 import ShoppintCart from "../ShoppingCart/ShoppintCart";
 import SearchBar from "../SearchBar/SearchBar";
 import Auth from "../Auth/Auth";
 import Logo from "../ui/Logo/Logo";
-
 import styles from "./navBar.module.css";
+import { capitalizeFirstLetter } from "../../utils/strings";
 
 const NavBar = () => {
   const categoriesGroups = [
     {
-      name: "Electronica",
+      name: "electronica",
     },
     {
-      name: "Celulares",
+      name: "celulares",
     },
     {
-      name: "Computacion",
+      name: "computacion",
     },
     {
-      name: "Varios",
+      name: "varios",
     },
   ];
 
@@ -36,7 +37,7 @@ const NavBar = () => {
           <ul className={styles.navLinks}>
             {categoriesGroups.map((cat) => (
               <li key={Math.random()}>
-                <Link to={"/"}>{cat.name}</Link>
+                <Link to={"/"}>{capitalizeFirstLetter(cat.name)}</Link>
               </li>
             ))}
           </ul>
@@ -44,8 +45,10 @@ const NavBar = () => {
 
         <div className={styles.userControls}>
           <SearchBar />
+          <ThemeSwitcher/>
           <Auth />
           <ShoppintCart />
+
         </div>
       </nav>
     </>

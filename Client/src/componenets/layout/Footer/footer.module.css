@@ -1,0 +1,32 @@
+.footer{
+    width: 100%;
+    min-height: 18rem;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-direction: column;
+    justify-content: end;
+    background-color: var(--nav-bg);
+}
+.data{
+    display: flex;
+    justify-content: space-evenly;
+}
+.bottom{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+    justify-content: center;
+}
+
+.bottom p {
+    max-width: 768px;
+    margin-inline: auto;
+}
+
+.copyright{
+    background-color: var(--nav-bg);
+
+}

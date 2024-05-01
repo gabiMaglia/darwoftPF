@@ -1,11 +1,16 @@
+import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
+
 import styles from "./auth.module.css";
 
 const Auth = () => {
+
+ 
   return (
+
     <>
       <div className={styles.authPanel}>
-        <button className="btn">Login</button>
-        <button className="btn">SingUp</button>
+        <OutlinedButton className="btn">Login</OutlinedButton>
+        <OutlinedButton className="btn">SingUp</OutlinedButton>
       </div>
     </>
   );

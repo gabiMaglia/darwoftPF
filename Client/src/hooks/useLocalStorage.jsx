@@ -1,21 +1,32 @@
-import { useEffect } from "react";
-import { useState } from "react"
+import { useState } from "react";
 
-const useLocalStorage = (key, initialValue) => {
-  const [value, setValue] = useState(() => {
+export const useLocalStorage = (key, initialValue) => {
+
+  /**  
+  *Hook tomado de MiduDev
+  */
+
+  const [storedValue, setStoredValue] = useState(() => {
     try {
-      const localValue = window.localStorage.getItem(key);
-      return localValue ? JSON.parse(localValue) : initialValue;
-    } catch (err) {
-      console.log(err)
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
       return initialValue;
     }
-  })
+  });
 
-  useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(value))
-  }, [key, value])
+  const setValue = (value) => {
+    try {
+      setStoredValue(value);
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  return [value, setValue]
-}
-export default useLocalStorage
+  
+
+  return [storedValue, setValue]
+};
+
+
