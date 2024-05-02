@@ -8,14 +8,10 @@
   padding: 0;
 }
 
-html,
-body {
-  height: 100dvh;
-  width: 100dvw;
-}
 button,
 input,
 label {
+ 
   font: inherit;
   border: none;
   cursor: pointer;
@@ -72,6 +68,7 @@ label {
   --breakpoint-xxl: 1440px;
 
   /* Font Sizes */
+  --font-size-xsmall: 0.575rem;
   --font-size-small: 0.875rem;
   --font-size-base: 1rem;
   --font-size-large: 1.25rem;
@@ -82,6 +79,7 @@ label {
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 3rem;
+  --spacing-xxl: 4rem;
 
   /* Borders */
   --border-width: 1px;
@@ -121,8 +119,8 @@ label {
 }
 
 [color-scheme="dark"] {
-  --bg: var(--color-background-dark); /* Fondo general para modo oscuro */
-  --txt: #dddddd; /* Color de texto principal para modo oscuro */
+  --bg: var(--color-background-dark); 
+  --txt: #dddddd; 
   --nav-bg: var(
     --nav-background-dark
   ); /* Fondo de navegación para modo oscuro */
@@ -169,21 +167,11 @@ h3 {
   font-family: "Kanit", sans-serif;
 }
 
-h1 {
-  font-size: 2.5em;
-}
-
-h2,
-h3 {
-  font-weight: var(--font-weight-bold);
-}
-
 p,
 li,
 button,
 input,
-span,
-i {
+span {
   font-family: "Shanti", sans-serif;
 }
 

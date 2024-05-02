@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { slide as Menu } from "react-burger-menu";
+
 import ThemeSwitcher from "../ui/ThemeSwitcher/ThemeSwitcher";
 import ShoppintCart from "../ShoppingCart/ShoppintCart";
 import SearchBar from "../SearchBar/SearchBar";
@@ -30,13 +32,14 @@ const NavBar = () => {
   return (
     <>
       <nav className={styles.navBar}>
-        <div className={styles.navGroup1}>
-          <div className={styles.logo}>
-            <Link to="/">
-              <Img img={mainLogoColor} alt="Folk tecnotienda" />
-            </Link>
-          </div>
+        <div className={styles.logo}>
+          <Link to="/">
+            <Img img={mainLogoColor} alt="Folk tecnotienda" />
+          </Link>
+        </div>
 
+        <Menu sOpen={true} width={ '300px' } right
+        >
           <ul className={styles.navLinks}>
             {categoriesGroups.map((cat) => (
               <li key={Math.random()}>
@@ -44,16 +47,16 @@ const NavBar = () => {
               </li>
             ))}
           </ul>
-        </div>
 
-        <div className={styles.userControls}>
-
-          <SearchBar />
-          <ThemeSwitcher/>
-          <Auth />
-          <ShoppintCart />
-
-        </div>
+          <div className={styles.userControlsgroup}>
+            <div className={styles.userControls}>
+              <SearchBar />
+              <ThemeSwitcher />
+              <Auth />
+            </div>
+            <ShoppintCart />
+          </div>
+        </Menu>
       </nav>
     </>
   );

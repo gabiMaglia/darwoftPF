@@ -1,6 +1,6 @@
 import Header from "./Header/Header.jsx";
 import Footer from "./Footer/Footer.jsx";
-import WhatsApp from '../ui/WatsAppIcon/WatsApp.jsx'
+import WhatsApp from '../ui/icons/WatsApp.jsx'
 
 import styles from "./layout.module.css";
 const Layout = ({ children }) => {

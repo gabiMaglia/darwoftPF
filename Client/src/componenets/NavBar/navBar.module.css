@@ -1,20 +1,19 @@
 .navBar {
+  position: sticky;
+  top: 0;
   background-color: var(--nav-bg);
-  max-width: 100svw;
+  height: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 7rem;
   padding: var(--spacing-md);
-  border: 1px solid black;
+  border-bottom: 1px solid black;
+  z-index: 1;
 }
+ 
 .logo {
   width: 100px;
-}
-.navGroup1 {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xl);
+  z-index: 2;
 }
 .navLinks {
   display: flex;
@@ -23,12 +22,12 @@
   font-weight: var(--font-weight-bold);
 }
 
+.userControlsgroup {
+  display: flex;
+  gap: var(--spacing-xxl);
+}
 .userControls {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
-}
-
-.userControls div:nth-child(1) {
-  /* margin-right: 120px; */
 }

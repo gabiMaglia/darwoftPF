@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Carusel from "./Carusel.jsx";
-
 import styles from "./billboard.module.css";
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+} from "@heroicons/react/24/outline";
 
 const BillBoard = ({ products }) => {
   const limit = products.length;
-
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 3600);
+    return () => clearInterval(timer);
+  }, [currentSlide, limit]);
 
   const nextSlide = () => {
     setCurrentSlide(currentSlide !== limit - 1 ? currentSlide + 1 : 0);
@@ -17,9 +26,15 @@ const BillBoard = ({ products }) => {
   return (
     <article className={styles.billboard}>
       <div className={styles.buttons}>
-        <button onClick={prevSlide}>Prev</button>
+        <div className={styles.controls} onClick={prevSlide}>
+          <ChevronDoubleLeftIcon />
+          Prev    
+        </div>
         <Carusel data={products[currentSlide]} />
-        <button onClick={nextSlide}>Next</button>
+        <div className={styles.controls} onClick={nextSlide}>
+          <ChevronDoubleRightIcon />
+          Next
+        </div>
       </div>
       <div className={styles.pagintionDots}>
         {products.map((e, i) => {
@@ -27,6 +42,9 @@ const BillBoard = ({ products }) => {
             <div
               className={i === currentSlide ? styles.active : "none"}
               key={i}
+              onClick={() => {
+                setCurrentSlide(i);
+              }}
             ></div>
           );
         })}

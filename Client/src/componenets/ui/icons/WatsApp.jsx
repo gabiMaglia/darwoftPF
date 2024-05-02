@@ -1,5 +1,3 @@
-import styles from "./whatsApp.module.css";
-
 const WatsApp = () => {
   return (
 <a href="https://wa.me/3417207863" target="blank">

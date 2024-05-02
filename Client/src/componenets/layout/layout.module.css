@@ -1,6 +1,6 @@
 .whatsApp{
-    position: absolute;
-    bottom: 48px;
+    position: fixed;
+    bottom: 28px;
     right: 48px;
     z-index: 1;
     cursor: pointer;
@@ -9,5 +9,6 @@
     background-color: chartreuse;
     width: 60px;
     height: 60px;
+    padding: .3rem;
     border-radius: 50%;
 }
