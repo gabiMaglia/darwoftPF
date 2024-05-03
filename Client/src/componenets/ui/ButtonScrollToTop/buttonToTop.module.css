@@ -1,0 +1,10 @@
+.buttonToTop{
+    position: fixed;
+    bottom: 28px;
+    left: 48px;
+    display: none;
+}
+
+.isVisible {
+  display: block;
+}

@@ -1,7 +1,8 @@
+import styles from "./whatsApp.module.css";
+
 const WatsApp = () => {
   return (
-<a href="https://wa.me/3417207863" target="blank">
-  
+    <a className={styles.whatsappIcon} href="https://wa.me/3417207863" target="blank">
       <svg
         fill="#ffffff"
         height="200px"
@@ -10,7 +11,7 @@ const WatsApp = () => {
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
         // eslint-disable-next-line react/no-unknown-property
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 308 308"
         xmlSpace="preserve"
         stroke="#ffffff"
@@ -36,8 +37,7 @@ const WatsApp = () => {
           </g>{" "}
         </g>
       </svg>
-  
-</a>
+    </a>
   );
 };
 

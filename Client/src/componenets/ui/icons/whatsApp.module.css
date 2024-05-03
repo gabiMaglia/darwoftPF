@@ -1,0 +1,16 @@
+.whatsappIcon {
+    position: fixed;
+    bottom: 28px;
+    right: 48px;
+    z-index: 1;
+    cursor: pointer;
+  }
+  .whatsappIcon svg {
+    background-color: chartreuse;
+    width: 60px;
+    height: 60px;
+    padding: 0.3rem;
+    border-radius: 50%;
+  }
+  
+  

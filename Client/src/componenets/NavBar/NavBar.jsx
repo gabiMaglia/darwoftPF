@@ -27,7 +27,7 @@ const categoriesGroups = [
   },
 ];
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <nav className={styles.navBar}>
@@ -58,9 +58,11 @@ const NavBar = () => {
         <div className={styles.shoppingCart}>
           <ShoppintCart />
         </div>
-        <div 
-        className={`${styles.navToogle} ${isOpen && styles.open}`}
-        onClick={()=> {setIsOpen(!isOpen)}}
+        <div
+          className={`${styles.navToogle} ${isOpen && styles.open}`}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
         >
           <span></span>
           <span></span>
