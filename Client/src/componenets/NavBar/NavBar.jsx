@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 
-import { slide as Menu } from "react-burger-menu";
-
 import ThemeSwitcher from "../ui/ThemeSwitcher/ThemeSwitcher";
 import ShoppintCart from "../ShoppingCart/ShoppintCart";
 import SearchBar from "../SearchBar/SearchBar";
@@ -12,23 +10,24 @@ import styles from "./navBar.module.css";
 import { capitalizeFirstLetter } from "../../utils/strings";
 
 import mainLogoColor from "../../assets/logos_png/logos folk-02.png";
+import { useState } from "react";
 
+const categoriesGroups = [
+  {
+    name: "electronica",
+  },
+  {
+    name: "celulares",
+  },
+  {
+    name: "computacion",
+  },
+  {
+    name: "varios",
+  },
+];
 const NavBar = () => {
-  const categoriesGroups = [
-    {
-      name: "electronica",
-    },
-    {
-      name: "celulares",
-    },
-    {
-      name: "computacion",
-    },
-    {
-      name: "varios",
-    },
-  ];
-
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <>
       <nav className={styles.navBar}>
@@ -38,8 +37,7 @@ const NavBar = () => {
           </Link>
         </div>
 
-        <Menu sOpen={true} width={ '300px' } right
-        >
+        <div className={`${styles.navItems} ${isOpen && styles.open}`}>
           <ul className={styles.navLinks}>
             {categoriesGroups.map((cat) => (
               <li key={Math.random()}>
@@ -54,9 +52,20 @@ const NavBar = () => {
               <ThemeSwitcher />
               <Auth />
             </div>
-            <ShoppintCart />
           </div>
-        </Menu>
+        </div>
+
+        <div className={styles.shoppingCart}>
+          <ShoppintCart />
+        </div>
+        <div 
+        className={`${styles.navToogle} ${isOpen && styles.open}`}
+        onClick={()=> {setIsOpen(!isOpen)}}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </nav>
     </>
   );
