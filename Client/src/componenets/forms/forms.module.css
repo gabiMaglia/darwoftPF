@@ -1,0 +1,17 @@
+.form, .inputBoxes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    
+}
+.form {
+    gap: var(--spacing-md);
+    
+}
+
+.inputBoxes input {
+    background-color: none;
+    border: 1px solid var(--muted);
+    border-radius: var(--border-radius-xl);
+    padding: .3rem .6rem;
+}

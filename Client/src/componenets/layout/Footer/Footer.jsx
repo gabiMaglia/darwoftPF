@@ -52,10 +52,10 @@ const Footer = () => {
             <p>MERCADOLIBRE</p>
             <p>INSTAGRAM</p>
           </article>
-        </section>
           <div className={styles.logo}>
             <Img img={footerLogo} alt="Folk tecnotienda" />
           </div>
+        </section>
 
         <section className={styles.bottom}>
           <picture>
