@@ -36,6 +36,8 @@ label {
   --jet-stream: #b4d4cb;
   --fun-green: #047c21;
 
+  
+
   /* Light Mode */
   --color-primary-light: var(--red);
   --color-secondary-light: var(--blue);
@@ -249,4 +251,9 @@ li {
 .kanit-extrabold-italic,
 .kanit-black-italic {
   font-style: italic;
+}
+
+
+.errors {
+  color: red!important; 
 }

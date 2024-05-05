@@ -21,12 +21,13 @@ const Auth = () => {
   return (
     <>
       <div className={styles.authPanel}>
+        
         <span onClick={() => setIsLogInModalOpen(true)}>
           <OutlinedButton className={styles.btn}>Login</OutlinedButton>
-       
         </span>
+
         <Modal
-          title="Log in"
+          title="Ingresa"
           isOpen={isLogInModalOpen}
           onClose={() => setIsLogInModalOpen(false)}
         >
@@ -39,7 +40,7 @@ const Auth = () => {
           <OutlinedButton className={styles.btn}>SingUp</OutlinedButton>
         </span>
         <Modal
-          title="SignIn"
+          title="Registrate"
           isOpen={isSignUpModalOpen}
           onClose={() => setIsSignUpModalOpen(false)}
         >
