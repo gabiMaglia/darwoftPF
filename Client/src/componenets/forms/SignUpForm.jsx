@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 import styles from "./forms.module.css";
 import paises from "../../utils/paises";
+import { useState } from "react";
 
 const signUpSchema = Yup.object({
   firstName: Yup.string()
@@ -31,6 +32,7 @@ const signUpSchema = Yup.object({
 });
 
 const SignUpForm = ({ onSubmit }) => {
+  const [nacionality, setNacionality] = useState ('')
   return (
     <>
       <Formik
@@ -47,7 +49,7 @@ const SignUpForm = ({ onSubmit }) => {
         }}
         validationSchema={signUpSchema}
         onSubmit={(values) => {
-          console.log(values)
+          values = {... values, nacionality : nacionality }
           onSubmit(values)}
         }
       >
@@ -68,7 +70,8 @@ const SignUpForm = ({ onSubmit }) => {
 
             <span className={styles.inputBoxes}>
             <label htmlFor="">Nacionalidad</label>  
-            <Field as="select" name="nationality" >
+            <Field as="select" name="nationality" onChange= {(e) => {setNacionality(e.target.value)}} >
+              <option  disabled value=''>Seleccione su nacionalidad</option>
               {paises.map(pais => (
                 <option key={Math.random()} value={pais.toString()}>{pais}</option>
               ))}
