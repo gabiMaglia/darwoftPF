@@ -10,13 +10,12 @@ const Auth = () => {
   const [isLogInModalOpen, setIsLogInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
-  const handleLogInSubmit = (e) => {
-    e.preventDefault()
-    console.log(new FormData(e.tardet));
+  const handleLogInSubmit = (values) => {
+    console.log(values);
     setIsLogInModalOpen(false);
   };
-  const handleSignUpSubmit = (e) => {
-    console.log(new FormData(e.tardet));
+  const handleSignUpSubmit = (values) => {
+    console.log(values);
     setIsSignUpModalOpen(false);
   };
   return (
@@ -24,26 +23,27 @@ const Auth = () => {
       <div className={styles.authPanel}>
         <span onClick={() => setIsLogInModalOpen(true)}>
           <OutlinedButton className={styles.btn}>Login</OutlinedButton>
+       
         </span>
         <Modal
-        title='Log in'
-        isOpen={isLogInModalOpen}
-        onSubmit={handleLogInSubmit}
-        onClose={() => setIsLogInModalOpen(false)}
+          title="Log in"
+          isOpen={isLogInModalOpen}
+          onClose={() => setIsLogInModalOpen(false)}
         >
-          <LoginForm />
+          <LoginForm onSubmit={handleLogInSubmit} />
+          <hr />
+         <a href="">olvidaste tu contrasena?</a>
         </Modal>
 
         <span onClick={() => setIsSignUpModalOpen(true)}>
           <OutlinedButton className={styles.btn}>SingUp</OutlinedButton>
         </span>
         <Modal
-          title='SignIn'
+          title="SignIn"
           isOpen={isSignUpModalOpen}
-          onSubmit={handleSignUpSubmit}
           onClose={() => setIsSignUpModalOpen(false)}
         >
-          <SignUpForm />
+          <SignUpForm onSubmit={handleSignUpSubmit} />
         </Modal>
       </div>
     </>

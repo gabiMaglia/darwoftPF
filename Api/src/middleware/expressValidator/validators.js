@@ -1,7 +1,7 @@
 const { body } = require("express-validator");
 
 const loginValidation = [
-  body("email").trim().exists().isEmail(),
+  body("email").exists().isEmail().withMessage("").trim(),
   body("password")
     .exists({ checkFalsy: true, checkNull: true })
     .isLength({ min: 5 }),
@@ -9,9 +9,9 @@ const loginValidation = [
 
 const registerValidation = [
   body("userData.firstName")
-    .trim()
     .exists({ checkFalsy: true, checkNull: true })
     .isLength({ min: 2 })
+    .trim()
     .toLowerCase(),
   body("userData.lastName")
     .trim()
@@ -82,7 +82,6 @@ const saleOrderValidation = [
     .isLength({ min: 2 })
     .toUpperCase(),
 
-  
   body("orderData.purchaseDate")
     .exists({ checkFalsy: true, checkNull: true })
     .isDate({ format: String }),
@@ -95,7 +94,6 @@ const saleOrderValidation = [
     .trim()
     .isLength({ min: 6 })
     .toLowerCase(),
-  
 ];
 
 module.exports = {

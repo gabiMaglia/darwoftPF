@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 
 import styles from "./button.module.css";
 
-const OutlinedButton = ({ children }) => {
+const OutlinedButton = ({ children , type = ""}) => {
   let theme = useSelector((state) => state.theme.value);
 
   theme = theme === "light" ? "dark" : "light";
 
-  return <button className={styles[theme]}>{children}</button>;
+  return <button type={type} className={styles[theme]}>{children}</button>;
 };
 
 export default OutlinedButton;

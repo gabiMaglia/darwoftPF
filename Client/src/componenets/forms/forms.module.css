@@ -9,9 +9,17 @@
     
 }
 
-.inputBoxes input {
+.inputBoxes input   {
     background-color: none;
     border: 1px solid var(--muted);
     border-radius: var(--border-radius-xl);
     padding: .3rem .6rem;
+}
+
+select {
+    
+    padding: .3rem .6rem;
+    background-color: transparent;
+    border: 1px solid var(--muted);
+    border-radius: var(--border-radius-xl);
 }

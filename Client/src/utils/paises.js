@@ -1,0 +1,22 @@
+export default [
+    "afgana", "albanesa", "alemana", "andorrana", "angoleña", "antiguana", "saudí", "argelina", "argentina", "armenia", "australiana",
+    "austriaca", "azerbaiyana", "bahameña", "bangladesí", "barbadense", "bareiní", "belga", "beliceña", "beninesa", "bielorrusa",
+    "birmana", "boliviana", "bosnia", "botsuana", "brasileña", "bruneana", "búlgara", "burkinesa", "burundesa",
+    "butanesa", "caboverdiana", "camboyana", "camerunesa", "canadiense", "catarí", "chadiana", "chilena", "china", "chipriota", "vaticana",
+    "colombiana", "comorense", "norcoreana", "surcoreana", "marfileña", "costarricense", "croata", "cubana", "danés",
+    "dominiquesa", "ecuatoriana", "egipcia", "salvadoreña", "emiratí", "eritrea", "eslovaca", "eslovena", "española", "estadounidense",
+    "estonia", "etíope", "filipina", "finlandesa", "fiyiana", "francesa", "gabonesa", "gambiana", "georgiana", "ghanesa", "granadina",
+    "griega", "guatemalteca", "guyanesa", "guineana", "ecuatoguineana", "guineana", "haitiana", "hondureña", "húngara", "india",
+    "indonesia", "iraquí", "iraní", "irlandesa", "islandesa", "marshallés", "salomonés", "israelí", "italiana", "jamaicana",
+    "japonesa", "jordana", "kazaja", "keniana", "kirguís", "kiribatiana", "kuwaití", "laosiana", "lesotense", "letona", "libanesa",
+    "liberiana", "libia", "liechtensteiniana", "lituana", "luxemburguesa", "malgache", "malasia", "malauí", "maldiva", "maliense",
+    "maltesa", "marroquí", "mauriciana", "mauritana", "mexicana", "micronesia", "moldava", "monegasca", "mongola", "montenegrina",
+    "mozambiqueña", "namibia", "nauruana", "nepalí", "nicaragüense", "nigerina", "nigeriana", "noruega", "neozelandesa", "omaní",
+    "neerlandesa", "pakistaní", "palauana", "panameña", "papú", "paraguaya", "peruana", "polaca", "portuguesa", "británica",
+    "centroafricana", "checa", "congoleña", "congolesa", "dominicana",
+    "ruandesa", "rumana", "rusa", "samoana", "kittsiana", "marinense", "sanvicentina", "santalucense",
+    "santotomense", "senegalesa", "serbia", "seychellense", "sierraleonesa", "singapurense", "siria", "somalia", "ceylanés",
+    "suazi", "sudafricana", "sudanesa", "sursudanesa", "sueca", "suiza", "surinamesa", "tailandesa", "tanzana", "tayika",
+    "timorense", "togolesa", "tongana", "trinitense", "tunecina", "turcomana", "turca", "tuvaluana", "ucraniana", "ugandesa",
+    "uruguaya", "uzbeca", "vanuatuense", "venezolana", "vietnamita", "yemení", "yibutiana", "zambiana", "zimbabuense"
+];
