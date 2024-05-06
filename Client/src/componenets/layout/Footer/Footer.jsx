@@ -74,7 +74,7 @@ const Footer = () => {
             </p>
           </article>
           <article className={styles.copyright}>
-            <i>&copy; <strong>2023 Gabriel Maglia</strong> Todos los derechos reservados.</i>
+            <i>&copy; <strong>2024 Gabriel Maglia</strong> Todos los derechos reservados.</i>
           </article>
         </section>
       </div>

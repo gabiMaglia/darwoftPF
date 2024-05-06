@@ -19,6 +19,9 @@ const logInSchema = Yup.object({
 });
 
 const LoginForm = ({ onSubmit }) => {
+  const handleResetForm = (formik) => {
+    formik.resetForm();
+  }
   const [isLoading, setIsLoading] = useState(false)
 
   
@@ -43,7 +46,7 @@ const LoginForm = ({ onSubmit }) => {
           actions.setSubmitting(false)
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, resetForm }) => (
           <Form className={styles.form}>
             <span className={styles.inputBoxes}>
               <label htmlFor="">Email</label>
@@ -59,6 +62,7 @@ const LoginForm = ({ onSubmit }) => {
             </span>
             <div className={styles.submitButtons}>
               <OutlinedButton type="submit">Submit</OutlinedButton>
+              <OutlinedButton onClick={() => handleResetForm({ resetForm })}>Limpiar datos</OutlinedButton>
             </div>
           </Form>
         )}

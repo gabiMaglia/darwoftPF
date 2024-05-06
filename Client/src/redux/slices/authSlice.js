@@ -4,8 +4,8 @@ import { loginUser } from "../../services/authServices/authServices";
 export const logInAsync = createAsyncThunk(
   "auth/logInAsync",
   async (credentials) => {
-      const  response  = await loginUser(credentials);
-      console.log(response)
+    const {response} = await loginUser(credentials);
+    if(!response) return {error: true}
     return response;
   }
 );

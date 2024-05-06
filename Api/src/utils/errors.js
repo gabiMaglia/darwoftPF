@@ -1,14 +1,14 @@
 module.exports = {
   auth: {
-    wrongCredentials: "Wrong Credentials",
-    unauthorized: "Not Authorized"
+    wrongCredentials: "Credenciales incorrectas",
+    unauthorized: "No autorizado"
   },
   user: {
-    userNotFound: "User not found",
+    userNotFound: "Usuario no encontrado",
   },
   product: {
-    productNotFound: "Product not found",
-    productsNotFound: "Products not found",
+    productNotFound: "Producto no encontrado",
+    productsNotFound: "Productos no encontrados",
 
     brandsNotFound: "Brands not found",
     brandNotFound: "Brand not found",

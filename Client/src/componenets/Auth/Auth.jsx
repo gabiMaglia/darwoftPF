@@ -19,8 +19,11 @@ const Auth = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
   const handleLogInSubmit = async (values) => {
-    dispatch(logInAsync(values));
-    setIsLogInModalOpen(false);
+     dispatch(logInAsync(values)).then((e) => {
+      if (!e.error)setIsLogInModalOpen(false);
+     });
+   
+     
   };
 
   const handleLogOut = () => {
@@ -29,7 +32,6 @@ const Auth = () => {
   };
   const handleSignUpSubmit = async (values) => {
     await signUpUser(values)
-    
     setIsSignUpModalOpen(false);
   };
 

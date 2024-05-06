@@ -7,29 +7,30 @@ const signUpUser = async (userData) => {
     const { data } = await axios.post(`${URL}/auth/singup`, {
       userData,
     });
-   !data.error &&
-    toast.success(
-      `Usuario ${data.response.user} creado correctamente, chekea la casilla${data.response.email} para activar tu cuenta y poder comprar`
-    );
+    !data.error &&
+      toast.success(
+        `Usuario ${data.response.user} creado correctamente, chekea la casilla${data.response.email} para activar tu cuenta y poder comprar`
+      );
     return true;
   } catch ({ response }) {
- 
     toast.error(JSON.stringify(response.data.errors) || response.data.message);
   }
 };
 
 const loginUser = async (loginData) => {
-
+  try {
     const { email, password } = loginData;
-   
-    const  data  = await axios.post(`${URL}/auth/login`, {
+    const { data } = await axios.post(`${URL}/auth/login`, {
       email: email,
       password: password,
     });
- 
-    console.log(data)
-    // toast.success('Usuario logueado correctamente')
+    if (data.error) return toast.error(data.message);
+    
+    toast.success('Inicio de sesion correcto')
     return data;
+  } catch ({ response }) {
+     toast.error(response.data.message);
+  }
 };
 
 export { signUpUser, loginUser };
