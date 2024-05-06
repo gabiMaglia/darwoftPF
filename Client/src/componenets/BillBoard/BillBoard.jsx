@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 const BillBoard = ({ products }) => {
-  const limit = products.length;
+  const limit = products?.length;
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {

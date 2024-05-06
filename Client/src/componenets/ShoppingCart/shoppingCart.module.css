@@ -1,7 +1,9 @@
 
 .icon{
     margin-bottom: .51rem;
+    margin-left: 2rem;
     width: 66px;
     height: 100%;
+
     padding: var(--spacing-sm);
 }

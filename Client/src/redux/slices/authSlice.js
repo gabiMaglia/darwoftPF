@@ -1,15 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loginUser } from "../../services/authServices/authServices";
+
+export const logInAsync = createAsyncThunk(
+  "auth/logInAsync",
+  async (credentials) => {
+      const  response  = await loginUser(credentials);
+      console.log(response)
+    return response;
+  }
+);
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-        user: null
+  name: "auth",
+  initialState: {
+    user: null,
+  },
+  reducers: {
+    logOut: (state) => {
+      state.user = null;
     },
-    reducers: {
-        logIn: (state, action) => {},
-        logOut: (state) => {}
-    }
-})
+  },
+  extraReducers: (builder) => {
+    builder.addCase(logInAsync.fulfilled, (state, { payload }) => {
+      state.user = payload.user;
+    });
+  },
+});
 
-export const {logIn, logOut} = authSlice.actions
-export default authSlice.reducer
+export const { logOut } = authSlice.actions;
+export default authSlice.reducer;

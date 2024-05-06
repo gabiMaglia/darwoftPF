@@ -15,6 +15,7 @@ const {
   verifyToken,
   checkWhiteListedToken,
 } = require("../../utils/jwt/tokenGenerator");
+const errors = require("../../utils/errors");
 
 const singUp = async (userData) => {
   // DATA
@@ -97,16 +98,16 @@ const singUp = async (userData) => {
     confirmationEmailToken,
     process.env.API_URL
   );
-  return `${user.firstName} succesfolly created`;
+  return {user: user.firstName, email: user.email};
 };
 
 const login = async (email, password) => {
   const userCredentials = await UserCredential.findOne({ email });
-  if (!userCredentials) throw new Error("Wrong Credentials");
+  if (!userCredentials) throw new Error(errors.auth.wrongCredentials);
 
   const dbPassword = userCredentials.password;
   const isPasswordMatching = await bcrypt.compare(password, dbPassword);
-  if (!isPasswordMatching) throw new Error("Wrong Credentials");
+  if (!isPasswordMatching) throw new Error(errors.auth.wrongCredentials);
 
   const user = await User.findOne({ email });
   const role = await UserRole.findById(user.role);
@@ -114,6 +115,7 @@ const login = async (email, password) => {
   const accesToken = await tokenSign({ id: user._id, role }, "2h", false);
 
   return {
+    user,
     accesToken,
   };
 };

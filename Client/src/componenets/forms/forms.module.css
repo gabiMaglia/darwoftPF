@@ -23,7 +23,11 @@ select {
     border: 1px solid var(--muted);
     border-radius: var(--border-radius-xl);
 }
-
+.submitButtons{
+    padding-top: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+}
 .errors {
   color: red!important; 
 }

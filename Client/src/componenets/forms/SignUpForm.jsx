@@ -33,6 +33,10 @@ const signUpSchema = Yup.object({
 
 const SignUpForm = ({ onSubmit }) => {
   const [nacionality, setNacionality] = useState ('')
+  const handleResetForm = (formik) => {
+    formik.resetForm();
+    setNacionality('')
+  }
   return (
     <>
       <Formik
@@ -41,7 +45,7 @@ const SignUpForm = ({ onSubmit }) => {
           lastName: '',
           email: '',
           photo: '',
-          birthday: '',
+          birthday: new Date('1990-01-01'),
           nacionality: '',
           dni: '',
           password: '',
@@ -53,7 +57,7 @@ const SignUpForm = ({ onSubmit }) => {
           onSubmit(values)}
         }
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, resetForm  }) => (
           <Form className={styles.form}>
 
             <span className={styles.inputBoxes}>
@@ -105,8 +109,8 @@ const SignUpForm = ({ onSubmit }) => {
             </span>
 
             <div className={styles.submitButtons}>
-              {/* <input type="submit" /> */}
               <OutlinedButton type='submit'>Registrarse</OutlinedButton>
+              <OutlinedButton onClick={() => handleResetForm({ resetForm })}>Limpiar datos</OutlinedButton>
             </div>
 
           </Form>

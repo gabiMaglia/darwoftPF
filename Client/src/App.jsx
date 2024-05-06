@@ -11,7 +11,7 @@ import About from "./views/About/About";
 import Error404 from "./views/Error404/Error404";
 import ShoppintCart from "./componenets/ShoppingCart/ShoppintCart";
 import WishList from "./views/Wishlist/WishList.jsx";
-
+import { ToasterProvider } from "./providers/toastProvider.jsx";
 import "./App.css";
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
       </Layout>
       <WhatsApp number="3133322233" />
       <ButtonScrollTopComponent />
+      <ToasterProvider/>
     </>
   );
 }

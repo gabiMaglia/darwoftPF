@@ -10,11 +10,11 @@ const logInSchema = Yup.object({
     .email("Email invalido")
     .required("Debes ingresar un email"),
   password: Yup.string()
-    .min(6)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-      "La contrasena debe tener al menos una letra mayuscula, una minuscula y un numero"
-    )
+    // .min(6)
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+    //   "La contrasena debe tener al menos una letra mayuscula, una minuscula y un numero"
+    // )
     .required("Debes ingresar un password"),
 });
 
