@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
-import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
-import styles from "./forms.module.css";
+import SubmitBtns from './SubmitBtns'
 import paises from "../../utils/paises";
-import { useState } from "react";
+
+import styles from "./forms.module.css";
 
 const signUpSchema = Yup.object({
   firstName: Yup.string()
@@ -49,6 +49,7 @@ const SignUpForm = ({ onSubmit }) => {
           nacionality: '',
           dni: '',
           password: '',
+          confirmPassword: '',
           adress:{}
         }}
         validationSchema={signUpSchema}
@@ -61,19 +62,19 @@ const SignUpForm = ({ onSubmit }) => {
           <Form className={styles.form}>
 
             <span className={styles.inputBoxes}>
-            <label htmlFor="">Nombre</label>  
+            <label htmlFor="firstName">Nombre</label>  
             <Field name="firstName"  />
             {errors.firstName && errors.firstName ? <p className={styles.errors}>{errors.firstName}</p> : null}
             </span>
 
             <span className={styles.inputBoxes}>
-            <label htmlFor="">Apellido</label>  
+            <label htmlFor="lastName">Apellido</label>  
             <Field name="lastName" />
             {errors.lastName && touched.lastName ? <p className={styles.errors}>{errors.lastName}</p> : null}
             </span>
 
             <span className={styles.inputBoxes}>
-            <label htmlFor="">Nacionalidad</label>  
+            <label htmlFor="nationality">Nacionalidad</label>  
             <Field as="select" name="nationality" onChange= {(e) => {setNacionality(e.target.value)}} >
               <option  disabled value=''>Seleccione su nacionalidad</option>
               {paises.map(pais => (
@@ -84,33 +85,32 @@ const SignUpForm = ({ onSubmit }) => {
             </span>
           
             <span className={styles.inputBoxes}>
-            <label htmlFor="">Documento de Identidad</label>  
+            <label htmlFor="dni">Documento de Identidad</label>  
             <Field name="dni" />
             {errors.dni && touched.dni ? <p className={styles.errors}>{errors.dni}</p> : null}
             </span>
             
             {/* CRED */}
             <span className={styles.inputBoxes}>
-            <label htmlFor="">Email</label>  
+            <label htmlFor="email">Email</label>  
             <Field name="email" type="email" />
             {errors.email && touched.email ? <p className={styles.errors}>{errors.email}</p> : null}
             </span>
          
             <span className={styles.inputBoxes}>
-            <label htmlFor="">Password</label>  
+            <label htmlFor="password">Password</label>  
             <Field name="password" type="password" />
             {errors.password && touched.password ? <p className={styles.errors}>{errors.password}</p> : null}
             </span>
             
             <span className={styles.inputBoxes}>
-            <label htmlFor="">Confirmar Password</label>  
+            <label htmlFor="confirmPassword">Confirmar Password</label>  
             <Field name="confirmPassword" type="password" />
             {errors.confirmPassword && touched.confirmPassword ? <p className={styles.errors}>{errors.confirmPassword}</p> : null}
             </span>
 
             <div className={styles.submitButtons}>
-              <OutlinedButton type='submit'>Registrarse</OutlinedButton>
-              <OutlinedButton onClick={() => handleResetForm({ resetForm })}>Limpiar datos</OutlinedButton>
+              <SubmitBtns  okTitle= "Registrarse" canceTitle="Limpiar Datos" handleCancelForm={handleResetForm} resetForm={resetForm} />
             </div>
 
           </Form>

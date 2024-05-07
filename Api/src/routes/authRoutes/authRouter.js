@@ -5,9 +5,11 @@ const {
   confirmAccountHandler,
   forgetPasswordHandler,
   changePasswordHandler,
+  logOutHandler,
 } = require("../../handlers/authHandler");
 const validateResults = require("../../middleware/expressValidator/expressValidation");
 const { loginValidation, registerValidation } = require("../../middleware/expressValidator/validators");
+const { isAutenticated } = require("../../middleware/tokenAuthMiddlewares");
 const authRouter = Router();
 
 authRouter.post(
@@ -22,6 +24,8 @@ authRouter.post(
   validateResults,
   singUpHandler
 );
+
+authRouter.post('/logout', isAutenticated, logOutHandler)
 
 authRouter.get("/confirm/:token", confirmAccountHandler);
 

@@ -36,7 +36,7 @@ const sendResetPasswordEmail = async (
   gateway
 ) => {
 
-  const resetPasswordUrl = `${gateway}/api/changepassword/${jwtToken}`;
+  const resetPasswordUrl = `${gateway}/changepassword/${jwtToken}`;
   return transporter
     .sendMail({
       from: adminEmail,

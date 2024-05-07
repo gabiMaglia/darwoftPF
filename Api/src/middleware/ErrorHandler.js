@@ -1,11 +1,11 @@
 const errors = require("../utils/errors");
 
 const errorStatus = (message) => {
-  if (
-    message === errors.product.remainingProductsInBrand ||
-    message.includes("validation")
-  )
-    return 400;
+  if (message === errors.product.remainingProductsInBrand) return 400;
+
+  if (message.includes("validation") || message.includes("duplicate"))
+    return 422;
+
   if (message === errors.auth.wrongCredentials) return 401;
 
   if (message === errors.user.userNotFound) return 404;

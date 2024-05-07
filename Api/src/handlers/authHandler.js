@@ -4,14 +4,14 @@ const {
   resetPassword,
   sendEmailToResetPassword,
   singUp,
+  logOutUser,
 } = require("../controllers/auth/authController");
 
 const loginHandler = async (req, res, next) => {
   try {
-   
     const { email, password } = req.body;
     const response = await login(email, password);
-   
+
     res.status(200).json({ login: true, response });
   } catch (error) {
     next(error);
@@ -19,8 +19,8 @@ const loginHandler = async (req, res, next) => {
 };
 const singUpHandler = async (req, res, next) => {
   try {
-    const {userData} = req.body
-    const response = await singUp(userData)
+    const { userData } = req.body;
+    const response = await singUp(userData);
     res.status(200).json({ error: false, response });
   } catch (error) {
     next(error);
@@ -38,7 +38,6 @@ const confirmAccountHandler = async (req, res, next) => {
     next(error);
   }
 };
-
 const forgetPasswordHandler = async (req, res, next) => {
   try {
     const email = req.params;
@@ -56,15 +55,25 @@ const changePasswordHandler = async (req, res, next) => {
     const token = req.params;
     const password = req.body;
     const response = await resetPassword(password, token);
-    res.status(200).json({ error: false, response });
+    return res.status(200).json({ error: false, response });
   } catch (error) {
     next(error);
   }
 };
+const logOutHandler = async (req, res, next) => {
+  try {
+    const token = req.token;
+    const response = await logOutUser(token);
+    if (response) return res.status(200).json({ error: false, response });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginHandler,
   singUpHandler,
-
+  logOutHandler,
   confirmAccountHandler,
   forgetPasswordHandler,
   changePasswordHandler,

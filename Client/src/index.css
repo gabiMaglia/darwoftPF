@@ -10,9 +10,7 @@
   padding: 0;
 }
 
-button,
-input,
-label {
+button{
   font: inherit;
   border: none;
   cursor: pointer;
@@ -126,21 +124,21 @@ label {
   --txt: #dddddd;
   --nav-bg: var(
     --nav-background-dark
-  ); /* Fondo de navegación para modo oscuro */
-  --accent: var(--color-accent-dark); /* Color de acento para modo oscuro */
-  --alert: var(--color-alert-dark); /* Color de alerta para modo oscuro */
-  --muted: #bbbbbb; /* Color de texto secundario/muted para modo oscuro */
+  ); 
+  --accent: var(--color-accent-dark);
+  --alert: var(--color-alert-dark); 
+  --muted: #bbbbbb; 
 }
 
 [color-scheme="light"] {
-  --bg: var(--color-background-light); /* Fondo general para modo claro */
-  --txt: #333333; /* Color de texto principal para modo claro */
+  --bg: var(--color-background-light); 
+  --txt: #333333;
   --nav-bg: var(
     --nav-background-light
-  ); /* Fondo de navegación para modo claro */
-  --accent: var(--color-accent-light); /* Color de acento para modo claro */
-  --alert: var(--color-alert-light); /* Color de alerta para modo claro */
-  --muted: #666666; /* Color de texto secundario/muted para modo claro */
+  ); 
+  --accent: var(--color-accent-light);
+  --alert: var(--color-alert-light); 
+  --muted: #666666; 
 }
 
 @media screen and (max-width: 768px) {
@@ -157,9 +155,7 @@ label {
 }
 
 body {
-  min-height: 100vh;
-  height: 100vh;
-  display: grid;
+  height: 100dvh;
   background-color: var(--bg);
   color: var(--txt);
   font-family: "Poiret One", cursive;

@@ -9,3 +9,9 @@
     display: flex;
     justify-content: end;
 }
+.forget{
+    text-align: center;
+    padding: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+    cursor: pointer;
+}

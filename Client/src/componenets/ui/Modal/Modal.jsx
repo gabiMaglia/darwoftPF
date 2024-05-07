@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-
 import { XCircleIcon } from "@heroicons/react/24/solid";
 
 import styles from "./modal.module.css";

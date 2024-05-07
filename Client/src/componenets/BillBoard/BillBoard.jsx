@@ -7,10 +7,12 @@ import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
 } from "@heroicons/react/24/outline";
+import { useLocation } from "react-router-dom";
 
 const BillBoard = ({ products }) => {
   const limit = products?.length;
   const [currentSlide, setCurrentSlide] = useState(0);
+  const location = useLocation()
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,6 +27,11 @@ const BillBoard = ({ products }) => {
   const prevSlide = () => {
     setCurrentSlide(currentSlide !== 0 ? currentSlide - 1 : limit - 1);
   };
+  
+  if (location.pathname.includes('profile')) {
+    return null; 
+  }
+
   return (
     <article className={styles.billboard}>
       <div className={styles.buttons}>

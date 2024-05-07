@@ -10,16 +10,16 @@ module.exports = {
     productNotFound: "Producto no encontrado",
     productsNotFound: "Productos no encontrados",
 
-    brandsNotFound: "Brands not found",
-    brandNotFound: "Brand not found",
+    brandsNotFound: "Marcas no encontradas",
+    brandNotFound: "Marca no encontrada",
     remainingProductsInBrand:
-      "Please delete all product that belongs to this brand before deleting the brand",
+      "Por favor elimine todos los productos de esta marca antes de eliminarla",
     
-     categoriesNotFound: "Categories Not Found", 
-     categoryNotFound: "Category Not Found", 
+     categoriesNotFound: "Categorias no encontradas", 
+     categoryNotFound: "Categoria no encontrada", 
      remainingProductsInCategory:
-      "Please delete all product in this category before deleting the category",
+      "Por favor elimine todos los productos de esta categoria antes de eliminarla",
      remainingCategoriesInGroup:
-      "Please delete all categories in this group before deleting the group",
+     "Por favor elimine todos las categorias de este grupo antes de eliminarlo",
   },
 };

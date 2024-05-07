@@ -17,6 +17,35 @@ const {
 } = require("../../utils/jwt/tokenGenerator");
 const errors = require("../../utils/errors");
 
+const login = async (email, password) => {
+  const userCredentials = await UserCredential.findOne({ email });
+  if (!userCredentials) throw new Error(errors.auth.wrongCredentials);
+
+  const dbPassword = userCredentials.password;
+
+  const isPasswordMatching = await bcrypt.compare(password, dbPassword);
+
+  if (!isPasswordMatching) throw new Error(errors.auth.wrongCredentials);
+
+  const user = await User.findOne({ email }).select({
+    credentials: 0,
+    createdAt: 0,
+    updatedAt: 0,
+    __v: 0
+  }).populate('adress');
+  const { role } = await UserRole.findById(user.role);
+  const accesToken = await tokenSign({ id: user._id, role }, "2h", false);
+
+
+  return {
+    user: {
+      ...user.toObject(),
+      role: role 
+    },
+    accesToken,
+  };
+};
+
 const singUp = async (userData) => {
   // DATA
   const {
@@ -39,7 +68,7 @@ const singUp = async (userData) => {
     number = "",
     zipCode = "",
   } = adress;
-  console.log(userData)
+  console.log(userData);
   const userCart = [];
   const userWishList = [];
 
@@ -98,26 +127,7 @@ const singUp = async (userData) => {
     confirmationEmailToken,
     process.env.API_URL
   );
-  return {user: user.firstName, email: user.email};
-};
-
-const login = async (email, password) => {
-  const userCredentials = await UserCredential.findOne({ email });
-  if (!userCredentials) throw new Error(errors.auth.wrongCredentials);
-
-  const dbPassword = userCredentials.password;
-  const isPasswordMatching = await bcrypt.compare(password, dbPassword);
-  if (!isPasswordMatching) throw new Error(errors.auth.wrongCredentials);
-
-  const user = await User.findOne({ email });
-  const role = await UserRole.findById(user.role);
-
-  const accesToken = await tokenSign({ id: user._id, role }, "2h", false);
-
-  return {
-    user,
-    accesToken,
-  };
+  return { user: user.firstName, email: user.email };
 };
 
 const confirmAccount = async (token) => {
@@ -139,6 +149,7 @@ const confirmAccount = async (token) => {
 
 const sendEmailToResetPassword = async (email) => {
   const user = await User.findOne(email);
+
   const dataForToken = {
     email: user.email,
     id: user.id,
@@ -164,6 +175,7 @@ const resetPassword = async (newPassword, token) => {
       response: "Token incorrecto",
     };
   }
+
   const user = await User.findById(userDataFromtoken.id);
   if (userDataFromtoken.email !== user.email) {
     return {
@@ -171,6 +183,7 @@ const resetPassword = async (newPassword, token) => {
       response: "Token incorrecto",
     };
   }
+
   const userCredentials = await UserCredential.findById(user.credentials);
   if (!userCredentials) {
     return {
@@ -178,7 +191,6 @@ const resetPassword = async (newPassword, token) => {
       response: "Credenciales no encontradas",
     };
   } else {
-    await logOutUser(token);
     await userCredentials.update({
       password: await bcrypt.hash(newPassword, 8),
     });
@@ -190,9 +202,16 @@ const resetPassword = async (newPassword, token) => {
   }
 };
 
+const logOutUser = async (token) => {
+  await TokenWhiteList.deleteOne({ token: token });
+  return true;
+  
+};
+
 module.exports = {
   singUp,
   login,
+  logOutUser,
   confirmAccount,
   sendEmailToResetPassword,
   resetPassword,

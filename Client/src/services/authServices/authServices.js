@@ -11,9 +11,10 @@ const signUpUser = async (userData) => {
       toast.success(
         `Usuario ${data.response.user} creado correctamente, chekea la casilla${data.response.email} para activar tu cuenta y poder comprar`
       );
-    return true;
+    return {error: false};
   } catch ({ response }) {
-    toast.error(JSON.stringify(response.data.errors) || response.data.message);
+    toast.error(JSON.stringify(response.data.message));
+    return { error: true };
   }
 };
 
@@ -25,12 +26,35 @@ const loginUser = async (loginData) => {
       password: password,
     });
     if (data.error) return toast.error(data.message);
-    
-    toast.success('Inicio de sesion correcto')
+
+    toast.success("Inicio de sesion correcto");
     return data;
   } catch ({ response }) {
-     toast.error(response.data.message);
+    toast.error(response.data.message);
+  }
+};
+const logOutUser = async (token) => {
+  try {
+    await axios.post(`${URL}/auth/logout`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return true;
+  } catch (error) {
+   toast.error("Error al cerrar sesión");
+    return false;
   }
 };
 
-export { signUpUser, loginUser };
+const sendMailToResetPassword = async (email) => {
+  try {
+      await axios.get(`${URL}/auth/mailtoreset/${email}`)
+      return true;
+  } catch (error) {
+    toast.error("Error al enviar el mail");
+    return false;
+  }
+}
+
+export { signUpUser, loginUser, logOutUser, sendMailToResetPassword };

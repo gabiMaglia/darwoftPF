@@ -13,6 +13,7 @@ import ShoppintCart from "./componenets/ShoppingCart/ShoppintCart";
 import WishList from "./views/Wishlist/WishList.jsx";
 import { ToasterProvider } from "./providers/toastProvider.jsx";
 import "./App.css";
+import ChangePassword from "./views/ChangePassword/ChangePassword.jsx";
 
 function App() {
   return (
@@ -20,11 +21,12 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/detail/:id" element={<ProductDetail />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/changepassword/:token" element={<ChangePassword />} />
           <Route path="/wish" element={<WishList />} />
           <Route path="/cart" element={<ShoppintCart />} />
+          <Route path="/detail/:id" element={<ProductDetail />} />
+          <Route path="/about" element={<About />} />
           <Route path="/*" element={<Error404 />} />
         </Routes>
       </Layout>

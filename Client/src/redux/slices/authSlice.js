@@ -1,11 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "../../services/authServices/authServices";
+import { loginUser, logOutUser } from "../../services/authServices/authServices";
 
 export const logInAsync = createAsyncThunk(
   "auth/logInAsync",
   async (credentials) => {
     const {response} = await loginUser(credentials);
     if(!response) return {error: true}
+    
+    return response;
+  }
+);
+export const logOutAsync = createAsyncThunk(
+  "auth/logOutAsync",
+  async (token) => {
+    const {response} = await logOutUser(token);
+    if(!response) return {error: true}
+    
     return response;
   }
 );
@@ -14,15 +24,21 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
+    token: null
   },
   reducers: {
-    logOut: (state) => {
-      state.user = null;
-    },
+
   },
   extraReducers: (builder) => {
     builder.addCase(logInAsync.fulfilled, (state, { payload }) => {
       state.user = payload.user;
+      state.token = payload.accesToken
+  
+    });
+    builder.addCase(logOutAsync.fulfilled, (state) => {
+      state.user = null
+      state.token = null
+  
     });
   },
 });

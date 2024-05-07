@@ -1,9 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import SubmitBtns from "./SubmitBtns";
 
-import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 import styles from "./forms.module.css";
-import { useState } from "react";
 
 const logInSchema = Yup.object({
   email: Yup.string()
@@ -21,13 +20,7 @@ const logInSchema = Yup.object({
 const LoginForm = ({ onSubmit }) => {
   const handleResetForm = (formik) => {
     formik.resetForm();
-  }
-  const [isLoading, setIsLoading] = useState(false)
-
-  
-  const handleLoad = () => {
-    setIsLoading(!isLoading)
-  }
+  };
 
   return (
     <>
@@ -37,32 +30,35 @@ const LoginForm = ({ onSubmit }) => {
           password: "",
         }}
         validationSchema={logInSchema}
-        
         onSubmit={(values, actions) => {
-          handleLoad()
-          onSubmit(values)
-          handleLoad()
-          actions.resetForm()
-          actions.setSubmitting(false)
+          onSubmit(values);
+          actions.resetForm();
+          actions.setSubmitting(false);
         }}
       >
         {({ errors, touched, resetForm }) => (
           <Form className={styles.form}>
             <span className={styles.inputBoxes}>
-              <label htmlFor="">Email</label>
+              <label htmlFor="email">Email</label>
               <Field name="email" type="email" />
-              {errors.email && touched.email ? <p className={styles.errors}>{errors.email}</p> : null}
+              {errors.email && touched.email ? (
+                <p className={styles.errors}>{errors.email}</p>
+              ) : null}
             </span>
             <span className={styles.inputBoxes}>
-              <label htmlFor="">Password</label>
+              <label htmlFor="password">Password</label>
               <Field name="password" type="password" />
               {errors.password && touched.password ? (
                 <p className={styles.errors}>{errors.password}</p>
-              ) : null }
+              ) : null}
             </span>
             <div className={styles.submitButtons}>
-              <OutlinedButton type="submit">Submit</OutlinedButton>
-              <OutlinedButton onClick={() => handleResetForm({ resetForm })}>Limpiar datos</OutlinedButton>
+              <SubmitBtns
+                okTitle="Ingresar"
+                canceTitle="Limpiar Datos"
+                handleCancelForm={handleResetForm}
+                resetForm={resetForm}
+              />
             </div>
           </Form>
         )}
