@@ -5,12 +5,14 @@ export const ToasterProvider = () => {
     <Toaster
       position="bottom-center"
       toastOptions={{
-        className: "",
+        className: "toast",
         style: {
           border: "1px solid #713200",
           padding: "16px",
           width: "100%",
           fontSize: "24px",
+          wordWrap: "break-word", 
+          whiteSpace: "normal",
           duration: 15000,
         },
       }}

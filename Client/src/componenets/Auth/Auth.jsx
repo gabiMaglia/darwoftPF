@@ -15,7 +15,6 @@ import {
 import Spinner from "../ui/LoadingSpinner/Spinner";
 
 import styles from "./auth.module.css";
-import toast from "react-hot-toast";
 
 const Auth = () => {
   const auth = useSelector((state) => state.auth);
@@ -32,38 +31,35 @@ const Auth = () => {
     setModalType(null);
   };
 
-  const handleLogInSubmit = async (values) => {
+  const handleLogInSubmit = (values) => {
     setIsLoading(true);
-    dispatch(logInAsync(values)).then((e) => {
+    dispatch(logInAsync(values)).then(() => {
       setIsLoading(false);
-      if (!e.error) closeModal();
     });
   };
-  const handleSignUpSubmit = async (values) => {
+  const handleSignUpSubmit = (values) => {
     setIsLoading(true);
-    const response = await signUpUser(values);
-    if (!response.error) {
+    signUpUser(values).then((e) => {
+      if (e) {
+        setIsLoading(false);
+        closeModal();
+      }
+      setIsLoading(false);
+    });
+  };
+  const handleLogOutSubmit = (token) => {
+    setIsLoading(true);
+    dispatch(logOutAsync(token)).then(() => {
       setIsLoading(false);
       closeModal();
-    }
-    setIsLoading(false);
-  };
-  const handleLogOutSubmit = async (token) => {
-    setIsLoading(true);
-    dispatch(logOutAsync(token)).then((e) => {
-      if (!e.error) closeModal();
-      setIsLoading(false);
     });
   };
 
   const handleSubmitResetPassword = async ({ email }) => {
     setIsLoading(true);
-    sendMailToResetPassword(email).then((e) => {
-      if(e){
-        toast.success("Email enviado, chekee su casilla de correo");
-      }
-      closeModal();
+    sendMailToResetPassword(email).then(() => {
       setIsLoading(false);
+      closeModal();
     });
   };
 
@@ -120,7 +116,10 @@ const Auth = () => {
             isOpen={modalType === "forget"}
             onClose={closeModal}
           >
-            <ForgetPasswordForm onSubmit={handleSubmitResetPassword} />
+            <ForgetPasswordForm
+              onSubmit={handleSubmitResetPassword}
+              onCancel={closeModal}
+            />
           </Modal>
 
           {/* SIGNUP */}

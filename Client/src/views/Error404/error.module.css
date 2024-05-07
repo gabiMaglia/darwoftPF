@@ -1,0 +1,18 @@
+.container{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    background-color: var(--accent);
+    padding: var(--spacing-xl);
+    min-height: 55rem;
+}
+.container img{
+    width: 420px;
+    height: 320px;
+}
+.container button{
+    max-width: 420px;
+    margin-inline: auto;
+}

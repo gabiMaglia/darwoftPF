@@ -28,7 +28,7 @@ const BillBoard = ({ products }) => {
     setCurrentSlide(currentSlide !== 0 ? currentSlide - 1 : limit - 1);
   };
   
-  if (location.pathname.includes('profile')) {
+  if (location.pathname !='/') {
     return null; 
   }
 

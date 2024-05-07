@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poiret+One&family=Shanti&display=swap");
-/* modalConfig */
 
 
 *,
@@ -10,7 +9,7 @@
   padding: 0;
 }
 
-button{
+button {
   font: inherit;
   border: none;
   cursor: pointer;
@@ -33,8 +32,6 @@ button{
 
   --jet-stream: #b4d4cb;
   --fun-green: #047c21;
-
-  
 
   /* Light Mode */
   --color-primary-light: var(--red);
@@ -122,23 +119,19 @@ button{
 [color-scheme="dark"] {
   --bg: var(--color-background-dark);
   --txt: #dddddd;
-  --nav-bg: var(
-    --nav-background-dark
-  ); 
+  --nav-bg: var(--nav-background-dark);
   --accent: var(--color-accent-dark);
-  --alert: var(--color-alert-dark); 
-  --muted: #bbbbbb; 
+  --alert: var(--color-alert-dark);
+  --muted: #bbbbbb;
 }
 
 [color-scheme="light"] {
-  --bg: var(--color-background-light); 
+  --bg: var(--color-background-light);
   --txt: #333333;
-  --nav-bg: var(
-    --nav-background-light
-  ); 
+  --nav-bg: var(--nav-background-light);
   --accent: var(--color-accent-light);
-  --alert: var(--color-alert-light); 
-  --muted: #666666; 
+  --alert: var(--color-alert-light);
+  --muted: #666666;
 }
 
 @media screen and (max-width: 768px) {
@@ -183,7 +176,6 @@ a {
 li {
   list-style-type: none;
 }
-
 /* Establecimiento de la familia de fuentes base */
 .shanti-regular,
 .poiret-one-regular,

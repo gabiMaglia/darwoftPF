@@ -14,6 +14,8 @@ const Profile = () => {
 
   const [modalType, setModalType] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
+
+  
   return (
     <>
       <ProfileNav />
