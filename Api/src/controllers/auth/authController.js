@@ -27,20 +27,21 @@ const login = async (email, password) => {
 
   if (!isPasswordMatching) throw new Error(errors.auth.wrongCredentials);
 
-  const user = await User.findOne({ email }).select({
-    credentials: 0,
-    createdAt: 0,
-    updatedAt: 0,
-    __v: 0
-  }).populate('adress');
+  const user = await User.findOne({ email })
+    .select({
+      credentials: 0,
+      createdAt: 0,
+      updatedAt: 0,
+      __v: 0,
+    })
+    .populate("adress");
   const { role } = await UserRole.findById(user.role);
   const accesToken = await tokenSign({ id: user._id, role }, "2h", false);
-
 
   return {
     user: {
       ...user.toObject(),
-      role: role 
+      role: role,
     },
     accesToken,
   };
@@ -137,19 +138,17 @@ const confirmAccount = async (token) => {
   const decodedToken = await verifyToken(token);
 
   const response = await User.findByIdAndUpdate(
-    { _id: decodedToken.id },
+    { _id: decodedToken.userId },
     { isActive: true },
     { new: true }
   );
-
-  await TokenWhiteList.deleteOne(token);
+  await TokenWhiteList.deleteOne({ token: token });
 
   return response;
 };
 
 const sendEmailToResetPassword = async (email) => {
   const user = await User.findOne(email);
-
   const dataForToken = {
     email: user.email,
     id: user.id,
@@ -162,50 +161,35 @@ const sendEmailToResetPassword = async (email) => {
     resetToken,
     process.env.FRONTEND_URL
   );
-  console.log({ responseDelController: response });
 
   return response;
 };
 
-const resetPassword = async (newPassword, token) => {
-  const userDataFromtoken = await verifyToken(token);
-  if (!userDataFromtoken) {
-    return {
-      error: true,
-      response: "Token incorrecto",
-    };
-  }
+const resetPassword = async (token, { password }) => {
+  const userDataFromtoken = await verifyToken(token.token);
+  if (!userDataFromtoken) throw new Error(errors.auth.unauthorized);
 
   const user = await User.findById(userDataFromtoken.id);
-  if (userDataFromtoken.email !== user.email) {
-    return {
-      error: true,
-      response: "Token incorrecto",
-    };
-  }
-
+  if (userDataFromtoken.email !== user.email)
+    throw new Error(errors.auth.wrongCredentials);
   const userCredentials = await UserCredential.findById(user.credentials);
-  if (!userCredentials) {
-    return {
-      error: true,
-      response: "Credenciales no encontradas",
-    };
-  } else {
-    await userCredentials.update({
-      password: await bcrypt.hash(newPassword, 8),
-    });
-    await userCredentials.save();
-    return {
-      error: false,
-      response: "Password actualizado",
-    };
-  }
+  if (!userCredentials) throw new Error(errors.auth.wrongCredentials);
+
+  await userCredentials.save();
+
+  await TokenWhiteList.deleteOne({ token: token.token });
+  userCredentials.password = password;
+  return {
+    error: false,
+    response: "Password actualizado",
+  };
 };
 
 const logOutUser = async (token) => {
+  console.log('object')
+  console.log(token)
   await TokenWhiteList.deleteOne({ token: token });
   return true;
-  
 };
 
 module.exports = {

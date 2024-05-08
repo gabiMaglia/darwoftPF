@@ -55,7 +55,6 @@ const SaleOrder = mongoose.model("SaleOrder", saleOrderModel);
 
 mongoose.set("debug", true);
 // CONNECTION
-// mongoose.Promise = global.Promise;
 const conn = () =>
   mongoose
     .connect(process.env.MONGODB_URI)

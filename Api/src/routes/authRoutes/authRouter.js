@@ -18,6 +18,7 @@ authRouter.post(
   validateResults,
   loginHandler
 );
+
 authRouter.post(
   "/singup",
   registerValidation,

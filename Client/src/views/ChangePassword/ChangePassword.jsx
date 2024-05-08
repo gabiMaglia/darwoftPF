@@ -20,69 +20,61 @@ const confirmPasswordSchema = Yup.object({
     .required("Debes confirmar la contrasena"),
 });
 
-
 const ChangePassword = () => {
-  const navigate = useNavigate()
-  const {token} = useParams()
+  const navigate = useNavigate();
+  const { token } = useParams();
 
-  const handleSubmit = async({password}) => {
-
-    await sendNewPasswordToReset(token, password).then((e)=> {
-      {
-        console.log(e)
-        toast.success('Password correctament actualizado')
-        navigate('/')
-      }
-    }).catch((error)=> {
-      console.log(error)
-    })
-  }
+  const handleSubmit = async ({ password }) => {
+    await sendNewPasswordToReset(token, password)
+      .then((e) => {
+        {
+          if (e) {
+            navigate("/");
+            toast.success("Password correctament actualizado");
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <section className={styles.changePasswordContainer}>
       <h2>Ingresa la nueva contrasena</h2>
       <Formik
         initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          photo: "",
-          birthday: new Date("1990-01-01"),
-          nacionality: "",
-          dni: "",
           password: "",
           confirmPassword: "",
-          adress: {},
         }}
         validationSchema={confirmPasswordSchema}
         onSubmit={(values) => {
-          // aqui el service para cambiar pass
-          handleSubmit(values)
+          handleSubmit(values);
         }}
       >
-   {({ errors, touched  }) => (
+        {({ errors, touched }) => (
           <Form className={styles.form}>
-         
             <span className={styles.inputBoxes}>
-            <label htmlFor="password">Password</label>  
-            <Field name="password" type="password" />
-            {errors.password && touched.password ? <p className={styles.errors}>{errors.password}</p> : null}
+              <label htmlFor="password">Password</label>
+              <Field name="password" type="password" />
+              {errors.password && touched.password ? (
+                <p className={styles.errors}>{errors.password}</p>
+              ) : null}
             </span>
-            
+
             <span className={styles.inputBoxes}>
-            <label htmlFor="confirmPassword">Confirmar Password</label>  
-            <Field name="confirmPassword" type="password" />
-            {errors.confirmPassword && touched.confirmPassword ? <p className={styles.errors}>{errors.confirmPassword}</p> : null}
+              <label htmlFor="confirmPassword">Confirmar Password</label>
+              <Field name="confirmPassword" type="password" />
+              {errors.confirmPassword && touched.confirmPassword ? (
+                <p className={styles.errors}>{errors.confirmPassword}</p>
+              ) : null}
             </span>
 
             <div className={styles.submitButtons}>
               <OutlinedButton> Enviar </OutlinedButton>
             </div>
-
           </Form>
         )}
-
-
       </Formik>
     </section>
   );

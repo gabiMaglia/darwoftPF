@@ -18,6 +18,7 @@ import styles from "./auth.module.css";
 
 const Auth = () => {
   const auth = useSelector((state) => state.auth);
+  const token = localStorage.getItem('token')
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const [modalType, setModalType] = useState(null);
@@ -87,7 +88,7 @@ const Auth = () => {
             onClose={closeModal}
           >
             <ConfirmationForm
-              onSubmit={() => handleLogOutSubmit(auth.token)}
+              onSubmit={() => handleLogOutSubmit(token)}
               onCancel={closeModal}
             />
           </Modal>

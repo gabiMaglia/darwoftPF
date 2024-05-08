@@ -6,8 +6,8 @@ export const logInAsync = createAsyncThunk(
   async (credentials) => {
     const {response} = await loginUser(credentials);
     if(!response) return {error: true}
-    
     return response;
+    
   }
 );
 export const logOutAsync = createAsyncThunk(
@@ -31,13 +31,15 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(logInAsync.fulfilled, (state, { payload }) => {
+      if (payload.error) null;
       state.user = payload.user;
-      state.token = payload.accesToken
-  
+      localStorage.setItem('token', payload.accesToken)
+      
     });
     builder.addCase(logOutAsync.fulfilled, (state) => {
       state.user = null
       state.token = null
+      localStorage.removeItem('token')
   
     });
   },

@@ -29,7 +29,8 @@ const singUpHandler = async (req, res, next) => {
 
 const confirmAccountHandler = async (req, res, next) => {
   try {
-    const token = req.params;
+    const {token} = req.params;
+
     await confirmAccount(token);
     return res
       .status(200)
@@ -41,7 +42,6 @@ const confirmAccountHandler = async (req, res, next) => {
 const forgetPasswordHandler = async (req, res, next) => {
   try {
     const email = req.params;
-
     const message = `Check your email to continue`;
 
     const response = await sendEmailToResetPassword(email);
@@ -54,7 +54,8 @@ const changePasswordHandler = async (req, res, next) => {
   try {
     const token = req.params;
     const password = req.body;
-    const response = await resetPassword(password, token);
+    // console.log(token, password)
+    const response = await resetPassword(token, password);
     return res.status(200).json({ error: false, response });
   } catch (error) {
     next(error);

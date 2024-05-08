@@ -51,17 +51,16 @@ const sendMailToResetPassword = async (email) => {
     toast.success("Email enviado, chekee su casilla de correo");
     return true;
   } catch (error) {
-    toast.error("Error al enviar el mail");   
+    toast.error("Error al enviar el mail");
   }
 };
-const sendNewPasswordToReset = async (password, token) => {
+const sendNewPasswordToReset = async (token, password) => {
   try {
-    console.log(token, password)
     await axios.post(`${URL}/auth/changepassword/${token}`, { password });
-    toast.success("Email enviado, chekee su casilla de correo");
+    toast.success("Password correctamente actualizado");
     return true;
   } catch (error) {
-    toast.error("Error al enviar el mail");  
+    toast.error("Error al resetear el password");
   }
 };
 
