@@ -18,8 +18,8 @@ const getBrandByIdHandler = async (req, res, next) => {
   };
   const createNewBrandHandler = async (req, res, next) => {
     try {
-      const {newBrand} = req.body
-      const response = await createNewBrand(newBrand)
+      const {brandData} = req.body
+      const response = await createNewBrand(brandData)
       return res.status(200).json({ error: false, response });
     } catch (error) {
       next(error);

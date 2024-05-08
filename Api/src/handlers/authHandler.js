@@ -6,11 +6,22 @@ const {
   singUp,
   logOutUser,
 } = require("../controllers/auth/authController");
+const { getUserById } = require("../controllers/users/userController");
 
 const loginHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const response = await login(email, password);
+
+    res.status(200).json({ login: true, response });
+  } catch (error) {
+    next(error);
+  }
+};
+const persistanceHandler = async (req, res, next) => {
+  try {
+    const { userId } = req;
+    const { response } = await getUserById(userId);
 
     res.status(200).json({ login: true, response });
   } catch (error) {
@@ -29,7 +40,7 @@ const singUpHandler = async (req, res, next) => {
 
 const confirmAccountHandler = async (req, res, next) => {
   try {
-    const {token} = req.params;
+    const { token } = req.params;
 
     await confirmAccount(token);
     return res
@@ -54,7 +65,6 @@ const changePasswordHandler = async (req, res, next) => {
   try {
     const token = req.params;
     const password = req.body;
-    // console.log(token, password)
     const response = await resetPassword(token, password);
     return res.status(200).json({ error: false, response });
   } catch (error) {
@@ -78,4 +88,5 @@ module.exports = {
   confirmAccountHandler,
   forgetPasswordHandler,
   changePasswordHandler,
+  persistanceHandler,
 };

@@ -1,7 +1,7 @@
 .authPanel{
     display: flex;
     gap: var(--spacing-sm);
-    width: 80px;
+    min-width: 80px;
     font-size: var(--font-size-small);
 }
 .btn{

@@ -1,26 +1,51 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 import Modal from "../ui/Modal/Modal";
 import LoginForm from "../forms/LoginForm";
 import SignUpForm from "../forms/SignUpForm";
 import ForgetPasswordForm from "../forms/ForgetPasswordForm";
 import ConfirmationForm from "../forms/ConfirmationForm";
-import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../ui/LoadingSpinner/Spinner";
+
+import { checkPersistanceAsync } from "../../redux/slices/authSlice.js";
+
+import useAuth from "../../hooks/useAuth.jsx";
+import useModal from "../../hooks/useModal.jsx";
+
+import styles from "./auth.module.css";
+
+//
+
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { logInAsync, logOutAsync } from "../../redux/slices/authSlice";
 import {
   sendMailToResetPassword,
   signUpUser,
 } from "../../services/authServices/authServices";
-import Spinner from "../ui/LoadingSpinner/Spinner";
-
-import styles from "./auth.module.css";
 
 const Auth = () => {
+  // const [isLoading, setIsLoading] = useState(false);
+
+  // const [
+  //   token,
+  //   auth,
+  //   handleLogInSubmit,
+  //   handleSignUpSubmit,
+  //   handleLogOutSubmit,
+  //   handleSubmitResetPassword,
+  // ] = useAuth();
+  // const [modalType, openModal, closeModal] = useModal();
+  // const dispatch = useDispatch();
+
+  
   const auth = useSelector((state) => state.auth);
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [modalType, setModalType] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,8 +74,9 @@ const Auth = () => {
     });
   };
   const handleLogOutSubmit = (token) => {
+    console.log("llego");
     setIsLoading(true);
-    navigate('/')
+    navigate("/");
     dispatch(logOutAsync(token)).then(() => {
       setIsLoading(false);
       closeModal();

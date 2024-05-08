@@ -2,6 +2,7 @@ const { Router } = require("express");
 const {
   loginHandler,
   singUpHandler,
+  persistanceHandler,
   confirmAccountHandler,
   forgetPasswordHandler,
   changePasswordHandler,
@@ -25,6 +26,8 @@ authRouter.post(
   validateResults,
   singUpHandler
 );
+
+authRouter.get('/persistanceCheck', isAutenticated, persistanceHandler)
 
 authRouter.post('/logout', isAutenticated, logOutHandler)
 

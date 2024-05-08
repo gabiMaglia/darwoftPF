@@ -45,6 +45,19 @@ const logOutUser = async (token) => {
   }
 };
 
+const persistanceCheck = async (token) => {
+  try {
+    const response = await axios.get(`${URL}/auth/persistanceCheck`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const sendMailToResetPassword = async (email) => {
   try {
     await axios.get(`${URL}/auth/mailtoreset/${email}`);
@@ -70,4 +83,5 @@ export {
   logOutUser,
   sendMailToResetPassword,
   sendNewPasswordToReset,
+  persistanceCheck
 };

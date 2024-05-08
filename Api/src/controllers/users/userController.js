@@ -19,6 +19,12 @@ const getUserById = async (id) => {
   const user = await User.findOne({ _id: id })
     .populate("role")
     .populate("adress")
+    .select({
+      credentials: 0,
+      createdAt: 0,
+      updatedAt: 0,
+      __v: 0,
+    })
     .exec();
   if (!user) throw new Error(errors.user.userNotFound);
 

@@ -15,13 +15,12 @@ const isAutenticated = async (req, res, next) => {
     if (!isTokenListed) throw new Error(errors.auth.wrongCredentials);
 
     const tokenData = await verifyToken(token);
-
     if (!tokenData.id || !tokenData.role)
       throw new Error(errors.auth.unauthorized);
     req.token = token
     req.userId = tokenData.id;
-    req.role = tokenData.role.role;
-
+    req.role = tokenData.role;
+    
     next();
   } catch (error) {
     next(error);
