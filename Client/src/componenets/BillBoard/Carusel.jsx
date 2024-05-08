@@ -1,6 +1,8 @@
-import Img from "../ui/Img/Img";
-import styles from "./carusel.module.css";
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
+import Img from "../ui/Img/Img";
+
+import styles from "./carusel.module.css";
+
 const Carusel = ({ data }) => {
   return (
 
@@ -14,10 +16,11 @@ const Carusel = ({ data }) => {
           </span>
           <h3 className={styles.catName}>{data.productCategory.catName}</h3>
         </span>
-        <div>
+        
+        <div className={styles.buyBtn}>
           <OutlinedButton>Buy it</OutlinedButton>
         </div>
-      </div>
+      </div> 
 
       <div className={styles.mainPic}>
         <Img img={data.images[0]} />

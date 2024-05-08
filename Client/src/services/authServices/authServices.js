@@ -14,7 +14,6 @@ const signUpUser = async (userData) => {
     return true;
   } catch ({ response }) {
     toast.error(JSON.stringify(response.data.message));
-    return false;
   }
 };
 
@@ -31,7 +30,6 @@ const loginUser = async (loginData) => {
     return data;
   } catch ({ response }) {
     toast.error(response.data.message);
-    return false;
   }
 };
 const logOutUser = async (token) => {
@@ -44,7 +42,6 @@ const logOutUser = async (token) => {
     return true;
   } catch (error) {
     toast.error("Error al cerrar sesión");
-    return false;
   }
 };
 
@@ -54,9 +51,24 @@ const sendMailToResetPassword = async (email) => {
     toast.success("Email enviado, chekee su casilla de correo");
     return true;
   } catch (error) {
-    toast.error("Error al enviar el mail");
-    return false;
+    toast.error("Error al enviar el mail");   
+  }
+};
+const sendNewPasswordToReset = async (password, token) => {
+  try {
+    console.log(token, password)
+    await axios.post(`${URL}/auth/changepassword/${token}`, { password });
+    toast.success("Email enviado, chekee su casilla de correo");
+    return true;
+  } catch (error) {
+    toast.error("Error al enviar el mail");  
   }
 };
 
-export { signUpUser, loginUser, logOutUser, sendMailToResetPassword };
+export {
+  signUpUser,
+  loginUser,
+  logOutUser,
+  sendMailToResetPassword,
+  sendNewPasswordToReset,
+};

@@ -151,7 +151,13 @@ body {
   height: 100dvh;
   background-color: var(--bg);
   color: var(--txt);
+
   font-family: "Poiret One", cursive;
+}
+
+main{
+  padding: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
 }
 
 h1,

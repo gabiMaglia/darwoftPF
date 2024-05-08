@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileNav from "./ProfileNav/ProfileNav";
 import Img from "../../componenets/ui/Img/Img";
@@ -12,10 +12,10 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
+
   const [modalType, setModalType] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
 
-  
   return (
     <>
       <ProfileNav />

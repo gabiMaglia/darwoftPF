@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 import Modal from "../ui/Modal/Modal";
 import LoginForm from "../forms/LoginForm";
@@ -19,7 +19,7 @@ import styles from "./auth.module.css";
 const Auth = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   const [modalType, setModalType] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,6 +49,7 @@ const Auth = () => {
   };
   const handleLogOutSubmit = (token) => {
     setIsLoading(true);
+    navigate('/')
     dispatch(logOutAsync(token)).then(() => {
       setIsLoading(false);
       closeModal();

@@ -13,7 +13,6 @@ const Error404 = () => {
 
   return (
     <section className={styles.container}>
-
       <h2>OPPS....</h2>
       <Img img={sadDino} alt={404} />
       <h3>Error 404</h3>
