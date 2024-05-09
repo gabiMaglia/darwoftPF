@@ -45,6 +45,7 @@ const authSlice = createSlice({
     });
     builder.addCase(checkPersistanceAsync.fulfilled, (state, { payload }) => {
       if (payload.error) {
+
         localStorage.removeItem("token");
       }
       state.user = payload;

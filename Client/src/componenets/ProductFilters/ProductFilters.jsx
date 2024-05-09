@@ -1,75 +1,11 @@
+import { useSelector } from "react-redux";
 import { capitalizeFirstLetter } from "../../utils/strings";
+
 import styles from "./productFilters.module.css";
-const grupos = ["electronica", "celulares", "computacion", "varios"];
-const categorias = [
-  "Audio y Video",
-  "Cámaras y Fotografía",
-  "Componentes Electrónicos",
-  "TVs y Home Theaters",
-  "Drones y Accesorios",
-  "Smartphones",
-  "Accesorios para Celulares",
-  "Repuestos para Celulares",
-  "Smartwatches",
-  "Fundas y Protectores",
-  "Laptops y Accesorios",
-  "Desktops y Monitores",
-  "Almacenamiento",
-  "Periféricos y Accesorios",
-  "Redes y Conectividad",
-  "Electrodomésticos",
-  "Herramientas",
-  "Artículos de Oficina",
-  "Juguetes Tecnológicos",
-  "Iluminación",
-];
-const marcas = [
-  "Sony",
-  "Panasonic",
-  "Samsung",
-  "LG",
-  "Bose",
-  "Apple",
-  "Huawei",
-  "Xiaomi",
-  "Motorola",
-  "Dell",
-  "HP",
-  "Asus",
-  "Lenovo",
-  "Philips",
-  "Bosch",
-  "Black+Decker",
-  "Dyson",
-  "General Electric",
-  "Acer",
-  "Microsoft",
-  "Intel",
-  "AMD",
-  "Nvidia",
-  "Canon",
-  "Nikon",
-  "GoPro",
-  "Olympus",
-  "Fujifilm",
-  "OnePlus",
-  "Realme",
-  "Oppo",
-  "Vivo",
-  "Tecno",
-  "Makita",
-  "DeWalt",
-  "Stanley",
-  "Siemens",
-  "Whirlpool",
-  "JBL",
-  "Harman Kardon",
-  "Pioneer",
-  "Yamaha",
-  "Beats",
-];
 
 const ProductFilters = () => {
+  const categories = useSelector(state => state.categories)
+  const brands = useSelector(state => state.brands)
   return (
     <>
       <div className={styles.filterBox}>
@@ -78,8 +14,8 @@ const ProductFilters = () => {
           
           <h3>Grupo</h3>
           <ul>
-            {grupos.map((e) => (
-              <li key={Math.random()}>{capitalizeFirstLetter(e)}</li>
+            {categories.groups?.map((e) => (
+              <li key={e._id + Math.random().toString()}>{capitalizeFirstLetter(e.name)}</li>
             ))}
           </ul>
         </span>
@@ -87,8 +23,8 @@ const ProductFilters = () => {
           
           <h3>Categoria</h3>
           <ul>
-            {categorias.map((e) => (
-              <li key={Math.random()}>{capitalizeFirstLetter(e)}</li>
+            {categories.categories?.map((e) => (
+              <li key={e._id + Math.random().toString()}>{capitalizeFirstLetter(e.catName)}</li>
             ))}
           </ul>
         </span>
@@ -96,8 +32,8 @@ const ProductFilters = () => {
         <span>
           <h3>Marcas</h3>
           <ul>
-            {marcas.map((e) => (
-              <li key={Math.random()}>{capitalizeFirstLetter(e)}</li>
+            {brands.brands?.map((e) => (
+              <li key={e._id + Math.random().toString()}>{capitalizeFirstLetter(e.brandName)}</li>
             ))}
           </ul>
         </span>

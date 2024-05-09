@@ -52,9 +52,10 @@ const persistanceCheck = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response
+
+    return response;
   } catch (error) {
-    console.log(error);
+    return false;
   }
 };
 
@@ -83,5 +84,5 @@ export {
   logOutUser,
   sendMailToResetPassword,
   sendNewPasswordToReset,
-  persistanceCheck
+  persistanceCheck,
 };

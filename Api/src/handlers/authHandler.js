@@ -22,9 +22,9 @@ const persistanceHandler = async (req, res, next) => {
   try {
     const { userId } = req;
     const { response } = await getUserById(userId);
-
     res.status(200).json({ login: true, response });
   } catch (error) {
+  
     next(error);
   }
 };

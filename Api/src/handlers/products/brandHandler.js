@@ -2,7 +2,7 @@ const { getAllBrands, createNewBrand, updateBrand, deleteBrand, getBrandById } =
 const getAllBrandsHandler = async (req, res, next) => {
     try {
       const response = await getAllBrands()
-      return res.status(200).json({ error: false, response });
+      return res.status(200).json({ error: false, message:response });
     } catch (error) {
       next(error);
     }

@@ -11,23 +11,11 @@ import { capitalizeFirstLetter } from "../../utils/strings";
 
 import mainLogoColor from "../../assets/logos_png/logos folk-02.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const categoriesGroups = [
-  {
-    name: "electronica",
-  },
-  {
-    name: "celulares",
-  },
-  {
-    name: "computacion",
-  },
-  {
-    name: "varios",
-  },
-];
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const categoriesGroups = useSelector((state) => state.categories.groups)
   return (
     <>
       <nav className={styles.navBar}>
@@ -39,8 +27,8 @@ const NavBar = () => {
 
         <div className={`${styles.navItems} ${isOpen && styles.open}`}>
           <ul className={styles.navLinks}>
-            {categoriesGroups.map((cat) => (
-              <li key={Math.random()}>
+            {categoriesGroups?.map((cat) => (
+              <li key={cat.id + Math.random().toString()}>
                 <Link to={"/"}>{capitalizeFirstLetter(cat.name)}</Link>
               </li>
             ))}

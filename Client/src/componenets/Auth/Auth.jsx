@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -10,15 +10,9 @@ import ForgetPasswordForm from "../forms/ForgetPasswordForm";
 import ConfirmationForm from "../forms/ConfirmationForm";
 import Spinner from "../ui/LoadingSpinner/Spinner";
 
-import { checkPersistanceAsync } from "../../redux/slices/authSlice.js";
-
-import useAuth from "../../hooks/useAuth.jsx";
-import useModal from "../../hooks/useModal.jsx";
-
 import styles from "./auth.module.css";
 
 //
-
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logInAsync, logOutAsync } from "../../redux/slices/authSlice";
@@ -26,6 +20,7 @@ import {
   sendMailToResetPassword,
   signUpUser,
 } from "../../services/authServices/authServices";
+import PATH_ROUTES from "../../helpers/routes.helper";
 
 const Auth = () => {
   // const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +71,7 @@ const Auth = () => {
   const handleLogOutSubmit = (token) => {
     console.log("llego");
     setIsLoading(true);
-    navigate("/");
+    navigate(PATH_ROUTES.HOME);
     dispatch(logOutAsync(token)).then(() => {
       setIsLoading(false);
       closeModal();
@@ -95,7 +90,7 @@ const Auth = () => {
     <div className={styles.authPanel}>
       {auth.user ? (
         <>
-          <Link to={`/profile`}>
+          <Link to={PATH_ROUTES.DASHBOARD}>
             <OutlinedButton className={styles.btn}>
               {auth.user?.firstName}
             </OutlinedButton>

@@ -5,7 +5,7 @@
 
 const PATH_ROUTES = {
   HOME: '/',
-  PROFILE: '/profile',
+  DASHBOARD: '/dashboard/',
   CHANGEPASSWORD: '/changepassword/:token',
   WISHLIST: '/wish',
   CART: '/cart',

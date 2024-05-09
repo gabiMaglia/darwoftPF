@@ -7,14 +7,14 @@ const {
 
 const isAutenticated = async (req, res, next) => {
   try {
-    console.log(req.headers)
     if (!req.headers.authorization) throw new Error(errors.auth.unauthorized);
     const token = extractJwtToken(req.headers.authorization);
     
     const isTokenListed = await checkWhiteListedToken(token);
     if (!isTokenListed) throw new Error(errors.auth.wrongCredentials);
-
+    
     const tokenData = await verifyToken(token);
+  
     if (!tokenData.id || !tokenData.role)
       throw new Error(errors.auth.unauthorized);
     req.token = token
@@ -23,6 +23,7 @@ const isAutenticated = async (req, res, next) => {
     
     next();
   } catch (error) {
+  
     next(error);
   }
 };

@@ -1,12 +1,12 @@
 import {  useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ProfileNav from "./ProfileNav/ProfileNav";
+import DashboardNav from "./DashboardNav/DashboardNav";
 import Img from "../../componenets/ui/Img/Img";
 import foto from "../../assets/profile.png";
 import {PencilSquareIcon} from '@heroicons/react/24/outline'
-import styles from "./profile.module.css";
+import styles from "./dashboard.module.css";
 
-const Profile = () => {
+const Dashboard = () => {
   const { user } = useSelector((state) => state.auth);
   const { adress } = user;
 
@@ -18,7 +18,7 @@ const Profile = () => {
 
   return (
     <>
-      <ProfileNav />
+      <DashboardNav />
       <section className={styles.userDataChart}>
 
         <span className={styles.photo}>
@@ -86,4 +86,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Dashboard;
