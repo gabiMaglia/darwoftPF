@@ -1,40 +1,36 @@
 const errors = require("../utils/errors");
 
+// Mapping of error messages to HTTP status codes
+const errorStatusMap = {
+  [errors.product.remainingProductsInBrand]: 400,
+  [errors.auth.wrongCredentials]: 401,
+  [errors.user.userNotFound]: 404,
+  [errors.product.productNotFound]: 404,
+  [errors.product.productsNotFound]: 404,
+  [errors.product.brandNotFound]: 404,
+  [errors.product.brandsNotFound]: 404,
+  [errors.product.categoryNotFound]: 404,
+  [errors.product.categoriesNotFound]: 404,
+  [errors.product.remainingProductsInCategory]: 400,
+  validationError: 422,
+  duplicateError: 422,
+};
+
 const errorStatus = (message) => {
-  if (message === errors.product.remainingProductsInBrand) return 400;
+  if (message.includes("validation") || message.includes("duplicate")) {
+    return errorStatusMap.validationError;
+  }
 
-  if (message.includes("validation") || message.includes("duplicate"))
-    return 422;
-
-  if (message === errors.auth.wrongCredentials) return 401;
-
-  if (message === errors.user.userNotFound) return 404;
-
-  if (
-    message === errors.product.productNotFound ||
-    errors.product.productsNotFound
-  )
-    return 404;
-  if (message === errors.product.brandNotFound || errors.product.brandsNotFound)
-    return 404;
-  if (
-    message === errors.product.categoryNotFound ||
-    errors.product.categoriesNotFound
-  )
-    return 404;
-  if (message === errors.product.remainingProductsInCategory) return 400;
-  console.log(message);
-  return 500;
+  return errorStatusMap[message] || 500; 
 };
 
 const errorHandler = (err, req, res, next) => {
-  console.error(err.message);
+  console.error(`Error processing request ${req.method} ${req.url}: ${err.message}`);
 
   const status = err.status || errorStatus(err.message);
-  const message = err.message || err;
   res.status(status).json({
     error: true,
-    message: message,
+    message: err.message || 'An unexpected error occurred'
   });
 };
 

@@ -8,7 +8,11 @@ const categoryRouter = require("./ProductRoutes/categoryRouter");
 const wishListRouter = require("./userRoutes/wishListRouter");
 const saleOrderRouter = require("./saleOrderRouter");
 
+const { initialDataHandler } = require("../handlers/initialDataHandler");
+
 const mainRouter = Router();
+
+mainRouter.get('/initialdata', initialDataHandler)
 
 mainRouter.use("/auth", authRouter);
 
