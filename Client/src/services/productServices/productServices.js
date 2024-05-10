@@ -1,10 +1,10 @@
-import axios from "../../utils/axiosConfig";
+import {axiosInstance, axiosAuthInstance} from "../../utils/axiosConfig";
 import toast from "react-hot-toast";
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001/api";
 
 export const getAllProducts = async () => {
   try {
-    const { data } = await axios.get(`${URL}/product`);
+    const { data } = await axiosInstance.get(`${URL}/product`);
     return data;
   } catch (error) {
     const message = error.response

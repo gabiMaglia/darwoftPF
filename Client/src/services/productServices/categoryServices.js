@@ -1,10 +1,10 @@
-import axios from "../../utils/axiosConfig";
+import {axiosInstance, axiosAuthInstance} from "../../utils/axiosConfig";
 import toast from "react-hot-toast";
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001/api";
 // GET
 export const getAllCategoryGroups = async () => {
   try {
-    const { data } = await axios.get(`${URL}/cat/group`);
+    const { data } = await axiosInstance.get(`${URL}/cat/group`);
     if (!data.error) return data;
     throw new Error(data.message);
   } catch (error) {
@@ -17,7 +17,7 @@ export const getAllCategoryGroups = async () => {
 };
 export const getAllCategories = async () => {
   try {
-    const { data } = await axios.get(`${URL}/cat`);
+    const { data } = await axiosInstance.get(`${URL}/cat`);
     if (!data.error) return data;
     throw new Error(data.message);
   } catch (error) {

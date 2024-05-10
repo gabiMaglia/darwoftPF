@@ -33,12 +33,26 @@ const productColumns = [
 const Stock = () => {
   const products = useSelector((state) => state.products);
   const { groups } = products;
+  const handleAddElement = (tableName) => {
+    console.log(tableName);
+  };
+
+  const handleActionClick = (action, tableName, itemId) => {
+    console.log(tableName);
+    console.log(action, itemId);
+  };
 
   return (
     <section className={styles.section}>
       <article>
         <h2>Product Groups List</h2>
-        <Table data={groups} columns={productColumns} />
+        <Table
+          data={groups}
+          columns={productColumns}
+          tableName="stock"
+          handleActionClick={handleActionClick}
+          handleAddElement={handleAddElement}
+        />
       </article>
     </section>
   );
