@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../utils/axiosConfig";
 import toast from "react-hot-toast";
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001/api";
 

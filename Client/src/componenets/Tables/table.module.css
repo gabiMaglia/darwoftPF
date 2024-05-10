@@ -1,0 +1,28 @@
+.buttons {
+  display: flex;
+  justify-content: end;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: #333;
+  color: white;
+}
+thead tr {
+  cursor: pointer;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(97, 97, 97, 0.133);
+}

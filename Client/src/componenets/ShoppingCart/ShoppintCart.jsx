@@ -1,6 +1,6 @@
 import styles from './shoppingCart.module.css'
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-const ShoppintCart = () => {
+const ShoppingCart = () => {
   return (
     <>
     <ShoppingBagIcon className={styles.icon} />
@@ -8,4 +8,4 @@ const ShoppintCart = () => {
   )
 }
 
-export default ShoppintCart
+export default ShoppingCart

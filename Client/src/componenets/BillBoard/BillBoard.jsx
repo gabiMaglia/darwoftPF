@@ -19,7 +19,7 @@ const BillBoard = ({ products }) => {
       nextSlide();
     }, 3600);
     return () => clearInterval(timer);
-  }, []);
+  }, [currentSlide]);
 
   const nextSlide = () => {
     setCurrentSlide(currentSlide !== limit - 1 ? currentSlide + 1 : 0);

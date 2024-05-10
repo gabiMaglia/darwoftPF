@@ -1,5 +1,14 @@
 .productZone {
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   gap: var(--spacing-md);
+}
+
+
+@media screen and (min-width: 768px) {
+  .productZone {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-md);
+  }
 }

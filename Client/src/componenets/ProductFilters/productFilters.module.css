@@ -1,18 +1,54 @@
-.filterBox {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--spacing-md);
-  width: 30%;
-  gap: 2rem;
-  height: 100%;
-  background: #fafafa3d;
-  padding: var(--spacing-md);
- 
-}
-.filterBox li {
-  cursor: pointer;
-}
-.filterBox ul {
-  max-height: 320px;
-  overflow-y: scroll;
-}
+
+
+  .filterBox {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--spacing-md);
+    width: 100%;
+    gap: 1rem;
+    height: 100%;
+    background: #fafafa3d;
+    padding: var(--spacing-md);
+    text-align: center;
+   }
+  
+
+  .filterBox li {
+    width: 100%;
+    padding: .6rem;
+    cursor: pointer;
+    text-wrap: nowrap;
+  }
+  .filterBox ul {
+    display: flex;
+    gap: .9rem;
+    margin-inline: auto;
+    justify-content: space-between;
+    max-height: 320px;
+    max-width: 90%;
+    overflow: scroll;
+  }
+  @media screen and (min-width: 768px) {
+    
+    .filterBox {
+      display: flex;
+      text-align: left;
+      border-radius: var(--spacing-md);
+      width: 30%;
+      max-width: none;
+      gap: 2rem;
+      height: 100%;
+      background: #fafafa3d;
+      padding: var(--spacing-md);
+     
+    }
+    .filterBox li {
+      cursor: pointer;
+    }
+    .filterBox ul {
+      display: block;
+      max-height: 320px;
+      overflow-y: scroll;
+    }
+    
+  }

@@ -1,40 +1,35 @@
-import axios from "axios";
+import axios from "../../utils/axiosConfig";
 import toast from "react-hot-toast";
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001/api";
 
-const getAllProducts = async() => {
-    try {
-        const {data} = await axios.get(`${URL}/cat/group`)
-        if (!data.error) return data;
-        toast.error(data.message) 
-    } catch (error) {
-        toast.error(error)
-    }
-}
-const getProductById = async(id) => {
-    // try {
-        
-    // } catch (error) {
-        
-    // }finally {
+export const getAllProducts = async () => {
+  try {
+    const { data } = await axios.get(`${URL}/product`);
+    return data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "Error de conexión";
+    toast.error(message);
+    return null;
+  }
+};
 
-    // }
-}
-const postProduct = async() => {
-    // try {
-        
-    // } catch (error) {
-        
-    // }finally {
-
-    // }
-}
-const deleteProduct = async() => {
-    // try {
-        
-    // } catch (error) {
-        
-    // }finally {
-
-    // }
-}
+export const getProductById = async (id) => {
+  // try {
+  // } catch (error) {
+  // }finally {
+  // }
+};
+export const postProduct = async () => {
+  // try {
+  // } catch (error) {
+  // }finally {
+  // }
+};
+export const deleteProduct = async () => {
+  // try {
+  // } catch (error) {
+  // }finally {
+  // }
+};

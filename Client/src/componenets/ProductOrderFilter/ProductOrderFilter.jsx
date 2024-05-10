@@ -1,5 +1,5 @@
+
 import styles from "./productOrderFilter.module.css";
-import OutlinedButton from '../ui/OutlinedButton/OutlinedButton'
 
 const ProductOrderFilter = () => {
   return (
@@ -20,12 +20,6 @@ const ProductOrderFilter = () => {
             <option value="2">Option #2</option>
             <option value="3">Option #3</option>
           </select>
-        </div>
-
-        <div className={styles.submain}>
-          <OutlinedButton className={styles.buttontwo}>
-            Ordenar
-          </OutlinedButton>
         </div>
       </form>
     </>

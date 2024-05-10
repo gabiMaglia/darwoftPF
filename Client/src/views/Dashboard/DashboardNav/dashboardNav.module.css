@@ -1,5 +1,9 @@
 .navBar {
+ 
     display: flex;
+    justify-content: space-between;
     gap: var(--spacing-md);
     padding: var(--spacing-md);
+    background-color: var(--nav-bg);
+    margin-bottom:var(--spacing-md);
 }

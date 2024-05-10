@@ -5,12 +5,15 @@
 
 const PATH_ROUTES = {
   HOME: '/',
-  DASHBOARD: '/dashboard/',
-  CHANGEPASSWORD: '/changepassword/:token',
-  WISHLIST: '/wish',
+  DASHBOARD: '/dashboard',
+  PERSONAL: '/dashboard',
+  WISHLIST: 'wish',
+  STOCK: 'stock',
+  BRANDSCATEGORY: 'brandscat',
   CART: '/cart',
   DETAIL: '/detail/:id',
   ABOUT: '/about',
+  CHANGEPASSWORD: '/changepassword/:token',
   ERROR404: '/*'
 }
 

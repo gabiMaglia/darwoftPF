@@ -2,6 +2,7 @@
   position: relative;
   flex: 1 1 20%;
   min-width: 240px;
+  
   box-shadow: 0 2px 7px #dfdfdf;
   border-radius: var(--spacing-md);
   background: #fafafa;
@@ -31,11 +32,15 @@
 }
 
 .productTumb img {
+  /* border: #363636 1px solid; */
   max-width: 100%;
   max-height: 100%;
+  transform: scale(2);
 }
 
+
 .productDetails {
+  height: 180px;
   padding: 30px;
 }
 
@@ -45,13 +50,12 @@
   font-weight: 700;
   text-transform: uppercase;
   color: #ccc;
-  margin-bottom: 18px;
+ 
 }
-
 .productDetails h4 a {
   font-weight: 500;
   display: block;
-  margin-bottom: 18px;
+
   text-transform: uppercase;
   color: #363636;
   text-decoration: none;

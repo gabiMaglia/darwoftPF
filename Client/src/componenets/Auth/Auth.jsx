@@ -36,7 +36,6 @@ const Auth = () => {
   // const [modalType, openModal, closeModal] = useModal();
   // const dispatch = useDispatch();
 
-  
   const auth = useSelector((state) => state.auth);
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
@@ -54,9 +53,13 @@ const Auth = () => {
 
   const handleLogInSubmit = (values) => {
     setIsLoading(true);
-    dispatch(logInAsync(values)).then(() => {
-      setIsLoading(false);
-    });
+    dispatch(logInAsync(values))
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const handleSignUpSubmit = (values) => {
     setIsLoading(true);
@@ -66,7 +69,9 @@ const Auth = () => {
         closeModal();
       }
       setIsLoading(false);
-    });
+    }).catch((error) => {
+        console.log(error);
+      });
   };
   const handleLogOutSubmit = (token) => {
     console.log("llego");
@@ -75,6 +80,8 @@ const Auth = () => {
     dispatch(logOutAsync(token)).then(() => {
       setIsLoading(false);
       closeModal();
+    }).catch((error) => {
+      console.log(error);
     });
   };
 
@@ -83,6 +90,8 @@ const Auth = () => {
     sendMailToResetPassword(email).then(() => {
       setIsLoading(false);
       closeModal();
+    }).catch((error) => {
+      console.log(error);
     });
   };
 
