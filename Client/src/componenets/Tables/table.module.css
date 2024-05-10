@@ -1,7 +1,12 @@
-.buttons {
-  display: flex;
-  justify-content: end;
+
+input{
+  background-color: none;
+  border: 1px solid var(--muted);
+  border-radius: var(--border-radius-xl);
+  padding: 0.3rem 0.6rem; 
+  margin-block: .3rem;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -25,4 +30,49 @@ td {
 
 tr:nth-child(even) {
   background-color: rgba(97, 97, 97, 0.133);
+}
+
+th:last-child, td:last-child {
+  justify-content: flex-end;
+  text-align: right;
+  flex: 0 0 100px; 
+}
+.buttons span {
+  display: flex;
+  justify-content: end;
+}
+.dropdown {
+  position: relative;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  top: 100%; 
+  right: 0; 
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownContent button {
+  color: black;
+  padding: 12px 12px;
+  text-decoration: none;
+}
+
+.dropdown:hover .dropdownContent {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dropdownIcon {
+  cursor: pointer;
+  width: 28px;
+}
+.buttons {
+  padding-block: .7rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
 }

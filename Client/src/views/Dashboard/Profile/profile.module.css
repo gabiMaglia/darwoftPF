@@ -1,69 +1,70 @@
 .userDataChart {
-    display: flex;
-    flex-direction: column;
-  }
-  .userCharts {
-    display: flex;
-    justify-content: space-evenly;
-    padding: var(--spacing-xl);
-    flex-wrap: wrap;
-    margin-bottom: 5rem;
-  }
-  .userDataChart article {
-      position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: var(--spacing-sm);
-    background-color: var(--muted);
-    color: var(--nav-bg);
-    backdrop-filter: blur(1rem);
-    border-radius: var(--border-radius-xl);
-    padding: var(--spacing-xl);
-    padding-top: var(--spacing-md);
-    width: 100%;
-    max-width: 620px;
-  }
-  .userDataChart article h3 {
-    text-align: center;
-    padding: var(--spacing-md);
-  }
-  .userDataChart article span {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      border-bottom: 1px solid var(--bg);
-  }
-  .userDataChart article span label {
-    text-align: center;
-    font-size: var(--font-size-large);
-  }
-  .userDataChart article span p {
-    text-align: center;
-    font-size: var(--font-size-base);
-  }
-  
-  .photo {
-    margin-inline: auto;
-  }
-  .photo img{
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    padding: var(--spacing-lg);
-  }
-  
-  
-  .icon {
-      position: absolute;
-      width: 20px;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-      transition: transform .2s ease;
-  }
-  .icon:hover {
-   transform: scale(2);
-  }
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+}
+.userCharts {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-evenly;
+  padding: var(--spacing-xl);
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.userDataChart article {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  background-color: var(--muted);
+  color: var(--nav-bg);
+  backdrop-filter: blur(1rem);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  width: 100%;
+  max-width: 620px;
+}
+.userDataChart article h3 {
+  text-align: center;
+  padding: var(--spacing-md);
+}
+.userDataChart article span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid var(--bg);
+}
+.userDataChart article span label {
+  text-align: center;
+  font-size: var(--font-size-large);
+}
+.userDataChart article span p {
+  text-align: center;
+  font-size: var(--font-size-base);
+}
+
+.photo {
+  margin-inline: auto;
+}
+.photo img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  padding: var(--spacing-lg);
+}
+
+.icon {
+  position: absolute;
+  width: 20px;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.icon:hover {
+  transform: scale(2);
+}

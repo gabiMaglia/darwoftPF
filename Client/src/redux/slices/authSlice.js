@@ -9,7 +9,7 @@ export const logInAsync = createAsyncThunk(
   "auth/logInAsync",
   async (credentials) => {
     const { response } = await loginUser(credentials);
-    console.log("aca")
+ 
     if (!response) return { error: true };
     return response;
   }

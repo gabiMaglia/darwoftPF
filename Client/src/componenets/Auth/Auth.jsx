@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import useModal from "../../hooks/useModal";
 
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 import Modal from "../ui/Modal/Modal";
@@ -33,23 +34,15 @@ const Auth = () => {
   //   handleLogOutSubmit,
   //   handleSubmitResetPassword,
   // ] = useAuth();
-  // const [modalType, openModal, closeModal] = useModal();
   // const dispatch = useDispatch();
-
+  
   const auth = useSelector((state) => state.auth);
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [modalType, setModalType] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalType, openModal, closeModal] = useModal();
 
-  const openModal = (type) => {
-    setModalType(type);
-  };
-
-  const closeModal = () => {
-    setModalType(null);
-  };
 
   const handleLogInSubmit = (values) => {
     setIsLoading(true);
@@ -118,7 +111,9 @@ const Auth = () => {
             onClose={closeModal}
           >
             <ConfirmationForm
+              okTitle = 'Si' 
               onSubmit={() => handleLogOutSubmit(token)}
+              canceTitle = 'Un rato mas!'
               onCancel={closeModal}
             />
           </Modal>

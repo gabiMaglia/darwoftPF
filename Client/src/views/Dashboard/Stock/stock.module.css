@@ -1,0 +1,13 @@
+
+.section {
+    padding: var(--spacing-md);
+    padding-inline: var(--spacing-xl);
+}
+.section article {
+    padding-inline: var(--spacing-xxl);
+    
+}
+.section h2 {
+    margin-bottom: var(--spacing-sm);
+    
+}

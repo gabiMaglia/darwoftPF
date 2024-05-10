@@ -6,7 +6,7 @@ import saDino from "../../assets/sadDino.gif";
 
 import styles from "./forms.module.css";
 
-const ConfirmationForm = ({ onSubmit, onCancel }) => {
+const ConfirmationForm = ({ okTitle, onSubmit, canceTitle, onCancel }) => {
   return (
     <>
       <Img alt="Sad GoodBye" img={saDino}></Img>
@@ -19,8 +19,8 @@ const ConfirmationForm = ({ onSubmit, onCancel }) => {
         {() => (
           <Form className={styles.form}>
             <SubmitBtns
-              okTitle="SI"
-              canceTitle="Un rato mas!"
+              okTitle={okTitle}
+              canceTitle={canceTitle}
               handleCancelForm={onCancel}
             />
           </Form>
