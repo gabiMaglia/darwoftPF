@@ -47,7 +47,7 @@ export const deleteCategory = async (id) => {
   try {
     const { data } = await axiosAuthInstance.delete(`${URL}/cat/${id}`);
     if (!data.error) {
-      toast.success("Categoria Eliminada");
+      toast.success("Categoria eliminada");
       return data;
     }
   } catch ({ response }) {
@@ -58,7 +58,7 @@ export const deleteCategoryGroup = async (id) => {
   try {
     const { data } = await axiosAuthInstance.delete(`${URL}/cat/group/${id}`);
     if (!data.error) {
-      toast.success("Categoria Eliminada");
+      toast.success("Categoria eliminada");
       return data;
     }
   } catch ({ response }) {

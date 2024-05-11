@@ -40,7 +40,7 @@ const Stock = () => {
   const { groups } = products;
 
   const [currentItemId, setCurrentItemId] = useState(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [modalType, openModal, closeModal] = useModal();
 
@@ -49,9 +49,11 @@ const Stock = () => {
   };
 
   const handleActionClick = (action, tableName, itemId) => {
-    setCurrentItemId(itemId)
-    openModal("deleteProduct")
+    setCurrentItemId(itemId);
+    openModal("deleteProduct");
   };
+
+
 
   return (
     <section className={styles.section}>

@@ -51,11 +51,8 @@ const BrandsCat = () => {
   }
   
   const handleActionClick = (action, tableName, itemId, data = null) => {
-    console.log(tableName)
-    console.log(itemId); 
-
     setCurrentItemId(itemId)
-    console.log(currentItemId)
+
     const actionMap = {
       'categoryGroup': {
         'delete': () => openModal('deleteCategoryGrup'),
