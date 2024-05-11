@@ -12,7 +12,7 @@ export const Modal = ({ title, isOpen, onClose, children }) => {
 
       <article className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <h2 className={styles.modalTitle}>{title}</h2>
+          <h5 className={styles.modalTitle}>{title}</h5>
           <XCircleIcon className={styles.closeButton} onClick={onClose} />
         </div>
         {children}

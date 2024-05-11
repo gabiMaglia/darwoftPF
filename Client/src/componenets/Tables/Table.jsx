@@ -16,7 +16,9 @@ const Table = ({ data, columns, tableName, handleActionClick, handleAddElement }
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
   // menu
-
+  console.log(data)
+   const isData = !!data 
+  console.log(isData)
   const table = useReactTable({
     data: data,
     columns: columns,
@@ -41,7 +43,9 @@ const Table = ({ data, columns, tableName, handleActionClick, handleAddElement }
           setFiltering(e.target.value);
         }}
       />
-      <table>
+{  
+
+  isData && <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup, key) => (
             <tr key={key + Math.random()}>
@@ -101,7 +105,8 @@ const Table = ({ data, columns, tableName, handleActionClick, handleAddElement }
             </tr>
           ))}
         </tbody>
-      </table>
+            </table>
+}
       <div className={styles.buttons}>
         <TableBtns table={table} tableName={tableName}  handleAddElement={handleAddElement} />
       </div>

@@ -34,10 +34,19 @@
   z-index: 6;
 }
 .modalHeader {
+  font-size: var(--font-size-small);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--muted);
+ 
+}
+.modalHeader {
+  font-size: var(--font-size-large);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+  
 }
 .closeButton {
   width: 20px;

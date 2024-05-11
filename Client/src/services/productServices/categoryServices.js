@@ -43,15 +43,25 @@ export const postCategoryGroup = async () => {
   // }
 };
 // DELETE
-export const deleteCategory = async () => {
-  // try {
-  // } catch (error) {
-  // }finally {
-  // }
+export const deleteCategory = async (id) => {
+  try {
+    const { data } = await axiosAuthInstance.delete(`${URL}/cat/${id}`);
+    if (!data.error) {
+      toast.success("Categoria Eliminada");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
 };
-export const deleteCategoryGroup = async () => {
-  // try {
-  // } catch (error) {
-  // }finally {
-  // }
+export const deleteCategoryGroup = async (id) => {
+  try {
+    const { data } = await axiosAuthInstance.delete(`${URL}/cat/group/${id}`);
+    if (!data.error) {
+      toast.success("Categoria Eliminada");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
 };

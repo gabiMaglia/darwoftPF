@@ -1,7 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Table from "../../../componenets/Tables/Table";
 
 import styles from "./stock.module.css";
+import Modal from "../../../componenets/ui/Modal/Modal";
+import useModal from "../../../hooks/useModal";
+import ConfirmationForm from "../../../componenets/forms/ConfirmationForm";
+import { deleteProductsAsync } from "../../../redux/slices/productSlice";
+import { useState } from "react";
 
 const productColumns = [
   {
@@ -33,13 +38,19 @@ const productColumns = [
 const Stock = () => {
   const products = useSelector((state) => state.products);
   const { groups } = products;
+
+  const [currentItemId, setCurrentItemId] = useState(null);
+  const dispatch = useDispatch()
+
+  const [modalType, openModal, closeModal] = useModal();
+
   const handleAddElement = (tableName) => {
     console.log(tableName);
   };
 
   const handleActionClick = (action, tableName, itemId) => {
-    console.log(tableName);
-    console.log(action, itemId);
+    setCurrentItemId(itemId)
+    openModal("deleteProduct")
   };
 
   return (
@@ -54,6 +65,21 @@ const Stock = () => {
           handleAddElement={handleAddElement}
         />
       </article>
+      <Modal
+        title={"Realmente desea eliminar este producto?"}
+        isOpen={modalType === "deleteProduct"}
+        onClose={closeModal}
+      >
+        <ConfirmationForm
+          okTitle="Si"
+          onSubmit={() => {
+            dispatch(deleteProductsAsync(currentItemId));
+            closeModal();
+          }}
+          canceTitle="no"
+          onCancel={closeModal}
+        />
+      </Modal>
     </section>
   );
 };

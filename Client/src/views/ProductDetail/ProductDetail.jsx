@@ -5,11 +5,13 @@ import styles from "./productDetail.module.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  console.log(id);
+
   return (
     <section>
       <div>
-        <article><ProductThumbnails /></article>
+        <article >
+          <ProductThumbnails />
+        </article>
         <article>
           GRUPO/CATEGORIA
           <h1>Nombre del Producto</h1>

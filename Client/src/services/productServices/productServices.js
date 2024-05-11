@@ -27,9 +27,14 @@ export const postProduct = async () => {
   // }finally {
   // }
 };
-export const deleteProduct = async () => {
-  // try {
-  // } catch (error) {
-  // }finally {
-  // }
+export const deleteProduct = async (id) => {
+  try {
+    const { data } = await axiosAuthInstance.delete(`${URL}/product/${id}`);
+    if (!data.error) {
+      toast.success("Producto eliminado");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
 };

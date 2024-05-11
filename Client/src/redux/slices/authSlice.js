@@ -16,16 +16,18 @@ export const logInAsync = createAsyncThunk(
 );
 export const checkPersistanceAsync = createAsyncThunk(
   "auth/checkPersistanceAsync",
-  async (token) => {
-    const { data } = await persistanceCheck(token);
+  async () => {
+    console.log('object')
+    const { data } = await persistanceCheck();
+    console.log('object')
     if (!data) return { error: true };
     return data.response;
   }
 );
 export const logOutAsync = createAsyncThunk(
   "auth/logOutAsync",
-  async (token) => {
-    const { response } = await logOutUser(token);
+  async () => {
+    const { response } = await logOutUser();
     if (!response) return { error: true };
 
     return response;
