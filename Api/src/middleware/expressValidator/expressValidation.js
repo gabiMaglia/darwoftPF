@@ -12,7 +12,6 @@ const validateResults = (req, res, next) => {
       return acc;
     }, {});
 
-    console.log('paso')
     return res.status(400).json({
       error: true,
       message: extractedErrors,

@@ -6,6 +6,8 @@ import styles from "../forms.module.css";
 
 const brandSchema = Yup.object({
   brandName: Yup.string().required("Debes ingresar un nombre de marca"),
+  brandHomePage: Yup.string(),
+  brandEmail: Yup.string()
 });
 
 const BrandForm = ({onSubmit}) => {
@@ -31,22 +33,22 @@ const BrandForm = ({onSubmit}) => {
         {({ errors, touched, resetForm }) => (
           <Form className={styles.form}>
             <span className={styles.inputBoxes}>
-              <label htmlFor="brandName">Email</label>
+              <label htmlFor="brandName">Nombre de marca</label>
               <Field name="brandName" type="text" />
               {errors.brandName && touched.brandName ? (
                 <p className={styles.errors}>{errors.brandName}</p>
               ) : null}
             </span>
             <span className={styles.inputBoxes}>
-              <label htmlFor="brandHomePage">Password</label>
-              <Field name="brandHomePage" type="brandHomePage" />
+              <label htmlFor="brandHomePage">Pagina web de la marca</label>
+              <Field name="brandHomePage" type="text" />
               {errors.brandHomePage && touched.brandHomePage ? (
                 <p className={styles.errors}>{errors.brandHomePage}</p>
               ) : null}
             </span>
             <span className={styles.inputBoxes}>
-              <label htmlFor="brandEmail">Password</label>
-              <Field name="brandEmail" type="brandEmail" />
+              <label htmlFor="brandEmail">Email de la marca</label>
+              <Field name="brandEmail" type="email" />
               {errors.brandEmail && touched.brandEmail ? (
                 <p className={styles.errors}>{errors.brandEmail}</p>
               ) : null}

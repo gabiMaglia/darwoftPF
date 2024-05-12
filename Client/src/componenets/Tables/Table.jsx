@@ -122,7 +122,7 @@ const Table = ({
         <TableBtns
           table={table}
           tableName={tableName}
-          handleAddElement={handleAddElement}
+          handleAddElement={handleActionClick}
         />
       </div>
     </div>

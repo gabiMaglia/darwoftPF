@@ -15,12 +15,8 @@ const productSchema = new Schema({
     require: true,
   },
   productDescription: {
-    type: Map,
-    of: String,
-    require: true,
-  },
-  warranty: {
     type: String,
+    require: true,
   },
   isActive: {
     type: Boolean,
@@ -65,7 +61,7 @@ const productCategorySchema = new Schema({
     require: true
   },
   image: {
-    type: String,
+    type: Array,
   },
   group: {
     type: mongoose.Types.ObjectId,

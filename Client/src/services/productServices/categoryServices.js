@@ -30,17 +30,28 @@ export const getAllCategories = async () => {
 };
 
 // POST
-export const postCategory = async () => {
-  // try {
-  // } catch (error) {
-  // }finally {
-  // }
+export const postCategory = async (categoryData) => {
+  try {
+ 
+    const { data } = await axiosAuthInstance.post(`${URL}/cat`, {categoryData});
+    if (!data.error) {
+      toast.success("Categoria agregada");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
 };
-export const postCategoryGroup = async () => {
-  // try {
-  // } catch (error) {
-  // }finally {
-  // }
+export const postCategoryGroup = async (catGroupData) => {
+  try {
+    const { data } = await axiosAuthInstance.post(`${URL}/cat/group`, {catGroupData});
+    if (!data.error) {
+      toast.success("Categoria agregada");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
 };
 // DELETE
 export const deleteCategory = async (id) => {

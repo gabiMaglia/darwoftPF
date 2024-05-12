@@ -26,6 +26,27 @@ export const getCategoriesAsync = createAsyncThunk(
     return categories;
   }
 );
+// POST 
+export const postCategoryAsync = createAsyncThunk(
+  "cat/postCategoryAsync",
+  async (categoryData) => {
+    const response = await postCategory(categoryData);
+    if (response.error) return { error: true };
+    const category = response.message;
+    return category;
+  }
+);
+export const postCategoryGroupAsync = createAsyncThunk(
+  "cat/postCategoryGroupAsync",
+  async (groupData) => {
+    const response = await postCategoryGroup(groupData);
+    if (response.error) return { error: true };
+    const group = response.message;
+    return group;
+  }
+);
+// UPDATE
+
 // DELETE
 export const deleteGroupAsync = createAsyncThunk(
   "cat/deleteGroupsAsync",
@@ -61,6 +82,15 @@ const catSlice = createSlice({
     builder.addCase(getCategoriesAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
       state.categories = payload;
+    });
+    // POST
+    builder.addCase(postCategoryAsync.fulfilled, (state, { payload }) => {
+      if (payload.error) return;
+      state.categories.push(payload)
+    });
+    builder.addCase(postCategoryGroupAsync.fulfilled, (state, { payload }) => {
+      if (payload.error) return;
+      state.groups.push(payload)
     });
     // DELETE
     builder.addCase(deleteGroupAsync.fulfilled, (state, { payload }) => {

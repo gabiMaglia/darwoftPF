@@ -1,4 +1,4 @@
-import {axiosInstance, axiosAuthInstance} from "../../utils/axiosConfig";
+import { axiosInstance, axiosAuthInstance } from "../../utils/axiosConfig";
 import toast from "react-hot-toast";
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001/api";
 
@@ -21,12 +21,20 @@ export const getProductById = async (id) => {
   // }finally {
   // }
 };
-export const postProduct = async () => {
-  // try {
-  // } catch (error) {
-  // }finally {
-  // }
+export const postProduct = async (productData) => {
+  try {
+    const { data } = await axiosAuthInstance.post(`${URL}/product`, {
+      productData,
+    });
+    if (!data.error) {
+      toast.success("Producto agregado");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
 };
+
 export const deleteProduct = async (id) => {
   try {
     const { data } = await axiosAuthInstance.delete(`${URL}/product/${id}`);

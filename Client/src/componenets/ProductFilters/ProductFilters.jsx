@@ -6,6 +6,7 @@ import styles from "./productFilters.module.css";
 const ProductFilters = () => {
   const categories = useSelector((state) => state.categories);
   const brands = useSelector((state) => state.brands);
+ 
   return (
     <>
       <div className={styles.filterBox}>

@@ -34,3 +34,28 @@ select {
 .errors {
   color: red !important;
 }
+.thumbnailCont{
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  justify-content: center;
+  margin-inline: auto;
+  width: 100%;
+}
+.thumbnailCont button{
+border-radius: var(--border-radius-xl);
+border: 1px solid black;
+background: none;
+  padding: .2rem;
+}
+
+.thumbnail{
+  width: 80px;
+  margin-inline: auto;
+}
+
+
+.checkboxes{
+  display: flex;
+  justify-content: space-evenly;
+}

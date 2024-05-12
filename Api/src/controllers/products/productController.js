@@ -9,19 +9,18 @@ const {
 // GET
 const getAllProducts = async (params = {}) => {
   const { offset = 0, limit = 0, isFeatured, filter } = params;
- 
+
   const existingProductCount = await Product.countDocuments();
   if (existingProductCount < 1)
     throw new Error(errors.product.productsNotFound);
 
-
   const query = {};
   isFeatured ? (query.isFeatured = isFeatured) : null;
-  filter? (Object.assign(query, JSON.parse(filter)) ): null
-  
-//  console.log({query: query})
-  
- const products = await Product.find(query)
+  filter ? Object.assign(query, JSON.parse(filter)) : null;
+
+  //  console.log({query: query})
+
+  const products = await Product.find(query)
     .populate("category")
     .populate("brand")
     .skip(offset)
@@ -44,71 +43,40 @@ const getProductById = async (id) => {
 
 // POST
 const postNewProduct = async (productData) => {
-  const {
-    name,
-    price,
-    images,
-    productDescription,
-    warranty = null,
-    productStock,
-    categoryGroup,
-    productCategory,
-    productBrand,
-    soldCount = 0,
-    isActive = true,
-    isFeatured = false,
-  } = productData;
+  try {
+    const {
+      name,
+      price,
+      images,
+      productDescription,
+      stock,
+      category,
+      brand,
+      soldCount = 0,
+      isActive ,
+      isFeatured ,
+    } = productData;
 
-  const { catName, image } = productCategory;
-  const { brandName, brandHomePage } = productBrand;
-
-  const newProduct = new Product({
-    name,
-    price,
-    images,
-    productDescription,
-    warranty,
-    stock: productStock,
-    soldCount,
-    isActive,
-    isFeatured,
-  });
-
-  let cat = await ProductCategory.findOne({ catName: catName });
-
-  if (!cat) {
-    cat = new ProductCategory({
-      catName,
-      image,
+    console.log(category);
+    
+    const newProduct = new Product({
+      name,
+      price,
+      images,
+      productDescription,
+      isActive,
+      isFeatured,
+      soldCount,
+      stock,
+      category,
+      brand,
     });
-    let catGroup = await ProductCategoryGroup.findOne({ name: categoryGroup });
-
-    if (!catGroup) {
-      catGroup = new ProductCategoryGroup({
-        name: categoryGroup,
-      });
-      await catGroup.save();
-    }
-
-    cat.group = catGroup._id;
-    await cat.save();
+    await newProduct.save();
+    
+    return newProduct;
+  } catch (error) {
+    throw new Error("");
   }
-
-  newProduct.category = cat._id;
-
-  let brand = await ProductBrand.findOne({ brandName: brandName });
-
-  if (!brand) {
-    brand = new ProductBrand({
-      brandName,
-      brandHomePage,
-    });
-    await brand.save();
-  }
-  newProduct.brand = brand._id;
-
-  await newProduct.save();
-  return newProduct;
 };
 // UPDATE
 const updateProduct = async (id, productData) => {

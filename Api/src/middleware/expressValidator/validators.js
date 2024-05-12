@@ -42,7 +42,6 @@ const productValidation = [
     .isArray(),
   body("productData.productDescription")
     .exists({ checkFalsy: true, checkNull: true })
-    .isObject(),
 ];
 
 const brandValidatino = [
@@ -57,7 +56,7 @@ const categoryValidation = [
     .exists({ checkFalsy: true, checkNull: true })
     .trim()
     .isLength({ min: 3 }),
-  body("categoryData.image").exists({ checkFalsy: true, checkNull: true }),
+  // body("categoryData.image").exists({ checkFalsy: true, checkNull: true }),
 ];
 
 const saleOrderValidation = [

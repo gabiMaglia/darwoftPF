@@ -1,159 +1,153 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import SubmitBtns from "../SubmitBtns";
-
 import styles from "../forms.module.css";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import useCloudinary from "../../../hooks/useCloudinary";
 
 const productSchema = Yup.object({
-  name: Yup.string().required("Debes ingresar un nombre producto"),
+  name: Yup.string().required("Debes ingresar un nombre de producto"),
   price: Yup.number().required("Debes ingresar un precio"),
-  images: Yup.array().required("Debes ingresar imagenes"),
-  productDescription: Yup.array().required("Debes ingresar una descripcion"),
-  stock: Yup.number().required(),
-  category: Yup.string().required("Debes ingresar una categoria"),
-  brand: Yup.string().required("Debes ingresar una marca"),
+  images: Yup.array()
+    .of(Yup.string().required("Es necesario subir una imagen"))
+    .min(1, "Debes subir al menos una imagen"),
+  productDescription: Yup.string().required("Debes ingresar una descripción"),
+  stock: Yup.number().required("Debes ingresar la cantidad en stock"),
+  category: Yup.string().required("Debes seleccionar una categoría"),
+  brand: Yup.string().required("Debes seleccionar una marca"),
 });
 
-const ProductForm = ({onSubmit}) => {
-  const categories = useSelector((state) => state.categories.groups);
-  const brands = useSelector((state) => state.brand);
-  
-  const [category, setCategory] = useState("");
-  const [brand, setBrand] = useState("");
-
-  const handleResetForm = (formik) => {
-    formik.resetForm();
-  };
+const ProductForm = ({ onSubmit }) => {
+  const categories = useSelector((state) => state.categories.categories);
+  console.log(categories)
+  const { brands } = useSelector((state) => state.brands);
+  const [setFiles, files, uploadImagesToCloudinary] = useCloudinary();
 
   return (
-    <>
-      <Formik
-        initialValues={{
-          name: "",
-          price: 0,
-          images: [],
-          productDescription: "",
-          isActive: false,
-          isFeatured: false,
-          stock: 0,
-        }}
-        validationSchema={productSchema}
-        onSubmit={(values, actions) => {
-          onSubmit(values);
+    <Formik
+      initialValues={{
+        name: "",
+        price: 0,
+        images: [],
+        productDescription: "",
+        isActive: false,
+        isFeatured: false,
+        stock: 0,
+        category: "",
+        brand: "",
+      }}
+      validationSchema={productSchema}
+      onSubmit={(values, actions) => {
+        values.category
+        onSubmit({ ...values, images: files });
+        actions.setSubmitting(false);
+        actions.resetForm();
+      }}
+    >
+      {({ setFieldValue, resetForm, errors, touched }) => (
+        <Form className={styles.form}>
+          <div className={styles.inputBoxes}>
+            <label htmlFor="name">Nombre del Producto</label>
+            <Field name="name" type="text" />
+            {errors.name && touched.name && (
+              <div className={styles.error}>{errors.name}</div>
+            )}
+          </div>
 
-          values = { ...values, category: category };
-          values = { ...values, brand: brand };
+          <div className={styles.inputBoxes}>
+            <label htmlFor="price">Precio</label>
+            <Field name="price" type="number" />
+            {errors.price && touched.price && (
+              <div className={styles.error}>{errors.price}</div>
+            )}
+          </div>
 
-          actions.resetForm();
-          actions.setSubmitting(false);
-        }}
-      >
-        {({ errors, touched, resetForm }) => (
-          <Form className={styles.form}>
-            <span className={styles.inputBoxes}>
-              <label htmlFor="name">Nombre</label>
-              <Field name="catName" type="text" />
-              {errors.name && touched.name ? (
-                <p className={styles.errors}>{errors.name}</p>
-              ) : null}
-            </span>
-
-            <span className={styles.inputBoxes}>
-              <label htmlFor="image">image</label>
-              <Field name="image" type="image" />
-              {errors.brandHomePage && touched.brandHomePage ? (
-                <p className={styles.errors}>{errors.brandHomePage}</p>
-              ) : null}
-            </span>
-
-            <span className={styles.inputBoxes}>
-              <label htmlFor="productDescription">Nombre</label>
-              <Field name="productDescription" type="text" />
-              {errors.productDescription && touched.productDescription ? (
-                <p className={styles.errors}>{errors.productDescription}</p>
-              ) : null}
-            </span>
-
-            {/* ISACTIVE IS FEATURED CHECKBOXES */}
-            <span className={styles.inputBoxes}>
-              <label htmlFor="isActive">Producto disponible?</label>
-              <Field name="image" type="checkbox" />
-            </span>
-
-            <span className={styles.inputBoxes}>
-              <label htmlFor="isFeatured">Producto destacado?</label>
-              <Field name="image" type="checkbox" />
-            </span>
-
-            <span className={styles.inputBoxes}>
-              <label htmlFor="stock">Stock</label>
-              <Field name="stock" type="number" />
-              {errors.stock && touched.stock ? (
-                <p className={styles.errors}>{errors.stock}</p>
-              ) : null}
-            </span>
-              {/*BRAND AND CATEGORY SELECT*/}
-            <span className={styles.inputBoxes}>
-              <label htmlFor="category">Categoria</label>
-              <Field
-                as="select"
-                name="category"
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-              >
-                <option disabled value="">
-                  Seleccione la categoria
-                </option>
-                {categories.map((category) => (
-                  <option key={Math.random()} value={category.toString()}>
-                    {category}
-                  </option>
-                ))}
-              </Field>
-              {errors.category && touched.category ? (
-                <p className={styles.errors}>{errors.category}</p>
-              ) : null}
-            </span>
-
-            <span className={styles.inputBoxes}>
-              <label htmlFor="nationality">Nacionalidad</label>
-              <Field
-                as="select"
-                name="group"
-                onChange={(e) => {
-                  setBrand(e.target.value);
-                }}
-              >
-                <option disabled value="">
-                  Seleccione el grupo al que pertenece
-                </option>
-                {brands.map((brand) => (
-                  <option key={Math.random()} value={brand.toString()}>
-                    {brand}
-                  </option>
-                ))}
-              </Field>
-              {errors.brand && touched.brand ? (
-                <p className={styles.errors}>{errors.brand}</p>
-              ) : null}
-            </span>
-
-            <div className={styles.submitButtons}>
-              <SubmitBtns
-                okTitle="Ingresar"
-                canceTitle="Limpiar Datos"
-                handleCancelForm={handleResetForm}
-                resetForm={resetForm}
-              />
+          <div className={styles.inputBoxes}>
+            <label htmlFor="images">Imágenes</label>
+            <input
+              id="images"
+              name="images"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(event) => {
+                setFieldValue("images", [...event.currentTarget.files]);
+                uploadImagesToCloudinary(event);
+              }}
+            />
+            <div className={styles.thumbnailCont}>
+              {files.map((file, index) => (
+                <img
+                  key={index}
+                  className={styles.thumbnail}
+                  src={file}
+                  alt={`Uploaded-${index}`}
+                />
+              ))}
             </div>
-          </Form>
-        )}
-      </Formik>
-    </>
-  );
-}
+            {errors.images && touched.images && (
+              <div className={styles.error}>{errors.images}</div>
+            )}
+          </div>
 
-export default ProductForm
+          <div className={styles.inputBoxes}>
+            <label htmlFor="productDescription">Descripción</label>
+            <Field name="productDescription" as="textarea" />
+            {errors.productDescription && touched.productDescription && (
+              <div className={styles.error}>{errors.productDescription}</div>
+            )}
+          </div>
+
+          <div className={styles.inputBoxes}>
+            <label htmlFor="stock">Stock</label>
+            <Field name="stock" type="number" />
+            {errors.stock && touched.stock && (
+              <div className={styles.error}>{errors.stock}</div>
+            )}
+          </div>
+
+          <div className={styles.inputBoxes}>
+            <label htmlFor="category">Categoría</label>
+            <Field as="select" name="category">
+              <option value="">Seleccione la categoría</option>
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.catName}
+                </option>
+              ))}
+            </Field>
+            {errors.category && touched.category && (
+              <div className={styles.error}>{errors.category}</div>
+            )}
+          </div>
+
+          <div className={styles.inputBoxes}>
+            <label htmlFor="brand">Marca</label>
+            <Field as="select" name="brand">
+              <option value="">Seleccione la marca</option>
+              {brands.map((brand) => (
+                <option key={brand._id} value={brand._id}>
+                  {brand.brandName}
+                </option>
+              ))}
+            </Field>
+            {errors.brand && touched.brand && (
+              <div className={styles.error}>{errors.brand}</div>
+            )}
+          </div>
+
+          <div className={styles.submitButtons}>
+            <SubmitBtns
+              okTitle="Ingresar"
+              canceTitle="Limpiar Datos"
+              handleCancelForm={() => resetForm()}
+              resetForm={resetForm}
+            />
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default ProductForm;

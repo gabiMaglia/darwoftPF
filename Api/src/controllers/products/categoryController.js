@@ -32,6 +32,7 @@ const getCategoryById = async (id) => {
 };
 // POST
 const postNewCategory = async (categoryData) => {
+  console.log("llego al controller");
   const { catName, image, group } = categoryData;
   const newCategory = new ProductCategory({
     catName,
@@ -52,6 +53,7 @@ const postNewCategory = async (categoryData) => {
 };
 
 const postNewCategoryGroup = async ({ name }) => {
+  console.log(name);
   const newCategoryGroup = new ProductCategoryGroup({
     name,
   });

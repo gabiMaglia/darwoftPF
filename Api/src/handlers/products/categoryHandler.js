@@ -39,7 +39,7 @@ const getCategoriesByIdHandler = async (req, res, next) => {
 const postCategoryHandler = async (req, res, next) => {
   try {
     const { categoryData } = req.body;
-   
+    console.log("llego alcategoryData")
     const response = await postNewCategory(categoryData);
     return res.status(200).json({ error: false, message: response });
   } catch (error) {
@@ -48,6 +48,7 @@ const postCategoryHandler = async (req, res, next) => {
 };
 const postCategoryGroupHandler = async (req, res, next) => {
   try {
+  
     const { catGroupData } = req.body;
     const response = await postNewCategoryGroup(catGroupData);
     return res.status(200).json({ error: false, message: response });

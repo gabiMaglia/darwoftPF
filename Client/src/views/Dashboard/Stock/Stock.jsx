@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useModal from "../../../hooks/useModal";
+
 import Table from "../../../componenets/Tables/Table";
+import Modal from "../../../componenets/ui/Modal/Modal";
+import ConfirmationForm from "../../../componenets/forms/ConfirmationForm";
+import { deleteProductsAsync, postProductAsync } from "../../../redux/slices/productSlice";
 
 import styles from "./stock.module.css";
-import Modal from "../../../componenets/ui/Modal/Modal";
-import useModal from "../../../hooks/useModal";
-import ConfirmationForm from "../../../componenets/forms/ConfirmationForm";
-import { deleteProductsAsync } from "../../../redux/slices/productSlice";
-import { useState } from "react";
+import ProductForm from "../../../componenets/forms/productForms/ProductForm";
 
 const productColumns = [
   {
@@ -30,8 +32,12 @@ const productColumns = [
     accessorKey: "soldCount",
   },
   {
-    header: "Garantia",
-    accessorKey: "warranty",
+    header: "Marca",
+    accessorKey: "brand.brandName",
+  },
+  {
+    header: "Categoria",
+    accessorKey: "category.catName",
   },
 ];
 
@@ -44,16 +50,27 @@ const Stock = () => {
 
   const [modalType, openModal, closeModal] = useModal();
 
-  const handleAddElement = (tableName) => {
-    console.log(tableName);
-  };
-
   const handleActionClick = (action, tableName, itemId) => {
     setCurrentItemId(itemId);
+    console.log(tableName);
+    console.log(action);
     openModal("deleteProduct");
+
+    const actionMap = {
+      stock: {
+        delete: () => openModal("deleteProduct"),
+        add: () => openModal("addProduct"),
+        // 'update': () => dispatch(updateCategory(itemId, data))
+      },
+    };
+    const tableAction = actionMap[tableName][action];
+
+    if (tableAction) {
+      tableAction();
+    } else {
+      return;
+    }
   };
-
-
 
   return (
     <section className={styles.section}>
@@ -64,9 +81,10 @@ const Stock = () => {
           columns={productColumns}
           tableName="stock"
           handleActionClick={handleActionClick}
-          handleAddElement={handleAddElement}
+
         />
       </article>
+      {/* DELETE */}
       <Modal
         title={"Realmente desea eliminar este producto?"}
         isOpen={modalType === "deleteProduct"}
@@ -76,6 +94,22 @@ const Stock = () => {
           okTitle="Si"
           onSubmit={() => {
             dispatch(deleteProductsAsync(currentItemId));
+            closeModal();
+          }}
+          canceTitle="no"
+          onCancel={closeModal}
+        />
+      </Modal>
+      {/* POST */}
+      <Modal
+        title={"Realmente desea eliminar este producto?"}
+        isOpen={modalType === "addProduct"}
+        onClose={closeModal}
+      >
+        <ProductForm
+          okTitle="Si"
+          onSubmit={(value) => {
+            dispatch(postProductAsync(value));
             closeModal();
           }}
           canceTitle="no"

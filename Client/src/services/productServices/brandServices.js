@@ -17,7 +17,8 @@ export const postBrand = async (brandData) => {
     });
     if (!data.error) {
       toast.success("Marca Creada");
-      return data;
+      console.log(data.response)
+      return data.response;
     }
   } catch ({ response }) {
     toast.error(response?.data?.message || "error");
@@ -41,6 +42,7 @@ export const deleteBrand = async (id) => {
     const { data } = await axiosAuthInstance.delete(`${URL}/brand/${id}`);
     if (!data.error) {
       toast.success("Marca Eliminada");
+      console.log(data)
       return data;
     }
   } catch ({ response }) {
