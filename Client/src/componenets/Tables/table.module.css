@@ -1,3 +1,6 @@
+.tableCont {
+  overflow-x: auto; 
+}
 
 input{
   background-color: none;
@@ -12,6 +15,7 @@ table {
   border-spacing: 0;
   width: 100%;
   border: 1px solid #ddd;
+  overflow-x: scroll;
 }
 
 thead {
@@ -24,6 +28,8 @@ thead tr {
 
 th,
 td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd; 
   text-align: left;
   padding: 16px;
 }
@@ -39,6 +45,7 @@ th:last-child, td:last-child {
 }
 .buttons span {
   display: flex;
+  font-size: smaller;
   justify-content: end;
 }
 .dropdown {

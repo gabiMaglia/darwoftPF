@@ -1,5 +1,5 @@
 .sectionBanner{
-    width: 100% ;
+    width: 97% ;
     height: 120px;
     margin-bottom: var(--spacing-md);
     background-color: rgba(168, 168, 168, 0.479);
@@ -7,4 +7,5 @@
     border-radius: var(--spacing-md);
     display: grid;
     place-content: center;
+    margin-inline: auto;
 }

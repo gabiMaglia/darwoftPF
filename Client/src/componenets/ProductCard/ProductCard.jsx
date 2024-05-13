@@ -1,19 +1,20 @@
-import { Link } from "react-router-dom";
-import Img from "../ui/Img/Img";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { getProductsByIdAsync } from "../../redux/slices/productSlice";
-import PATH_ROUTES from "../../helpers/routes.helper";
+import toast from "react-hot-toast";
 import { addItem } from "../../redux/slices/cartSlice";
-import { parseItemForCart } from "../../utils/objects";
+import Img from "../ui/Img/Img";
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
+import { parseItemForCart } from "../../utils/objects";
+import PATH_ROUTES from "../../helpers/routes.helper";
 
 import styles from "./productCard.module.css";
 const ProductCard = ({ product }) => {
  
   const dispatch = useDispatch();
   const handleAddToCart = () => {
-    console.log(product)
     dispatch(addItem(parseItemForCart(product)))
+    toast.success("Producto agregado al carrito")
   };
 
   const handleAddToWishLIst = () => {};

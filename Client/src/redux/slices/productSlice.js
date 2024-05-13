@@ -12,7 +12,7 @@ export const getProductsAsync = createAsyncThunk(
   async () => {
     const response = await getAllProducts();
     if (response.error) return { error: true };
-  
+
     return response.message;
   }
 );
@@ -20,9 +20,8 @@ export const getProductsByIdAsync = createAsyncThunk(
   "prod/getProductsByIdAsync",
   async (id) => {
     const response = await getProductById(id);
-    if (response.error) return { error: true };  
+    if (response.error) return { error: true };
     return response.message;
-    
   }
 );
 // POST
@@ -38,7 +37,7 @@ export const postProductAsync = createAsyncThunk(
 // POST
 export const updateProductAsync = createAsyncThunk(
   "prod/updateProductAsync",
-  async ({id, value}) => {
+  async ({ id, value }) => {
     const response = await updateProduct(id, value);
     if (response.error) return { error: true };
     const category = response.message;
@@ -63,12 +62,27 @@ const productSlice = createSlice({
     productDetail: null,
   },
   reducers: {
-    
-      clearProductDetail: (state) => {
-        state.productDetail = null;
-      },
-    
-     
+    clearProductDetail: (state) => {
+      state.productDetail = null;
+    },
+    filterByCategory: (state, action) => {
+      state.productsToShow = state.products.filter(
+        (product) => product.category.catName === action.payload
+      );
+    },
+    filterByBrand: (state, action) => {
+      state.productsToShow = state.products.filter(
+        (product) => product.brand.brandName === action.payload
+      );
+    },
+    filterByGroup: (state, action) => {
+      state.productsToShow = state.products.filter(
+        (product) => product.group.groupName === action.payload
+      );
+    },
+    clearFilters: (state) => {
+      state.productsToShow = state.products;
+    },
   },
 
   extraReducers: (builder) => {
@@ -103,5 +117,5 @@ const productSlice = createSlice({
     });
   },
 });
-export const {clearProductDetail } = productSlice.actions;
+export const { clearProductDetail, filterByCategory, filterByBrand, filterByGroup, clearFilters } = productSlice.actions;
 export default productSlice.reducer;

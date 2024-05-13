@@ -1,4 +1,10 @@
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
+import {
+  ArrowLongLeftIcon,
+  ArrowLongRightIcon,
+  ArrowSmallLeftIcon,
+  ArrowSmallRightIcon
+} from "@heroicons/react/24/outline";
 const TableBtns = ({ table, tableName, handleAddElement }) => {
   return (
     <>
@@ -7,18 +13,18 @@ const TableBtns = ({ table, tableName, handleAddElement }) => {
       </OutlinedButton>
       <span>
         <OutlinedButton onClick={() => table.setPageIndex(0)}>
-          Primer Pagina
+        <ArrowSmallLeftIcon/>
         </OutlinedButton>
         <OutlinedButton onClick={() => table.previousPage()}>
-          Primer Anteriror
+        <ArrowLongLeftIcon />
         </OutlinedButton>
         <OutlinedButton onClick={() => table.nextPage()}>
-          Primer Siguiente
+        <ArrowLongRightIcon/>
         </OutlinedButton>
         <OutlinedButton
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
         >
-          Ultima Pagina Pagina
+          <ArrowSmallRightIcon/>
         </OutlinedButton>
       </span>
     </>

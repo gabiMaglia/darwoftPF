@@ -1,10 +1,43 @@
 .navBar {
- 
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  padding-inline: var(--spacing-xl);
+  background-color: var(--nav-bg);
+}
+.navBar h3 {
+  font-size: large;
+}
+
+@media screen and (max-width: 768px) {
+  .navBar {
     display: flex;
     justify-content: space-between;
     gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    padding-inline: var(--spacing-xl);
+    padding: var(--spacing-sm);
+    padding-inline: var(--spacing-md);
     background-color: var(--nav-bg);
-    
+  }
+  .navBar button {
+    font-size: small;
+    height: 100%;
+  }
+  .navBar h3 {
+    font-size: medium;
+  }
+}
+@media screen and (max-width: 480px) {
+  .navBar {
+    display: flex;
+    justify-content: space-evenly;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    padding-inline: var(--spacing-md);
+    background-color: var(--nav-bg);
+  }
+
+  .return{
+    display: none;
+  }
 }

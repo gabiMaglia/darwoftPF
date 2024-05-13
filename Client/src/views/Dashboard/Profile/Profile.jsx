@@ -29,7 +29,7 @@ const Profile = () => {
           <Img img={foto} alt={user.firstName} />
         </span>
         <div className={styles.userCharts}>
-          <article>
+          <article className={styles.dataBox} >
             <h3>Datos personales</h3>
             <span>
               <label>Nombre</label>
@@ -57,7 +57,7 @@ const Profile = () => {
             />
           </article>
 
-          <article>
+          <article  className={styles.dataBox}>
             <h3>Direccion de facturacion/entrega</h3>
             <span>
               <label>Pais</label>

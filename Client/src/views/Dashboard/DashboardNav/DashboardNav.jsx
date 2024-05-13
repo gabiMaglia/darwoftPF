@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import OutlinedButton from "../../../componenets/ui/OutlinedButton/OutlinedButton";
 
 import PATH_ROUTES from "../../../helpers/routes.helper";
 import styles from "./dashboardNav.module.css";
@@ -8,23 +9,24 @@ const DashboardNav = () => {
   return (
     <nav className={styles.navBar}>
       <Link to={PATH_ROUTES.PERSONAL}>
-        <h3>Mi Cuenta</h3>
+        <OutlinedButton>Mi Cuenta</OutlinedButton>
       </Link>
       <Link to={PATH_ROUTES.WISHLIST}>
-        <h3>Mi lista de deseos</h3>
+        <OutlinedButton>WishList</OutlinedButton>
       </Link>
 
       <Link to={PATH_ROUTES.STOCK}>
-        <h3>Stock</h3>
+        <OutlinedButton>Stock</OutlinedButton>
       </Link>
 
       <Link to={PATH_ROUTES.BRANDSCATEGORY}>
-        <h3>Brands/Categories</h3>
+        <OutlinedButton>Marcas/Categorias</OutlinedButton>
       </Link>
 
-      <Link to={PATH_ROUTES.HOME}>
-        <h3>Regresar</h3>
+      <Link className={styles.return} to={PATH_ROUTES.HOME}>
+        <OutlinedButton>Regresar</OutlinedButton>
       </Link>
+
     </nav>
   );
 };
