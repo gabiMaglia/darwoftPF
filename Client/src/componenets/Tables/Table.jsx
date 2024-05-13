@@ -17,7 +17,7 @@ const Table = ({
   columns,
   tableName,
   handleActionClick,
-  handleAddElement,
+
 }) => {
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
@@ -93,7 +93,8 @@ const Table = ({
                           handleActionClick(
                             "update",
                             tableName,
-                            row.original._id
+                            row.original._id,
+                            row.original
                           )
                         }
                       >

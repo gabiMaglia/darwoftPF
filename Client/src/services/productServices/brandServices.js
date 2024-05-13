@@ -17,8 +17,8 @@ export const postBrand = async (brandData) => {
     });
     if (!data.error) {
       toast.success("Marca Creada");
-      console.log(data.response)
-      return data.response;
+      console.log(data)
+      return data.message;
     }
   } catch ({ response }) {
     toast.error(response?.data?.message || "error");
@@ -26,12 +26,14 @@ export const postBrand = async (brandData) => {
 };
 export const updateBrand = async (id, brandData) => {
   try {
-    const { data } = await axiosAuthInstance.patch(`${URL}/brand/${id}`, {
+    console.log(id, brandData)
+    const { data } = await axiosAuthInstance.put(`${URL}/brand/${id}`, {
       brandData,
     });
     if (!data.error) {
       toast.success("Marca Actualizada");
-      return data;
+      console.log(data)
+      return data.message;
     }
   } catch ({ response }) {
     toast.error(response?.data?.message || "error");
@@ -42,7 +44,6 @@ export const deleteBrand = async (id) => {
     const { data } = await axiosAuthInstance.delete(`${URL}/brand/${id}`);
     if (!data.error) {
       toast.success("Marca Eliminada");
-      console.log(data)
       return data;
     }
   } catch ({ response }) {

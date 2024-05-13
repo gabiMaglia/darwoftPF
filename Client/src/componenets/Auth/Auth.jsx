@@ -43,7 +43,6 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [modalType, openModal, closeModal] = useModal();
 
-
   const handleLogInSubmit = (values) => {
     setIsLoading(true);
     dispatch(logInAsync(values))
@@ -67,7 +66,6 @@ const Auth = () => {
       });
   };
   const handleLogOutSubmit = (token) => {
-    console.log("llego");
     setIsLoading(true);
     navigate(PATH_ROUTES.HOME);
     dispatch(logOutAsync(token)).then(() => {
@@ -90,7 +88,7 @@ const Auth = () => {
 
   return (
     <div className={styles.authPanel}>
-      {auth.user ? (
+      {auth.isLogged ? (
         <>
           <Link to={PATH_ROUTES.DASHBOARD}>
             <OutlinedButton className={styles.btn}>

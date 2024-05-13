@@ -1,7 +1,5 @@
 const errors = require("../../utils/errors");
 const { User, UserCredential, UserRole, UserAdress } = require("../../db/conn");
-const { sendConfirmationEmail } = require("../../utils/emailTemplate");
-const { tokenSign } = require("../../utils/jwt/tokenGenerator");
 
 // GET
 const getUser = async () => {
@@ -32,66 +30,56 @@ const getUserById = async (id) => {
 };
 // UPDATE
 const updateUser = async (id, userData) => {
-  const existingUser = await User.findById(id);
+  // console.log({userDate :userData})
+  const currentUser = await User.findById(id);
+
   const {
-    firstName,
-    lastName,
-    email,
-    photo,
-    birthday,
-    nacionality,
-    dni,
-    role,
-    password,
-    adress,
+    firstName = currentUser.firstName,
+    lastName = currentUser.lastName,
+    photo = currentUser.photo,
+    birthday = currentUser.birthday,
+    nationality = currentUser.nationality,
+    dni = currentUser.dni,
+    adress = currentUser.adress,
   } = userData;
 
-  if (userData.email && userData.email !== existingUser.email) {
-    await User.findByIdAndUpdate(id, { isActive: false });
-
-    const confirmationEmailToken = await tokenSign({ id }, "2d");
-
-    await sendConfirmationEmail(
-      process.env.EMAIL_MAILER,
-      email,
-      confirmationEmailToken,
-      process.env.API_URL
-    );
-  }
-  const updatedUser = await User.findByIdAndUpdate(
-    id,
-    {
-      firstName,
-      lastName,
-      email,
-      photo,
-      birthday,
-      nacionality,
-      dni,
-    },
-    { new: true }
-  );
-
-  if (role)
-    await UserRole.findOneAndUpdate({ _id: updatedUser.role }, role, {
-      new: true,
-    });
-  if (password)
-    await UserCredential.findOneAndUpdate(
-      { _id: updatedUser.credentials },
-      password,
-      { new: true }
-    );
   if (adress) {
     const { country, state, city, street, number, zipCode } = adress;
-    await UserAdress.findOneAndUpdate(
-      { _id: updatedUser.adress },
-      { country, state, city, street, number, zipCode },
+    await UserAdress.findByIdAndUpdate(
+      currentUser.adress,
+      {
+        $set: {
+          ...(country && { country }),
+          ...(state && { state }),
+          ...(city && { city }),
+          ...(street && { street }),
+          ...(number && { number }),
+          ...(zipCode && { zipCode }),
+        },
+      },
       { new: true }
     );
-  }
 
-  return updatedUser;
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          ...(firstName && { firstName }),
+          ...(lastName && { lastName }),
+          ...(photo && { photo }),
+          ...(birthday && { birthday }),
+          ...(nationality && { nationality }),
+          ...(dni && { dni }),
+        },
+      },
+      { new: true }
+    )
+      .populate("role")
+      .populate("adress");
+
+    if (!updatedUser) throw new Error(errors.user.userNotFound);
+    return updatedUser;
+  }
 };
 // DELETE
 const deleteUser = async (id) => {

@@ -2,7 +2,9 @@ import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 const TableBtns = ({ table, tableName, handleAddElement }) => {
   return (
     <>
-      <OutlinedButton onClick={() => handleAddElement( "add", tableName)}>Agregar</OutlinedButton>
+      <OutlinedButton onClick={() => handleAddElement("add", tableName)}>
+        Agregar
+      </OutlinedButton>
       <span>
         <OutlinedButton onClick={() => table.setPageIndex(0)}>
           Primer Pagina

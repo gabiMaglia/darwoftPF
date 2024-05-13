@@ -1,52 +1,57 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearProductDetail,
+} from "../../redux/slices/productSlice";
 import ProductThumbnails from "./Thumbnails/ProductThumbnails";
-
-import styles from "./productDetail.module.css";
+import { capitalizeFirstLetter } from "../../utils/strings";
+import styles from './productDetail.module.css'
+import SimpleCarousel from "./SImpleCarusel/SimpleCarousel";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.products.productDetail);
+  // console.log(product)
+  useEffect(() => {
+    return () => {
+      // dispatch(clearProductDetail());
+    };
+  }, []);
 
   return (
-    <section>
-      <div>
-        <article >
-          <ProductThumbnails />
+    <section className={styles.productDetailContainer}>
+      <div className={styles.productDetailMain}>
+        <article className={styles.productThumbnails}>
+          <SimpleCarousel images={product?.images} />
         </article>
-        <article>
-          GRUPO/CATEGORIA
-          <h1>Nombre del Producto</h1>
-          <div>
-            {/* box del precio */}
-            <div>
-              <span>
+        <article className={styles.productInfo}>
+          <span className={styles.productCategory}>{capitalizeFirstLetter(product?.category.catName)}</span>
+          <h2 className={styles.productBrand}>{capitalizeFirstLetter(product?.brand.brandName)}</h2>
+          <h1 className={styles.productName}>{capitalizeFirstLetter(product?.name)}</h1>
+          <div className={styles.productPricingBox}>
+            <div className={styles.priceOptions}>
+              <span className={styles.cashPrice}>
                 <p>Contado</p>
-                <b>ARS 1000</b>
+                <b>ARS {product?.price}</b>
               </span>
-              <span>
+              <span className={styles.debitPrice}>
                 <p>Debito</p>
-                <b>ARS 3000</b>
+                <b>ARS {(product?.price * 1.30).toFixed(2)}</b>
               </span>
-              <span>
+              <span className={styles.installmentPrice}>
                 <p>6 cuotas de</p>
-                <b>ARS 900</b>
+                <b>ARS {(product?.price * 1.50 / 6).toFixed(2)}</b>
               </span>
             </div>
-            <div>{/* fav y agregar al carrito */}</div>
+            <div className={styles.productActions}>{/* fav y agregar al carrito */}</div>
           </div>
-          <div>tabla de especificaciones</div>
-          {/* TITULO PRECIO ESPECIFICACIONES */}
         </article>
       </div>
-      <div>
-        <article>
-          {/* Descripcion */}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
-          consectetur veritatis explicabo, illum, debitis maiores blanditiis
-          tempore, asperiores ducimus nobis odio necessitatibus? Qui, natus
-          voluptas quo doloremque praesentium voluptate dolore.
-        </article>
+      <div className={styles.productDescription}>
+        <p>
+          {product?.productDescription}
+        </p>
       </div>
-      <article>{/* productos relacionados */}</article>
     </section>
   );
 };

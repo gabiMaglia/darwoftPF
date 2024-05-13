@@ -1,9 +1,8 @@
+.icon {
+  margin-bottom: 0.51rem;
+  margin-left: 2rem;
+  width: 66px;
+  height: 100%;
 
-.icon{
-    margin-bottom: .51rem;
-    margin-left: 2rem;
-    width: 66px;
-    height: 100%;
-
-    padding: var(--spacing-sm);
+  padding: var(--spacing-sm);
 }

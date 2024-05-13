@@ -1,0 +1,40 @@
+.carouselContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .mainImageContainer {
+    width: 300px;
+    margin-bottom: 20px;
+    padding-inline: auto;
+  }
+  
+  .mainImage {
+    width: 100%; 
+    height: 300px; 
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .thumbnailContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .thumbnail {
+    max-width: 110px;
+    max-height: 110px; 
+    min-width: 110px;
+    min-height: 110px; 
+    height: auto;
+    cursor: pointer;
+    border: 3px solid transparent; 
+  }
+  
+  .thumbnail:hover {
+    border-color: var(--accent); 
+  }
+  

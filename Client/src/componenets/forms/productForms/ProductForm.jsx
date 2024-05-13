@@ -4,6 +4,7 @@ import SubmitBtns from "../SubmitBtns";
 import styles from "../forms.module.css";
 import { useSelector } from "react-redux";
 import useCloudinary from "../../../hooks/useCloudinary";
+import { isAnEmptyObject } from "../../../utils/objects";
 
 const productSchema = Yup.object({
   name: Yup.string().required("Debes ingresar un nombre de producto"),
@@ -17,28 +18,28 @@ const productSchema = Yup.object({
   brand: Yup.string().required("Debes seleccionar una marca"),
 });
 
-const ProductForm = ({ onSubmit }) => {
+const ProductForm = ({ onSubmit, initialData = {} }) => {
   const categories = useSelector((state) => state.categories.categories);
-  console.log(categories)
   const { brands } = useSelector((state) => state.brands);
   const [setFiles, files, uploadImagesToCloudinary] = useCloudinary();
 
+  const isUpdate = !isAnEmptyObject(initialData);
   return (
     <Formik
       initialValues={{
-        name: "",
-        price: 0,
-        images: [],
-        productDescription: "",
-        isActive: false,
-        isFeatured: false,
-        stock: 0,
-        category: "",
-        brand: "",
+        name: (isUpdate && initialData.name) || "",
+        price: (isUpdate && initialData.price) || 0,
+        images: (isUpdate && initialData.images) || [],
+        productDescription: (isUpdate && initialData.productDescription) || "",
+        isActive: (isUpdate && initialData.isActive) || false,
+        isFeatured: (isUpdate && initialData.isFeatured) || false,
+        stock: (isUpdate && initialData.stock) || 0,
+        category: (isUpdate && initialData.category._id) || "",
+        brand: (isUpdate && initialData.brand._id) || "",
       }}
       validationSchema={productSchema}
       onSubmit={(values, actions) => {
-        values.category
+        values.category;
         onSubmit({ ...values, images: files });
         actions.setSubmitting(false);
         actions.resetForm();
@@ -138,8 +139,8 @@ const ProductForm = ({ onSubmit }) => {
 
           <div className={styles.submitButtons}>
             <SubmitBtns
-              okTitle="Ingresar"
-              canceTitle="Limpiar Datos"
+              okTitle="Ingresar datos"
+              canceTitle="Salir"
               handleCancelForm={() => resetForm()}
               resetForm={resetForm}
             />

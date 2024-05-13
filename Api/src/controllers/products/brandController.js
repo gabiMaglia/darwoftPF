@@ -18,22 +18,24 @@ const getBrandById = async (id) => {
 };
 // POST
 const createNewBrand = async (brandData) => {
-  const { brandName, brandHomePage } = brandData;
+  const { brandName, brandHomePage, brandEmail } = brandData;
   const newBrand = new ProductBrand({
     brandName,
     brandHomePage,
+    brandEmail
   });
   await newBrand.save();
   return newBrand;
 };
 // UPDATE
 const updateBrand = async (id, brandData) => {
-  const { brandName, brandHomePage } = brandData;
+  const { brandName, brandHomePage, brandEmail } = brandData;
   const response = await ProductBrand.findByIdAndUpdate(
     id,
     {
       brandName,
       brandHomePage,
+      brandEmail
     },
     { new: true }
   );

@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { deleteBrand, getAllBrands, postBrand } from "../../services/productServices/brandServices";
+import {
+  deleteBrand,
+  getAllBrands,
+  postBrand,
+  updateBrand,
+} from "../../services/productServices/brandServices";
 // GET
 export const getAllBrandsAsync = createAsyncThunk(
   "brand/getAllBrandsAsync",
@@ -20,13 +25,22 @@ export const postBrandAsync = createAsyncThunk(
   }
 );
 // UPDATE
+export const updateBrandAsync = createAsyncThunk(
+  "brand/updateBrandAsync",
+  async ({ id, value }) => {
+    const response = await updateBrand(id, value);
+    if (response.error) return { error: true };
+
+    return response;
+  }
+);
 // DELETE
 export const deleteBrandsAsync = createAsyncThunk(
   "brand/deleteBrandsAsync",
   async (id) => {
     const response = await deleteBrand(id);
     if (response.error) return { error: true };
-    console.log(id)
+
     return id;
   }
 );
@@ -46,12 +60,21 @@ const brandSlice = createSlice({
     // POST
     builder.addCase(postBrandAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.brands.push(payload)
+      state.brands = [...state.brands, payload];
+    });
+    builder.addCase(updateBrandAsync.fulfilled, (state, { payload }) => {
+      if (payload.error) return;
+      const index = state.brands.findIndex(
+        (brand) => brand._id === payload._id
+      );
+      if (index !== -1) {
+        state.brands[index] = payload;
+      }
     });
     // DELETE
     builder.addCase(deleteBrandsAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.brands = state.brands.filter(e => e._id != payload );
+      state.brands = state.brands.filter((e) => e._id != payload);
     });
   },
 });

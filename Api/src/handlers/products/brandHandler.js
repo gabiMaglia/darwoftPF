@@ -11,7 +11,7 @@ const getBrandByIdHandler = async (req, res, next) => {
     try {
       const {id} = req.params
       const response = await getBrandById(id)
-      return res.status(200).json({ error: false, response });
+      return res.status(200).json({ error: false, message:response });
     } catch (error) {
       next(error);
     }
@@ -20,7 +20,7 @@ const getBrandByIdHandler = async (req, res, next) => {
     try {
       const {brandData} = req.body
       const response = await createNewBrand(brandData)
-      return res.status(200).json({ error: false, response });
+      return res.status(200).json({ error: false, message:response });
     } catch (error) {
       next(error);
     }
@@ -30,7 +30,7 @@ const getBrandByIdHandler = async (req, res, next) => {
       const {id} = req.params
       const {brandData} = req.body
       const response = await updateBrand(id, brandData)
-      return res.status(200).json({ error: false, response });
+      return res.status(200).json({ error: false, message: response });
     } catch (error) {
       next(error);
     }
@@ -39,7 +39,7 @@ const getBrandByIdHandler = async (req, res, next) => {
     try {
       const {id} = req.params
       const response = await deleteBrand(id)
-      return res.status(200).json({ error: false, response });
+      return res.status(200).json({ error: false, message: response });
     } catch (error) {
       next(error);
     }

@@ -35,7 +35,7 @@ import Profile from "./views/Dashboard/Profile/Profile.jsx";
 import { getProductsAsync } from "./redux/slices/productSlice.js";
 
 function App() {
-  const isLogged = useSelector((state) => state.auth.user);
+  const isLogged = useSelector((state) => state.auth.isLogged);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -76,7 +76,7 @@ function App() {
           />
           <Route path={PATH_ROUTES.ABOUT} element={<About />} />
           <Route path={PATH_ROUTES.DETAIL} element={<ProductDetail />} />
-          <Route element={<ProtectedRoutes isLogged={!!isLogged} />}>
+          <Route element={<ProtectedRoutes isLogged={isLogged} />}>
             <Route path={PATH_ROUTES.CART} element={<ShoppingCart />} />
             <Route path={PATH_ROUTES.DASHBOARD} element={<Dashboard />}>
               <Route index element={<Profile />} />

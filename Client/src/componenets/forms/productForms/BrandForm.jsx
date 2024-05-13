@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import SubmitBtns from "../SubmitBtns";
 
 import styles from "../forms.module.css";
+import { isAnEmptyObject } from "../../../utils/objects";
 
 const brandSchema = Yup.object({
   brandName: Yup.string().required("Debes ingresar un nombre de marca"),
@@ -10,18 +11,19 @@ const brandSchema = Yup.object({
   brandEmail: Yup.string()
 });
 
-const BrandForm = ({onSubmit}) => {
+const BrandForm = ({onSubmit, initialData = {}}) => {
   const handleResetForm = (formik) => {
     formik.resetForm();
   };
 
+  const isUpdate = !isAnEmptyObject(initialData)
   return (
     <>
       <Formik
         initialValues={{
-          brandName: "",
-          brandHomePage: "",
-          brandEmail: "",
+          brandName: isUpdate && initialData.brandName || "",
+          brandHomePage: isUpdate && initialData.brandHomePage || "",
+          brandEmail: isUpdate && initialData.brandEmail || "",
         }}
         validationSchema={brandSchema}
         onSubmit={(values, actions) => {

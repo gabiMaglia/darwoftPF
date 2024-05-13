@@ -6,6 +6,8 @@ import {
   postCategoryGroup,
   deleteCategory,
   deleteCategoryGroup,
+  updateCategory,
+  updateCategoryGroup,
 } from "../../services/productServices/categoryServices";
 // GET
 export const getGroupsAsync = createAsyncThunk(
@@ -26,7 +28,7 @@ export const getCategoriesAsync = createAsyncThunk(
     return categories;
   }
 );
-// POST 
+// POST
 export const postCategoryAsync = createAsyncThunk(
   "cat/postCategoryAsync",
   async (categoryData) => {
@@ -46,7 +48,24 @@ export const postCategoryGroupAsync = createAsyncThunk(
   }
 );
 // UPDATE
-
+export const updateCategoryAsync = createAsyncThunk(
+  "cat/updateCategoryAsync",
+  async ({ id, value }) => {
+    const response = await updateCategory(id, value);
+    if (response.error) return { error: true };
+    const category = response.message;
+    return category;
+  }
+);
+export const updateCategoryGroupAsync = createAsyncThunk(
+  "cat/updateCategoryGroupAsync",
+  async ({ id, value }) => {
+    const response = await updateCategoryGroup(id, value);
+    if (response.error) return { error: true };
+    const group = response.message;
+    return group;
+  }
+);
 // DELETE
 export const deleteGroupAsync = createAsyncThunk(
   "cat/deleteGroupsAsync",
@@ -64,7 +83,6 @@ export const deleteCategorieAsync = createAsyncThunk(
     return id;
   }
 );
-
 
 const catSlice = createSlice({
   name: "categories",
@@ -86,22 +104,43 @@ const catSlice = createSlice({
     // POST
     builder.addCase(postCategoryAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.categories.push(payload)
+      state.categories = [...state.categories, payload];
     });
     builder.addCase(postCategoryGroupAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.groups.push(payload)
+      state.groups = [...state.groups, payload];
     });
+    // UPDATE
+    builder.addCase(updateCategoryAsync.fulfilled, (state, { payload }) => {
+      if (payload.error) return;
+      const index = state.categories.findIndex(
+        (category) => category.id === payload._id
+      );
+      if (index !== -1) {
+        state.categories[index] = payload;
+      }
+    });
+    builder.addCase(
+      updateCategoryGroupAsync.fulfilled,
+      (state, { payload }) => {
+        if (payload.error) return;
+        const index = state.groups.findIndex(
+          (group) => group._id === payload._id
+        );
+        if (index !== -1) {
+          state.groups[index] = payload; // Actualiza el grupo existente
+        }
+      }
+    );
     // DELETE
     builder.addCase(deleteGroupAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.groups = state.groups.filter(e => e._id != payload );
+      state.groups = state.groups.filter((e) => e._id != payload);
     });
     builder.addCase(deleteCategorieAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.categories = state.categories.filter(e => e._id != payload );
+      state.categories = state.categories.filter((e) => e._id != payload);
     });
-
   },
 });
 // export const {" "} = catSlice.actions;

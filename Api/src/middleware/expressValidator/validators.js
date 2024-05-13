@@ -48,15 +48,16 @@ const brandValidatino = [
   body("brandData.brandName")
     .exists({ checkFalsy: true, checkNull: true })
     .trim()
-    .isLength({ min: 1 }),
+    .isLength({ min: 1 })
+    .toLowerCase()
 ];
 
 const categoryValidation = [
   body("categoryData.catName")
     .exists({ checkFalsy: true, checkNull: true })
     .trim()
-    .isLength({ min: 3 }),
-  // body("categoryData.image").exists({ checkFalsy: true, checkNull: true }),
+    .isLength({ min: 3 })
+    .toLowerCase(),
 ];
 
 const saleOrderValidation = [

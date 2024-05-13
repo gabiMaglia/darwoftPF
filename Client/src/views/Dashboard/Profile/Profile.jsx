@@ -1,19 +1,26 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Img from "../../../componenets/ui/Img/Img";
 import foto from "../../../assets/profile.jpg";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 import styles from "./profile.module.css";
+import Modal from "../../../componenets/ui/Modal/Modal";
+import useModal from "../../../hooks/useModal";
+import PersonalDataForm from "../../../componenets/forms/ProfileForm/PersonalDataForm";
+import AdressForm from "../../../componenets/forms/ProfileForm/AdressForm";
+import ChangePasswordForm from "../../../componenets/forms/ProfileForm/ChangePasswordForm";
+import { updateUserAsync } from "../../../redux/slices/authSlice";
+import { formatInitialDateToShow } from "../../../utils/date";
 
 const Profile = () => {
-  const { user } = useSelector((state) => state.auth);
-  const { adress } = user;
-
+  const  user  = useSelector((state) => state.auth.user);
+  
   const dispatch = useDispatch();
 
-  const [modalType, setModalType] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [modalType, openModal, closeModal] = useModal();
+
+
 
   return (
     <>
@@ -38,45 +45,101 @@ const Profile = () => {
             </span>
             <span>
               <label>Fecha de Nacimiento</label>
-              <p>{user.birthday}</p>
+              <p>{formatInitialDateToShow(user.birthday)}</p>
             </span>
             <span>
               <label>Nacionalidad</label>
-              <p>{user.nacionality}</p>
+              <p>{user.nationality}</p>
             </span>
-            <PencilSquareIcon className={styles.icon} />
+            <PencilSquareIcon
+              className={styles.icon}
+              onClick={() => openModal("updatePersonalData")}
+            />
           </article>
 
           <article>
             <h3>Direccion de facturacion/entrega</h3>
             <span>
               <label>Pais</label>
-              <p>{`${adress.country || 'Completar'}`}</p>
+              <p>{`${user.adress?.country || "Completar"}`}</p>
             </span>
             <span>
               <label>Estado/Provincia</label>
-              <p>{`${adress.state || 'Completar'}`}</p>
+              <p>{`${user.adress?.state || "Completar"}`}</p>
             </span>
             <span>
               <label>Ciudad</label>
-              <p>{`${adress.city || 'Completar'}`}</p>
+              <p>{`${user.adress?.city || "Completar"}`}</p>
             </span>
             <span>
               <label>Calle</label>
-              <p>{`${adress.street || 'Completar'}`}</p>
+              <p>{`${user.adress?.street || "Completar"}`}</p>
             </span>
             <span>
               <label>Altura</label>
-              <p>{`${adress.number || 'Completar'}`}</p>
+              <p>{`${user.adress?.number || "Completar"}`}</p>
             </span>
             <span>
               <label>Codigo Postal</label>
-              <p>{`${adress.zipCOde || 'Completar'}`}</p>
+              <p>{`${user.adress?.zipCOde || "Completar"}`}</p>
             </span>
-            <PencilSquareIcon className={styles.icon} />
+            <PencilSquareIcon
+              className={styles.icon}
+              onClick={() => openModal("updateContactData")}
+            />
           </article>
         </div>
       </section>
+      {/* PERSONALDATA */}
+      <Modal
+        title={"Edita tu informacion personal"}
+        isOpen={modalType === "updatePersonalData"}
+        onClose={closeModal}
+      >
+        <PersonalDataForm
+          initialData={user}
+          onCancel={closeModal}
+          okTitle="Si"
+          canceTitle="no"
+          onSubmit={(userId, value) => {
+            dispatch(updateUserAsync(userId, value));
+            closeModal();
+          }}
+          />
+      </Modal>
+      {/* ADDRESS */}
+      <Modal
+        title={"Edita tu informacion de contacto"}
+        isOpen={modalType === "updateContactData"}
+        onClose={closeModal}
+        >
+        <AdressForm
+          initialData={user}
+          canceTitle="no"
+          onCancel={closeModal}
+          okTitle="Si"
+          onSubmit={(userId, value) => {
+            dispatch(updateUserAsync(userId, value));
+            closeModal();
+          }}
+        />
+      </Modal>
+      {/* CHANGEEPASS */}
+      <Modal
+        title={"Cambia tu contrasena"}
+        isOpen={modalType === "changePassword"}
+        onClose={closeModal}
+      >
+        <ChangePasswordForm
+          okTitle="Si"
+          onSubmit={(value) => {
+            dispatch(updateUserAsync(value));
+            closeModal();
+          }}
+          canceTitle="no"
+          onCancel={closeModal}
+        />
+      </Modal>
     </>
   );
 };

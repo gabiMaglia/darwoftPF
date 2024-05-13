@@ -16,10 +16,16 @@ export const getAllProducts = async () => {
 };
 
 export const getProductById = async (id) => {
-  // try {
-  // } catch (error) {
-  // }finally {
-  // }
+  try {
+    const { data } = await axiosInstance.get(`${URL}/product/${id}`);
+    return data;
+  } catch (error) {
+    const message = error.response
+      ? error.response.data.message
+      : "Error de conexión";
+    toast.error(message);
+    return null;
+  }
 };
 export const postProduct = async (productData) => {
   try {
@@ -28,6 +34,20 @@ export const postProduct = async (productData) => {
     });
     if (!data.error) {
       toast.success("Producto agregado");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
+};
+export const updateProduct = async (id, productData) => {
+  try {
+    console.log(id, productData)
+    const { data } = await axiosAuthInstance.patch(`${URL}/product/${id}`, {
+      productData,
+    });
+    if (!data.error) {
+      toast.success("Producto actualizado");
       return data;
     }
   } catch ({ response }) {

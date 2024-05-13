@@ -26,7 +26,7 @@ const userSchema = new Schema(
       type: Date,
       required: true,
     },
-    nacionality: String,
+    nationality: String,
 
     dni: {
       type: Number,

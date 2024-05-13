@@ -1,4 +1,3 @@
-
 import styles from "./productOrderFilter.module.css";
 
 const ProductOrderFilter = () => {
@@ -7,18 +6,17 @@ const ProductOrderFilter = () => {
       <form className={styles.filter}>
         <div className={styles.dropdown}>
           <select className={styles.dropdownselect}>
-            <option value="">Price range</option>
-            <option value="1">Option #1</option>
-            <option value="2">Option #2</option>
-            <option value="3">Option #3</option>
+            <option value="">Abc</option>
+            <option value="1">A-z</option>
+            <option value="2">Z-a</option>
+         
           </select>
         </div>
         <div className={styles.dropdown}>
           <select className={styles.dropdownselect}>
-            <option value="">Collection</option>
-            <option value="1">Option #1</option>
-            <option value="2">Option #2</option>
-            <option value="3">Option #3</option>
+            <option value="">Precio</option>
+            <option value="1">MayorMenor</option>
+            <option value="2">MenorMayor</option>   
           </select>
         </div>
       </form>

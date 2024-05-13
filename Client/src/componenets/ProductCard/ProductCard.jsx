@@ -1,8 +1,23 @@
+import { Link } from 'react-router-dom';
 import Img from "../ui/Img/Img";
-
 import styles from "./productCard.module.css";
+import { useDispatch } from 'react-redux';
+import { getProductsByIdAsync } from '../../redux/slices/productSlice';
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch()
+  const handleAddToCart= () => {
+    
+  }
+
+  const handleAddToWishLIst= () => {
+
+  }
+
+  const handlePrepareDetail= (id) => {
+    dispatch(getProductsByIdAsync(id));
+  }
+
   return (
     <>
       <div className={styles.productCard}>
@@ -11,16 +26,16 @@ const ProductCard = ({ product }) => {
           <Img img={product.images[0]} alt={product.name} />
         </div>
         <div className={styles.productDetails}>
-          <span className={styles.produCtcatagory}>{product.productCategory.catName}</span>
-          <h4>
-            <a href="">{product.name}</a>
+          <span className={styles.produCtcatagory}>{product.category.catName}</span>
+          <h4 onClick={() => handlePrepareDetail(product._id)}>
+          <Link to={`/detail/${product._id}`}>{product.name}</Link>
           </h4>
           <p>
-          {product.productBrand.brandName}
+          {product.brand.brandName}
           </p>
           <div className={styles.productBottomDetails}>
             <div className={styles.productPrice}>
-              {/* <small>$96.00</small> */}
+      
               <p>$230.99</p>
             </div>
             <div className={styles.productLinks}>

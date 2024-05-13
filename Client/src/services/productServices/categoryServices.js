@@ -46,7 +46,31 @@ export const postCategoryGroup = async (catGroupData) => {
   try {
     const { data } = await axiosAuthInstance.post(`${URL}/cat/group`, {catGroupData});
     if (!data.error) {
-      toast.success("Categoria agregada");
+      toast.success("Grupo agregada");
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+  }
+};
+// update
+export const updateCategory = async (id, categoryData) => {
+  try {
+  console.log(categoryData)
+  const { data } = await axiosAuthInstance.patch(`${URL}/cat/${id}`, {categoryData});
+  if (!data.error) {
+    toast.success("Categoria actualizada");
+    return data;
+  }
+} catch ({ response }) {
+  toast.error(response?.data?.message || "error");
+}
+};
+export const updateCategoryGroup = async (id, catGroupData) => {
+  try {
+    const { data } = await axiosAuthInstance.put(`${URL}/cat/group/${id}`, {catGroupData});
+    if (!data.error) {
+      toast.success("Grupo actualizada");
       return data;
     }
   } catch ({ response }) {

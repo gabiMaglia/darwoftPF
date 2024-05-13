@@ -1,10 +1,5 @@
 const errors = require("../../utils/errors");
-const {
-  Product,
-  ProductCategory,
-  ProductBrand,
-  ProductCategoryGroup,
-} = require("../../db/conn");
+const { Product } = require("../../db/conn");
 
 // GET
 const getAllProducts = async (params = {}) => {
@@ -17,8 +12,6 @@ const getAllProducts = async (params = {}) => {
   const query = {};
   isFeatured ? (query.isFeatured = isFeatured) : null;
   filter ? Object.assign(query, JSON.parse(filter)) : null;
-
-  //  console.log({query: query})
 
   const products = await Product.find(query)
     .populate("category")
@@ -53,12 +46,12 @@ const postNewProduct = async (productData) => {
       category,
       brand,
       soldCount = 0,
-      isActive ,
-      isFeatured ,
+      isActive,
+      isFeatured,
     } = productData;
 
     console.log(category);
-    
+
     const newProduct = new Product({
       name,
       price,
@@ -72,7 +65,7 @@ const postNewProduct = async (productData) => {
       brand,
     });
     await newProduct.save();
-    
+
     return newProduct;
   } catch (error) {
     throw new Error("");
@@ -80,57 +73,38 @@ const postNewProduct = async (productData) => {
 };
 // UPDATE
 const updateProduct = async (id, productData) => {
-  console.log(productData);
   const {
     name,
     price,
     images,
     productDescription,
     warranty,
-    productStock,
-    productCategory,
-    productBrand,
+    stock,
+    category,
+    brand,
     soldCount,
     isActive,
     isFeatured,
   } = productData;
-  const { catName, image } = productCategory;
-  const { brandName, brandHomePage } = productBrand;
 
-  const product = new Product({
-    name,
-    price,
-    images,
-    productDescription,
-    warranty,
-    stock: productStock,
-    soldCount,
-    isActive,
-    isFeatured,
-  });
+  const product = await Product.findByIdAndUpdate(
+    id,
+    {
+      name,
+      price,
+      images,
+      productDescription,
+      warranty,
+      stock,
+      category,
+      brand,
+      soldCount,
+      isActive,
+      isFeatured,
+    },
+    { new: true }
+  );
 
-  let cat = await ProductCategory.findOne({ catName: catName });
-
-  if (!cat) {
-    cat = new ProductCategory({
-      catName,
-      image,
-    });
-    await cat.save();
-  }
-  product.category = cat._id;
-  let brand = await ProductBrand.findOne({ brandName: brandName });
-
-  if (!brand) {
-    brand = new ProductBrand({
-      brandName,
-      brandHomePage,
-    });
-    await brand.save();
-  }
-  product.brand = brand._id;
-
-  await product.save();
   return product;
 };
 // DELETE

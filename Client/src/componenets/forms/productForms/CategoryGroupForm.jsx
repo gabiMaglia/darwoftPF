@@ -3,21 +3,23 @@ import * as Yup from "yup";
 import SubmitBtns from "../SubmitBtns";
 
 import styles from "../forms.module.css";
+import { isAnEmptyObject } from "../../../utils/objects";
 
 const brandSchema = Yup.object({
   name: Yup.string().required("Debes ingresar un nombre para el grupo"),
 });
 
-const CategoryGroup = ({onSubmit}) => {
+const CategoryGroupForm = ({onSubmit, initialData = {}}) => {
   const handleResetForm = (formik) => {
     formik.resetForm();
   };
 
+  const isUpdate = !isAnEmptyObject(initialData)
   return (
     <>
       <Formik
         initialValues={{
-          name: "",
+          name: isUpdate && initialData.name || "",
 
         }}
         validationSchema={brandSchema}
@@ -52,4 +54,4 @@ const CategoryGroup = ({onSubmit}) => {
   );
 }
 
-export default CategoryGroup
+export default CategoryGroupForm

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../../componenets/Tables/Table";
 
@@ -8,17 +9,19 @@ import ConfirmationForm from "../../../componenets/forms/ConfirmationForm";
 import {
   deleteBrandsAsync,
   postBrandAsync,
+  updateBrandAsync,
 } from "../../../redux/slices/brandSlice";
-import { useState } from "react";
 import {
   deleteCategorieAsync,
   deleteGroupAsync,
   postCategoryAsync,
   postCategoryGroupAsync,
+  updateCategoryAsync,
+  updateCategoryGroupAsync,
 } from "../../../redux/slices/categorySlice";
 import BrandForm from "../../../componenets/forms/productForms/BrandForm";
 import CategoryForm from "../../../componenets/forms/productForms/CategoryForm";
-import CategoryGroup from "../../../componenets/forms/productForms/CategoryGroup";
+import CategoryGroupForm from "../../../componenets/forms/productForms/CategoryGroupForm";
 
 const brandColumns = [
   {
@@ -29,15 +32,15 @@ const brandColumns = [
     header: "Home Page",
     accessorKey: "brandHomePage",
   },
+  {
+    header: "Email",
+    accessorKey: "brandEmail",
+  },
 ];
 const categoryColumns = [
   {
     header: "Name",
     accessorKey: "catName",
-  },
-  {
-    header: "Image",
-    accessorKey: "image",
   },
   {
     header: "Group",
@@ -52,33 +55,37 @@ const categoryGroupsColumns = [
 ];
 const BrandsCat = () => {
   const [currentItemId, setCurrentItemId] = useState(null);
+  const [currentDataToUpdate, setCurrentDataToUpdate] = useState({});
   const categories = useSelector((state) => state.categories);
   const brand = useSelector((state) => state.brands);
   const dispatch = useDispatch();
   const { brands } = brand;
 
-  const handleAddElement = (tableName) => {};
+ 
 
   const handleActionClick = (action, tableName, itemId, data = null) => {
-    // console.log(action);
-    // console.log(tableName);
     setCurrentItemId(itemId);
-
     const actionMap = {
       categoryGroup: {
         delete: () => openModal("deleteCategoryGrup"),
-        add: () => openModal("addCategoryGrup"),
-        // 'update': () => dispatch(updateCategory(itemId, data))
+        add: () => openModal("addCategoryGrup", setCurrentDataToUpdate({})),
+        update: () => {
+          openModal("updateCategoryGrup"), setCurrentDataToUpdate(data);
+        },
       },
       category: {
         delete: () => openModal("deleteCategory"),
         add: () => openModal("addCategory"),
-        // 'update': () => dispatch(updateCategoryGroup(itemId, data))
+        update: () => {
+          openModal("updateCategory"), setCurrentDataToUpdate(data);
+        },
       },
       brand: {
         delete: () => openModal("deleteBrand"),
         add: () => openModal("addBrand"),
-        // 'update': () => dispatch(updateBrand(itemId, data))
+        update: () => {
+          openModal("updateBrand"), setCurrentDataToUpdate(data);
+        },
       },
     };
     const tableAction = actionMap[tableName][action];
@@ -86,7 +93,7 @@ const BrandsCat = () => {
     if (tableAction) {
       tableAction();
     } else {
-     return
+      return;
     }
   };
 
@@ -102,7 +109,6 @@ const BrandsCat = () => {
           columns={categoryGroupsColumns}
           tableName="categoryGroup"
           handleActionClick={handleActionClick}
-          handleAddElement={handleAddElement}
         />
       </article>
       <article>
@@ -112,7 +118,6 @@ const BrandsCat = () => {
           columns={categoryColumns}
           tableName="category"
           handleActionClick={handleActionClick}
-          handleAddElement={handleAddElement}
         />
       </article>
       <article>
@@ -122,10 +127,10 @@ const BrandsCat = () => {
           columns={brandColumns}
           tableName="brand"
           handleActionClick={handleActionClick}
-          handleAddElement={handleAddElement}
         />
       </article>
       {/* MODALES */}
+
       {/* DELETE */}
       <Modal
         title={"Realmente desea eliminar esta marca?"}
@@ -172,15 +177,66 @@ const BrandsCat = () => {
           onCancel={closeModal}
         />
       </Modal>
+      {/* UPDATE */}
+      <Modal
+        title={"Actualiza los datos del grupo"}
+        isOpen={modalType === "updateCategoryGrup"}
+        onClose={closeModal}
+      >
+        <CategoryGroupForm
+          initialData={currentDataToUpdate}
+          okTitle="Si"
+          onSubmit={(value) => {
+           
+            dispatch(updateCategoryGroupAsync({id: currentDataToUpdate._id, value}));
+            closeModal();
+          }}
+          canceTitle="no"
+          onCancel={closeModal}
+        />
+      </Modal>
 
+      <Modal
+        title={"Actualiza los datos de la categoria"}
+        isOpen={modalType === "updateCategory"}
+        onClose={closeModal}
+      >
+        <CategoryForm
+          initialData={currentDataToUpdate}
+          okTitle="Si"
+          onSubmit={(value) => {
+            dispatch(updateCategoryAsync({id: currentDataToUpdate._id, value}));
+            closeModal();
+          }}
+          canceTitle="no"
+          onCancel={closeModal}
+        />
+      </Modal>
 
-      {/* ADD */}
+      <Modal
+        title={"Actualiza los datos de la marca"}
+        isOpen={modalType === "updateBrand"}
+        onClose={closeModal}
+      >
+        <BrandForm
+          initialData={currentDataToUpdate}
+          okTitle="Si"
+          onSubmit={(value) => {
+            dispatch(updateBrandAsync({id: currentDataToUpdate._id, value}));
+            closeModal();
+          }}
+          canceTitle="no"
+          onCancel={closeModal}
+        />
+      </Modal>
+      {/* ADD/ */}
       <Modal
         title={"Ingresa los datos del grupo"}
         isOpen={modalType === "addCategoryGrup"}
         onClose={closeModal}
       >
-        <CategoryGroup
+        <CategoryGroupForm
+          initialData={currentDataToUpdate}
           okTitle="Si"
           onSubmit={(value) => {
             dispatch(postCategoryGroupAsync(value));
@@ -206,7 +262,6 @@ const BrandsCat = () => {
           onCancel={closeModal}
         />
       </Modal>
-
 
       <Modal
         title={"Ingresa los datos de la marca"}

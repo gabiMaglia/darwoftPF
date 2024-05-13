@@ -32,21 +32,14 @@ const getCategoryById = async (id) => {
 };
 // POST
 const postNewCategory = async (categoryData) => {
-  console.log("llego al controller");
-  const { catName, image, group } = categoryData;
+  const { catName, group } = categoryData;
+  console.log(group);
+
   const newCategory = new ProductCategory({
     catName,
-    image,
   });
-  const isGroup = await ProductCategoryGroup.findOne({ name: group });
-  if (isGroup) {
-    newCategory.group = isGroup._id;
-  } else {
-    const newGroup = await ProductCategoryGroup.create({
-      name: group,
-    });
-    newCategory.group = newGroup._id;
-  }
+  const isGroup = await ProductCategoryGroup.findOne({ _id: group });
+  if (isGroup) newCategory.group = isGroup._id;
   await newCategory.save();
 
   return newCategory;
@@ -63,25 +56,26 @@ const postNewCategoryGroup = async ({ name }) => {
 };
 // UPDATE
 const updateCategory = async (id, categoryData) => {
-  let catGroup;
-  const { catName, image, group } = categoryData;
-
-  if (group) catGroup = await ProductCategoryGroup.findOne({ name: group })._id;
-  catGroup = await postNewCategoryGroup({ name: group }).id;
-
+  console.log({catego: categoryData})
+  const { catName, group } = categoryData;
+  console.log("group")
+  const catGroup = await ProductCategoryGroup.findById( group );
+  console.log("CAT")
+  console.log(catGroup)
+  
   const response = await ProductCategory.findByIdAndUpdate(
     id,
     {
       catName,
-      image,
       catGroup,
     },
     { new: true }
   );
-
+  
+  console.log(response)
   return response;
 };
-const updateCategoryGroup = async (UpdateCategoryGroupData, id) => {
+const updateCategoryGroup = async (id, UpdateCategoryGroupData) => {
   const { name } = UpdateCategoryGroupData;
   const response = await ProductCategoryGroup.findByIdAndUpdate(
     id,

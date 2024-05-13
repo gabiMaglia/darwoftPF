@@ -55,7 +55,7 @@ const singUp = async (userData) => {
     email,
     photo,
     birthday,
-    nacionality,
+    nationality,
     dni,
     password,
     adress,
@@ -110,7 +110,7 @@ const singUp = async (userData) => {
     email,
     photo,
     birthday,
-    nacionality,
+    nationality,
     dni,
     userCart,
     userWishList,
@@ -172,13 +172,15 @@ const resetPassword = async (token, { password }) => {
   const user = await User.findById(userDataFromtoken.id);
   if (userDataFromtoken.email !== user.email)
     throw new Error(errors.auth.wrongCredentials);
+
   const userCredentials = await UserCredential.findById(user.credentials);
   if (!userCredentials) throw new Error(errors.auth.wrongCredentials);
 
+  userCredentials.password = password;
   await userCredentials.save();
 
   await TokenWhiteList.deleteOne({ token: token.token });
-  userCredentials.password = password;
+
   return {
     error: false,
     response: "Password actualizado",
@@ -186,8 +188,8 @@ const resetPassword = async (token, { password }) => {
 };
 
 const logOutUser = async (token) => {
-  console.log('object')
-  console.log(token)
+  console.log("object");
+  console.log(token);
   await TokenWhiteList.deleteOne({ token: token });
   return true;
 };

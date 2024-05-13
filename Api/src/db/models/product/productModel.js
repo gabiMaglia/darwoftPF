@@ -60,9 +60,6 @@ const productCategorySchema = new Schema({
     unique:true,
     require: true
   },
-  image: {
-    type: Array,
-  },
   group: {
     type: mongoose.Types.ObjectId,
     ref: 'ProductCategoryGroup',

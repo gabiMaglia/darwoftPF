@@ -5,7 +5,7 @@ import useModal from "../../../hooks/useModal";
 import Table from "../../../componenets/Tables/Table";
 import Modal from "../../../componenets/ui/Modal/Modal";
 import ConfirmationForm from "../../../componenets/forms/ConfirmationForm";
-import { deleteProductsAsync, postProductAsync } from "../../../redux/slices/productSlice";
+import { deleteProductsAsync, postProductAsync, updateProductAsync } from "../../../redux/slices/productSlice";
 
 import styles from "./stock.module.css";
 import ProductForm from "../../../componenets/forms/productForms/ProductForm";
@@ -42,25 +42,25 @@ const productColumns = [
 ];
 
 const Stock = () => {
+  const [currentDataToUpdate, setCurrentDataToUpdate] = useState({});
   const products = useSelector((state) => state.products);
-  const { groups } = products;
+
 
   const [currentItemId, setCurrentItemId] = useState(null);
   const dispatch = useDispatch();
 
   const [modalType, openModal, closeModal] = useModal();
 
-  const handleActionClick = (action, tableName, itemId) => {
+  const handleActionClick = (action, tableName, itemId, data = null) => {
     setCurrentItemId(itemId);
-    console.log(tableName);
-    console.log(action);
-    openModal("deleteProduct");
 
     const actionMap = {
       stock: {
         delete: () => openModal("deleteProduct"),
         add: () => openModal("addProduct"),
-        // 'update': () => dispatch(updateCategory(itemId, data))
+        update: () => {
+          openModal("updateProduct"), setCurrentDataToUpdate(data);
+        },
       },
     };
     const tableAction = actionMap[tableName][action];
@@ -77,7 +77,7 @@ const Stock = () => {
       <article>
         <h2>Product Groups List</h2>
         <Table
-          data={groups}
+          data={products.products}
           columns={productColumns}
           tableName="stock"
           handleActionClick={handleActionClick}
@@ -100,6 +100,23 @@ const Stock = () => {
           onCancel={closeModal}
         />
       </Modal>
+      {/* UPDATE */}
+      <Modal
+        title={"Actualiza los datos de este producto?"}
+        isOpen={modalType === "updateProduct"}
+        onClose={closeModal}
+      >
+        <ProductForm
+          initialData = {currentDataToUpdate}
+          okTitle="Si"
+          onSubmit={(value) => {
+            dispatch(updateProductAsync({id : currentDataToUpdate._id, value}));
+            closeModal();
+          }}
+          canceTitle="no"
+          onCancel={closeModal}
+        />
+      </Modal>
       {/* POST */}
       <Modal
         title={"Realmente desea eliminar este producto?"}
@@ -107,6 +124,7 @@ const Stock = () => {
         onClose={closeModal}
       >
         <ProductForm
+            // initialData = {}
           okTitle="Si"
           onSubmit={(value) => {
             dispatch(postProductAsync(value));

@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import SubmitBtns from "./SubmitBtns";
-import paises from "../../utils/paises";
+import {nacionalities} from "../../utils/paises";
 
 import styles from "./forms.module.css";
 
 const signUpSchema = Yup.object({
   firstName: Yup.string().min(3).required("Debes ingresar un nombre"),
   lastName: Yup.string().min(3).required("Debes ingresar un apellido"),
-  nacionality: Yup.string(),
+  nationality: Yup.string(),
   // .min(3)
   // .required("Debes ingresar un nacionalidad"),
   email: Yup.string()
@@ -28,10 +28,10 @@ const signUpSchema = Yup.object({
 });
 
 const SignUpForm = ({ onSubmit }) => {
-  const [nacionality, setNacionality] = useState("");
+  const [nationality, setNationality] = useState("");
   const handleResetForm = (formik) => {
     formik.resetForm();
-    setNacionality("");
+    setNationality("");
   };
   return (
     <>
@@ -42,7 +42,7 @@ const SignUpForm = ({ onSubmit }) => {
           email: "",
           photo: "",
           birthday: new Date("1990-01-01"),
-          nacionality: "",
+          nationality: "",
           dni: "",
           password: "",
           confirmPassword: "",
@@ -50,7 +50,7 @@ const SignUpForm = ({ onSubmit }) => {
         }}
         validationSchema={signUpSchema}
         onSubmit={(values) => {
-          values = { ...values, nacionality: nacionality };
+          values = { ...values, nationality: nationality };
           onSubmit(values);
         }}
       >
@@ -78,20 +78,20 @@ const SignUpForm = ({ onSubmit }) => {
                 as="select"
                 name="nationality"
                 onChange={(e) => {
-                  setNacionality(e.target.value);
+                  setNationality(e.target.value);
                 }}
               >
                 <option disabled value="">
                   Seleccione su nacionalidad
                 </option>
-                {paises.map((pais) => (
-                  <option key={Math.random()} value={pais.toString()}>
-                    {pais}
+                {nacionalities.map((nationality) => (
+                  <option key={Math.random()} value={nationality.toString()}>
+                    {nationality}
                   </option>
                 ))}
               </Field>
-              {errors.nacionality && touched.nacionality ? (
-                <p className={styles.errors}>{errors.nacionality}</p>
+              {errors.nationality && touched.nationality ? (
+                <p className={styles.errors}>{errors.nationality}</p>
               ) : null}
             </span>
 

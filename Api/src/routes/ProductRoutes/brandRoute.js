@@ -29,7 +29,7 @@ brandRouter
 brandRouter
   .route("/:id")
   .get(getBrandByIdHandler)
-  .post(
+  .put(
     isAutenticated,
     isAuthorized,
     brandValidatino,

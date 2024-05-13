@@ -4,6 +4,7 @@ import {
   getProductById,
   postProduct,
   deleteProduct,
+  updateProduct,
 } from "../../services/productServices/productServices";
 // GET
 export const getProductsAsync = createAsyncThunk(
@@ -11,15 +12,34 @@ export const getProductsAsync = createAsyncThunk(
   async () => {
     const response = await getAllProducts();
     if (response.error) return { error: true };
-    const groups = response.message.map((e) => e);
-    return groups;
+  
+    return response.message;
+  }
+);
+export const getProductsByIdAsync = createAsyncThunk(
+  "prod/getProductsByIdAsync",
+  async (id) => {
+    const response = await getProductById(id);
+    if (response.error) return { error: true };  
+    return response.message;
+    
   }
 );
 // POST
 export const postProductAsync = createAsyncThunk(
-  "cat/postProductAsync",
+  "prod/postProductAsync",
   async (productData) => {
     const response = await postProduct(productData);
+    if (response.error) return { error: true };
+    const category = response.message;
+    return category;
+  }
+);
+// POST
+export const updateProductAsync = createAsyncThunk(
+  "prod/updateProductAsync",
+  async ({id, value}) => {
+    const response = await updateProduct(id, value);
     if (response.error) return { error: true };
     const category = response.message;
     return category;
@@ -35,24 +55,46 @@ export const deleteProductsAsync = createAsyncThunk(
     return groups;
   }
 );
-const productBrand = createSlice({
+const productSlice = createSlice({
   name: "products",
   initialState: {
     products: null,
+    productsToShow: null,
+    productDetail: null,
   },
-  reducers: {},
+  reducers: {
+    
+      clearProductDetail: (state) => {
+        state.productDetail = null;
+      },
+    
+     
+  },
 
   extraReducers: (builder) => {
     // GET
     builder.addCase(getProductsAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.groups = payload;
+      state.products = payload;
+    });
+    builder.addCase(getProductsByIdAsync.fulfilled, (state, { payload }) => {
+      if (payload.error) return;
+      state.productDetail = payload;
     });
     // POST
     builder.addCase(postProductAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      console.log(payload)
       state.products = [...state.products, payload];
+    });
+    // UPDATE
+    builder.addCase(updateProductAsync.fulfilled, (state, { payload }) => {
+      if (payload.error) return;
+      const index = state.products.findIndex(
+        (product) => product._id === payload._id
+      );
+      if (index !== -1) {
+        state.products[index] = payload;
+      }
     });
     // DELETE
     builder.addCase(deleteProductsAsync.fulfilled, (state, { payload }) => {
@@ -61,5 +103,5 @@ const productBrand = createSlice({
     });
   },
 });
-// export const {" "} = brandSlice.actions;
-export default productBrand.reducer;
+export const {clearProductDetail } = productSlice.actions;
+export default productSlice.reducer;

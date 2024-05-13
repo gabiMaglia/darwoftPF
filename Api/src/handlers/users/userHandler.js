@@ -29,7 +29,8 @@ const updateUserHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { userData } = req.body;
-
+    
+    console.log(id, userData)
     const response = await updateUser(id, userData);
     return res.status(200).json({ error: false, message: response });
   } catch (error) {
