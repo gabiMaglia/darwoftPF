@@ -10,7 +10,7 @@ import PATH_ROUTES from "../../helpers/routes.helper";
 
 import styles from "./productCard.module.css";
 const ProductCard = ({ product }) => {
- 
+  console.log(product)
   const dispatch = useDispatch();
   const handleAddToCart = () => {
     dispatch(addItem(parseItemForCart(product)))

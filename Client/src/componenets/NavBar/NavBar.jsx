@@ -11,16 +11,22 @@ import { capitalizeFirstLetter } from "../../utils/strings";
 
 import mainLogoColor from "../../assets/logos_png/logos folk-02.png";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PATH_ROUTES from "../../helpers/routes.helper";
+import { filterByGroup } from "../../redux/slices/productSlice";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const categoriesGroups = useSelector((state) => state.categories.groups)
+  const categoriesGroups = useSelector((state) => state.categories.groups);
 
+  const dispatch = useDispatch();
+
+  const handleFilterByGroup = (groupName) => {
+    dispatch(filterByGroup(groupName));
+  };
   const handleOpenNav = () => {
-    setIsOpen(!isOpen)
-  } 
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
@@ -34,7 +40,10 @@ const NavBar = () => {
         <div className={`${styles.navItems} ${isOpen && styles.open}`}>
           <ul className={styles.navLinks}>
             {categoriesGroups?.map((cat) => (
-              <li onClick={handleOpenNav}  key={cat.id + Math.random().toString()}>
+              <li
+                onClick={() => handleFilterByGroup(cat._id)}
+                key={cat.id + Math.random().toString()}
+              >
                 <span>{capitalizeFirstLetter(cat.name)}</span>
               </li>
             ))}
@@ -43,17 +52,17 @@ const NavBar = () => {
           <div className={styles.userControlsgroup}>
             <div className={styles.userControls}>
               <SearchBar />
-           
-                <ThemeSwitcher  />
-          
-              <span onClick={handleOpenNav} >
-                <Auth  onClick={handleOpenNav} />
+
+              <ThemeSwitcher />
+
+              <span onClick={handleOpenNav}>
+                <Auth onClick={handleOpenNav} />
               </span>
             </div>
           </div>
         </div>
 
-        <div onClick={handleOpenNav}  className={styles.shoppingCart}>
+        <div onClick={handleOpenNav} className={styles.shoppingCart}>
           <ShoppintCart />
         </div>
         <div

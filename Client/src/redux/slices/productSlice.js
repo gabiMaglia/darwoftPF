@@ -65,19 +65,21 @@ const productSlice = createSlice({
     clearProductDetail: (state) => {
       state.productDetail = null;
     },
-    filterByCategory: (state, action) => {
+    filterByCategory: (state, {payload}) => {
       state.productsToShow = state.products.filter(
-        (product) => product.category.catName === action.payload
+        (product) => product.category.catName === payload
       );
+      console.log(state.productsToShow)
     },
-    filterByBrand: (state, action) => {
+    filterByBrand: (state, {payload}) => {
       state.productsToShow = state.products.filter(
-        (product) => product.brand.brandName === action.payload
+        (product) => product.brand.brandName === payload
       );
+      console.log(state.productsToShow)
     },
-    filterByGroup: (state, action) => {
+    filterByGroup: (state, {payload}) => {
       state.productsToShow = state.products.filter(
-        (product) => product.group.groupName === action.payload
+        (product) => product.category.group === payload
       );
     },
     clearFilters: (state) => {
@@ -90,6 +92,7 @@ const productSlice = createSlice({
     builder.addCase(getProductsAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
       state.products = payload;
+      state.productsToShow = payload;
     });
     builder.addCase(getProductsByIdAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;

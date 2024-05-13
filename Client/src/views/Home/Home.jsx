@@ -6,7 +6,7 @@ import styles from "./home.module.css";
 import { useSelector } from "react-redux";
 
 const Home = () => {
-  const products = useSelector(state => state.products.products)
+  const products = useSelector((state) => state.products.productsToShow);
 
   return (
     <>

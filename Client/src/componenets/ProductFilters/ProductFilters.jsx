@@ -1,12 +1,31 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { capitalizeFirstLetter } from "../../utils/strings";
 import ProductOrderFilter from "../ProductOrderFilter/ProductOrderFilter";
+import {
+  filterByBrand,
+  filterByCategory,
+  filterByGroup,
+} from "../../redux/slices/productSlice";
+
 import styles from "./productFilters.module.css";
 
 const ProductFilters = () => {
+  const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
   const brands = useSelector((state) => state.brands);
- 
+
+  const handleFilterByCategory = (categoryName) => {
+    dispatch(filterByCategory(categoryName));
+  };
+
+  const handleFilterByBrand = (brandName) => {
+    dispatch(filterByBrand(brandName));
+  };
+
+  const handleFilterByGroup = (groupName) => {
+    dispatch(filterByGroup(groupName));
+  };
+
   return (
     <>
       <div className={styles.filterBox}>
@@ -22,7 +41,10 @@ const ProductFilters = () => {
             <h3>Grupo</h3>
             <ul>
               {categories.groups?.map((e) => (
-                <li key={e._id + Math.random().toString()}>
+                <li
+                  key={e._id + Math.random().toString()}
+                  onClick={() => handleFilterByGroup(e._id)}
+                >
                   {capitalizeFirstLetter(e.name)}
                 </li>
               ))}
@@ -32,7 +54,10 @@ const ProductFilters = () => {
             <h3>Categoria</h3>
             <ul>
               {categories.categories?.map((e) => (
-                <li key={e._id + Math.random().toString()}>
+                <li
+                  key={e._id + Math.random().toString()}
+                  onClick={() => handleFilterByCategory(e.catName)}
+                >
                   {capitalizeFirstLetter(e.catName)}
                 </li>
               ))}
@@ -43,7 +68,10 @@ const ProductFilters = () => {
             <h3>Marcas</h3>
             <ul>
               {brands.brands?.map((e) => (
-                <li key={e._id + Math.random().toString()}>
+                <li
+                  key={e._id + Math.random().toString()}
+                  onClick={() => handleFilterByBrand(e.brandName)}
+                >
                   {capitalizeFirstLetter(e.brandName)}
                 </li>
               ))}
