@@ -128,7 +128,7 @@ const catSlice = createSlice({
           (group) => group._id === payload._id
         );
         if (index !== -1) {
-          state.groups[index] = payload; // Actualiza el grupo existente
+          state.groups[index] = payload; 
         }
       }
     );

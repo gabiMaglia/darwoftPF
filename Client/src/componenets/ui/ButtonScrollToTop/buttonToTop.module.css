@@ -8,3 +8,12 @@
 .isVisible {
   display: block;
 }
+@media screen and (max-width: 380px) {
+  .buttonToTop{
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    display: none;
+}
+
+}

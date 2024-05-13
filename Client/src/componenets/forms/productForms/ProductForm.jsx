@@ -13,7 +13,7 @@ const productSchema = Yup.object({
     .of(Yup.string().required("Es necesario subir una imagen"))
     .min(1, "Debes subir al menos una imagen"),
   productDescription: Yup.string().required("Debes ingresar una descripción"),
-  stock: Yup.number().required("Debes ingresar la cantidad en stock"),
+  stock: Yup.number().min(1).required("Debes ingresar la cantidad en stock"),
   category: Yup.string().required("Debes seleccionar una categoría"),
   brand: Yup.string().required("Debes seleccionar una marca"),
 });

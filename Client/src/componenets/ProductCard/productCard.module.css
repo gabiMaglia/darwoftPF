@@ -2,7 +2,7 @@
   position: relative;
   flex: 1 1 20%;
   min-width: 240px;
-  
+  height: 440px;
   box-shadow: 0 2px 7px #dfdfdf;
   border-radius: var(--spacing-md);
   background: #fafafa;
@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 240px;
+  height: 220px;
   padding: 50px;
   border-top-left-radius: var(--spacing-md);
   border-top-right-radius: var(--spacing-md);
@@ -32,7 +32,7 @@
 }
 
 .productTumb img {
-  /* border: #363636 1px solid; */
+  
   max-width: 120px;
   max-height: 90px;
   transform: scale(2);
@@ -98,18 +98,7 @@
   margin-right: 5px;
 }
 
-.product-links {
-  text-align: right;
-}
-
-.productLinks a {
-  display: inline-block;
-  margin-left: 5px;
-  color: #e1e1e1;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-.productLinks a:hover {
-  color: #fbb72c;
+.productLinks {
+  display: flex;
+  gap: .3rem;
 }

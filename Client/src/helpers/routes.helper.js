@@ -8,10 +8,10 @@ const PATH_ROUTES = {
   DASHBOARD: '/dashboard',
   PERSONAL: '/dashboard',
   WISHLIST: 'wish',
+  SHOPPINGCART: '/cart',
   STOCK: 'stock',
   BRANDSCATEGORY: 'brandscat',
-  CART: '/cart',
-  DETAIL: '/detail/:id',
+  DETAIL: '/detail/',
   ABOUT: '/about',
   CHANGEPASSWORD: '/changepassword/:token',
   ERROR404: '/*'

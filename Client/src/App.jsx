@@ -9,7 +9,7 @@ import ProductDetail from "./views/ProductDetail/ProductDetail";
 import Dashboard from "./views/Dashboard/Dashboard.jsx";
 import About from "./views/About/About";
 import Error404 from "./views/Error404/Error404";
-import ShoppingCart from "./componenets/ShoppingCart/ShoppintCart";
+import ShoppingCart from "./views/ShoppingCart/ShoppingCart.jsx";
 import WishList from "./views/Wishlist/WishList.jsx";
 import ChangePassword from "./views/ChangePassword/ChangePassword.jsx";
 
@@ -74,10 +74,10 @@ function App() {
             path={PATH_ROUTES.CHANGEPASSWORD}
             element={<ChangePassword />}
           />
+        <Route path={PATH_ROUTES.SHOPPINGCART} element={<ShoppingCart />} />
           <Route path={PATH_ROUTES.ABOUT} element={<About />} />
           <Route path={PATH_ROUTES.DETAIL} element={<ProductDetail />} />
           <Route element={<ProtectedRoutes isLogged={isLogged} />}>
-            <Route path={PATH_ROUTES.CART} element={<ShoppingCart />} />
             <Route path={PATH_ROUTES.DASHBOARD} element={<Dashboard />}>
               <Route index element={<Profile />} />
               <Route exact path={PATH_ROUTES.STOCK} element={<Stock />} />

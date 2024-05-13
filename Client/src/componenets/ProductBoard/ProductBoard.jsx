@@ -1,11 +1,10 @@
-import { useSelector } from "react-redux";
+
 import ProductCard from "../ProductCard/ProductCard";
 
 import styles from "./productBoard.module.css";
 
 
-const ProductBoard = () => {
-  const products = useSelector(state => state.products.products)
+const ProductBoard = ({products}) => {
   return (
       <>
       

@@ -1,8 +1,26 @@
+
+.shoppingCartCont{
+  position: relative;
+  display: flex;
+  cursor: pointer;
+}
 .icon {
+  position: relative;
   margin-bottom: 0.51rem;
   margin-left: 2rem;
   width: 66px;
   height: 100%;
-
   padding: var(--spacing-sm);
+}
+.shoppingCartAmmount{
+  position: absolute;
+  font-size: 24px;
+  bottom: 11px;
+  right: 28px;
+  border-radius: 50%;
+  background-color: red;
+  color: black;
+  font-weight: bolder;
+  color: white;
+  z-index: 999;
 }

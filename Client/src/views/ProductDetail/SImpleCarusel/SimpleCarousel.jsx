@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import styles from './simpleCarousel.module.css'; // Asumimos que creas un archivo CSS para los estilos
+import { useSelector } from 'react-redux';
 
-const SimpleCarousel = ({ images }) => {
+const SimpleCarousel = ( ) => {
+  const images = useSelector((state) => state.products.productDetail.images);
+ 
   const [activeImage, setActiveImage] = useState(images[0]);
-
   const handleImageClick = (image) => {
     setActiveImage(image);
   };
@@ -14,7 +16,7 @@ const SimpleCarousel = ({ images }) => {
         <img src={activeImage} alt="Active" className={styles.mainImage} />
       </div>
       <div className={styles.thumbnailContainer}>
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <img
             key={index}
             src={image}

@@ -12,15 +12,21 @@ import { capitalizeFirstLetter } from "../../utils/strings";
 import mainLogoColor from "../../assets/logos_png/logos folk-02.png";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import PATH_ROUTES from "../../helpers/routes.helper";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const categoriesGroups = useSelector((state) => state.categories.groups)
+
+  const handleOpenNav = () => {
+    setIsOpen(!isOpen)
+  } 
+
   return (
     <>
       <nav className={styles.navBar}>
         <div className={styles.logo}>
-          <Link to="/">
+          <Link to={PATH_ROUTES.HOME}>
             <Img img={mainLogoColor} alt="Folk tecnotienda" />
           </Link>
         </div>
@@ -28,8 +34,8 @@ const NavBar = () => {
         <div className={`${styles.navItems} ${isOpen && styles.open}`}>
           <ul className={styles.navLinks}>
             {categoriesGroups?.map((cat) => (
-              <li key={cat.id + Math.random().toString()}>
-                <Link to={"/"}>{capitalizeFirstLetter(cat.name)}</Link>
+              <li onClick={handleOpenNav}  key={cat.id + Math.random().toString()}>
+                <span>{capitalizeFirstLetter(cat.name)}</span>
               </li>
             ))}
           </ul>
@@ -37,13 +43,17 @@ const NavBar = () => {
           <div className={styles.userControlsgroup}>
             <div className={styles.userControls}>
               <SearchBar />
-              <ThemeSwitcher />
-              <Auth />
+           
+                <ThemeSwitcher  />
+          
+              <span onClick={handleOpenNav} >
+                <Auth  onClick={handleOpenNav} />
+              </span>
             </div>
           </div>
         </div>
 
-        <div className={styles.shoppingCart}>
+        <div onClick={handleOpenNav}  className={styles.shoppingCart}>
           <ShoppintCart />
         </div>
         <div
