@@ -60,7 +60,7 @@ const conn = () =>
     .connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 75000,
+      serverSelectionTimeoutMS: 175000,
       socketTimeoutMS: 45000,
       connectTimeoutMS: 10000,
     })
