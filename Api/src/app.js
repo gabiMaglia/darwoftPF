@@ -5,7 +5,7 @@ const express = require('express')
 const cors = require('cors')
 
 const routes = require('./routes/mainRoutes.js');
-const errorHandler = require("./middleware/errorHandler.js");
+const errorHandler = require("./middleware/ErrorHandler.js");
 
 
 const server = express()
