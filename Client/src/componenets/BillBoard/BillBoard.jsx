@@ -8,8 +8,10 @@ import {
   ChevronDoubleRightIcon,
 } from "@heroicons/react/24/outline";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const BillBoard = ({ products }) => {
+const BillBoard = () => {
+  const products = useSelector(state => state.products.products)
   const limit = products?.length;
   const [currentSlide, setCurrentSlide] = useState(0);
   const location = useLocation()
