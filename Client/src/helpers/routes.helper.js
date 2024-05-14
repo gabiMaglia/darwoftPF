@@ -11,7 +11,7 @@ const PATH_ROUTES = {
   SHOPPINGCART: '/cart',
   STOCK: 'stock',
   BRANDSCATEGORY: 'brandscat',
-  DETAIL: '/detail/',
+  DETAIL: '/detail/:id',
   ABOUT: '/about',
   CHANGEPASSWORD: '/changepassword/:token',
   ERROR404: '/*'

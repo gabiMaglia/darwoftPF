@@ -113,9 +113,8 @@ const catSlice = createSlice({
     // UPDATE
     builder.addCase(updateCategoryAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      const index = state.categories.findIndex(
-        (category) => category.id === payload._id
-      );
+      console.log(payload)
+      const index = state.categories.findIndex((category) => category._id === payload._id);
       if (index !== -1) {
         state.categories[index] = payload;
       }

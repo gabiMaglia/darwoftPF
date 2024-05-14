@@ -40,8 +40,7 @@ export const updateProductAsync = createAsyncThunk(
   async ({ id, value }) => {
     const response = await updateProduct(id, value);
     if (response.error) return { error: true };
-    const category = response.message;
-    return category;
+    return response.message;
   }
 );
 // DELETE
@@ -50,8 +49,7 @@ export const deleteProductsAsync = createAsyncThunk(
   async (id) => {
     const response = await deleteProduct(id);
     if (response.error) return { error: true };
-    const groups = response.message.map((e) => e);
-    return groups;
+    return id;
   }
 );
 const productSlice = createSlice({

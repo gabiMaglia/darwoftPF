@@ -70,7 +70,7 @@ const updateCategory = async (id, categoryData) => {
       catGroup,
     },
     { new: true }
-  );
+  ).populate('group');
   
   console.log(response)
   return response;

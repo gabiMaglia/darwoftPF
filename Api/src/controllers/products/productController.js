@@ -65,8 +65,11 @@ const postNewProduct = async (productData) => {
       brand,
     });
     await newProduct.save();
+    const populatedProduct = await Product.findById(newProduct._id)
+    .populate("category")
+    .populate("brand");
 
-    return newProduct;
+  return populatedProduct;
   } catch (error) {
     throw new Error("");
   }
@@ -103,7 +106,9 @@ const updateProduct = async (id, productData) => {
       isFeatured,
     },
     { new: true }
-  );
+  )
+    .populate("category")
+    .populate("brand");
 
   return product;
 };

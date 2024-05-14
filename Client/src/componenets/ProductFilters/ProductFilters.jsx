@@ -29,13 +29,13 @@ const ProductFilters = () => {
   };
 
   const handleAbcSort = (e) => {
-    const value = event.target.value;
+    const value = e.target.value;
 
     dispatch(sortByName(value));
   };
 
   const handlePriceSort = (e) => {
-    const value = event.target.value;
+    const value = e.target.value;
     console.log(value);
     dispatch(sortByPrice(value));
   };

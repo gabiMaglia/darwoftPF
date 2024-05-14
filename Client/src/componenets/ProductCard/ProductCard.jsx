@@ -1,12 +1,10 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getProductsByIdAsync } from "../../redux/slices/productSlice";
 import toast from "react-hot-toast";
 import { addItem } from "../../redux/slices/cartSlice";
 import Img from "../ui/Img/Img";
 import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 import { parseItemForCart } from "../../utils/objects";
-import PATH_ROUTES from "../../helpers/routes.helper";
 
 import styles from "./productCard.module.css";
 const ProductCard = ({ product }) => {
@@ -19,9 +17,6 @@ const ProductCard = ({ product }) => {
 
   const handleAddToWishLIst = () => {};
 
-  const handlePrepareDetail = (id) => {
-    dispatch(getProductsByIdAsync(id));
-  };
 
   return (
     <>
@@ -34,8 +29,8 @@ const ProductCard = ({ product }) => {
           <span className={styles.produCtcatagory}>
             {product.category.catName}
           </span>
-          <h4 onClick={() => handlePrepareDetail(product._id)}>
-            <Link to={PATH_ROUTES.DETAIL}>{product.name}</Link>
+          <h4>
+          <Link to={`detail/${product._id}`}>{product.name}</Link>
           </h4>
           <p>{product.brand.brandName}</p>
           <div className={styles.productBottomDetails}>

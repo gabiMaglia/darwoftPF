@@ -1,106 +1,144 @@
 /* Estilo base para el contenedor principal */
 .productDetailContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f1f1f1;
-  }
-  
-  /* Estilos para la disposición principal del producto y las imágenes */
-  .productDetailMain {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .productThumbnails {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-    margin-inline: auto;
-  }
-  
-  .productInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background-color: #e2e2e2;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .productPricingBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background-color: #d3d3d3;
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 10px;
-  }
-  
-  .priceOptions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .cashPrice, .debitPrice, .installmentPrice {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    margin: 5px 0;
-    padding: 5px;
-    background-color: #c4c4c4;
-    border-radius: 5px;
-  }
-  
-  .productActions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
-  }
-  
-  .specificationTable {
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #b5b5b5;
-    border-radius: 5px;
-  }
-  
-  .productDescription {
-    width: 100%;
-    background-color: #e2e2e2;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-    text-align: justify;
-  }
-  
-  .relatedProducts {
-    width: 100%;
-    background-color: #d3d3d3;
-    padding: 10px;
-    border-radius: 8px;
-  }
-  
-  /* Pequeños ajustes a los bordes y sombras para un estilo suave y moderno */
-  * {
-    box-sizing: border-box;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos para la disposición principal del producto y las imágenes */
+.productDetailMain {
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.productThumbnails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.productInfo {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.productCategory, .productBrand, .productName {
+  text-align: center;
+}
+
+.productCategory {
+  font-size: 1.2em;
+  color: #777777;
+}
+
+.productBrand {
+  font-size: 1.5em;
+  color: #333333;
+}
+
+.productName {
+  font-size: 2em;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* Estilos para la caja de precios */
+.productPricingBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.priceOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cashPrice, .debitPrice, .installmentPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cashPrice p, .debitPrice p, .installmentPrice p {
+  margin: 0;
+  color: #555555;
+}
+
+.cashPrice b, .debitPrice b, .installmentPrice b {
+  font-size: 1.2em;
+  color: #000000;
+}
+
+/* Estilos para las acciones del producto */
+.productActions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.productActions a {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #ff6347;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.productActions a:hover {
+  background-color: #e55337;
+}
+
+.productActions i {
+  font-size: 1.2em;
+}
+
+/* Estilos para la descripción del producto */
+.productDescription {
+  width: 90%;
+  max-width: 1200px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+/* Pequeños ajustes a los bordes y sombras para un estilo suave y moderno */
+* {
+  box-sizing: border-box;
+}
