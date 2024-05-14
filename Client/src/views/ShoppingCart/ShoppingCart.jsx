@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OutlinedButton from "../../componenets/ui/OutlinedButton/OutlinedButton";
 import PATH_ROUTES from "../../helpers/routes.helper";
 import styles from "./shoppingCart.module.css";
@@ -12,6 +12,7 @@ import {
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const products = useSelector((state) => state.cartSlice.cartItems);
   const totalAmount = useSelector((state) => state.cartSlice.cartTotalItems);
 
@@ -35,52 +36,57 @@ const ShoppingCart = () => {
     0
   );
 
+  const handleCheckout = () => {
+    navigate(PATH_ROUTES.CHECKOUT);
+  };
+
   return (
     <section className={styles.shoppingCartCont}>
-{!!products?
-      <table className={styles.shoppingCartTable}>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product._id}>
-              <td>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  style={{ width: "100px" }}
-                />
-              </td>
-              <td>${product.price.toFixed(2)}</td>
-              <td>{product.quantity}</td>
-              <td className={styles.actions}>
-                <OutlinedButton onClick={() => handleAddItem(product._id)}>
-                  +
-                </OutlinedButton>
-                <OutlinedButton
-                  onClick={() => handleDecrementItem(product._id)}
-                >
-                  -
-                </OutlinedButton>
-                <OutlinedButton
-                  onClick={() => handleRemoveItem(product._id, true)}
-                >
-                  Remove
-                </OutlinedButton>
-              </td>
+      <h2>Carrito de Compras</h2>
+      {!!products ? (
+        <table className={styles.shoppingCartTable}>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      :
-      <h2>Agrega items al carrito</h2>
-}
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product._id}>
+                <td>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{ width: "100px" }}
+                  />
+                </td>
+                <td>${product.price.toFixed(2)}</td>
+                <td>{product.quantity}</td>
+                <td className={styles.actions}>
+                  <OutlinedButton onClick={() => handleAddItem(product._id)}>
+                    +
+                  </OutlinedButton>
+                  <OutlinedButton
+                    onClick={() => handleDecrementItem(product._id)}
+                  >
+                    -
+                  </OutlinedButton>
+                  <OutlinedButton
+                    onClick={() => handleRemoveItem(product._id, true)}
+                  >
+                    Remove
+                  </OutlinedButton>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <h2>Agrega items al carrito</h2>
+      )}
       <div className={styles.controls}>
         <div className={styles.total}>
           <strong>Total:</strong> ${total.toFixed(2)}
@@ -89,7 +95,7 @@ const ShoppingCart = () => {
           <strong>TotalAmount:</strong> {totalAmount}
         </div>
         <OutlinedButton onClick={handleClearCart}>Clear Cart</OutlinedButton>
-        <OutlinedButton>Checkout</OutlinedButton>
+        <OutlinedButton onClick={handleCheckout}>Checkout</OutlinedButton>
         <Link to={PATH_ROUTES.HOME}>
           <OutlinedButton>Volver</OutlinedButton>
         </Link>

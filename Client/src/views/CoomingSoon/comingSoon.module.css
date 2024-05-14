@@ -1,0 +1,13 @@
+.comingSoonContainer {
+    display: grid;
+    place-content: center;
+    
+    height: 37rem;
+    background-color: #f8f9fa;
+  }
+  
+  .comingSoonText {
+    font-size: 3rem;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+  }

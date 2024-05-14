@@ -33,6 +33,7 @@ import Stock from "./views/Dashboard/Stock/Stock.jsx";
 import BrandsCat from "./views/Dashboard/BrandsCategories/BrandsCat.jsx";
 import Profile from "./views/Dashboard/Profile/Profile.jsx";
 import { getProductsAsync } from "./redux/slices/productSlice.js";
+import Checkout from "./views/Checkout/Checkout.jsx";
 
 function App() {
   const isLogged = useSelector((state) => state.auth.isLogged);
@@ -78,6 +79,7 @@ function App() {
           <Route path={PATH_ROUTES.ABOUT} element={<About />} />
           <Route path={PATH_ROUTES.DETAIL} element={<ProductDetail />} />
           <Route element={<ProtectedRoutes isLogged={isLogged} />}>
+            <Route path={PATH_ROUTES.CHECKOUT} element={<Checkout />} />
             <Route path={PATH_ROUTES.DASHBOARD} element={<Dashboard />}>
               <Route index element={<Profile />} />
               <Route exact path={PATH_ROUTES.STOCK} element={<Stock />} />

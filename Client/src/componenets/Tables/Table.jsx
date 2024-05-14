@@ -12,13 +12,7 @@ import TableBtns from "./TableBtns";
 import { EllipsisHorizontalCircleIcon } from "@heroicons/react/24/outline";
 import styles from "./table.module.css";
 
-const Table = ({
-  data,
-  columns,
-  tableName,
-  handleActionClick,
-
-}) => {
+const Table = ({ data, columns, tableName, handleActionClick }) => {
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
   const isData = !!data;

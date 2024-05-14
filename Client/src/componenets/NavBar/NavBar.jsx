@@ -44,7 +44,9 @@ const NavBar = () => {
                 onClick={() => handleFilterByGroup(cat._id)}
                 key={cat.id + Math.random().toString()}
               >
-                <span>{capitalizeFirstLetter(cat.name)}</span>
+                <Link to={PATH_ROUTES.HOME}>
+                  <span>{capitalizeFirstLetter(cat.name)}</span>
+                </Link>
               </li>
             ))}
           </ul>

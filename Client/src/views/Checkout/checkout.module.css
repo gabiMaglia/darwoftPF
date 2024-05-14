@@ -1,0 +1,32 @@
+.checkoutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: #ffffff;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .step {
+    text-align: center;
+  }
+  
+  .orderSummary {
+    list-style-type: none;
+    padding: 0;
+    margin: var(--spacing-md) 0;
+  }
+  
+  .orderSummary li {
+    margin: var(--spacing-xs) 0;
+  }
+  
+  h2 {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  p {
+    margin-bottom: var(--spacing-lg);
+  }
+  

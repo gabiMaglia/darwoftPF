@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { capitalizeFirstLetter } from "../../utils/strings";
 import ProductOrderFilter from "../ProductOrderFilter/ProductOrderFilter";
 import {
+  clearFilters,
   filterByBrand,
   filterByCategory,
   filterByGroup,
@@ -26,6 +27,10 @@ const ProductFilters = () => {
 
   const handleFilterByGroup = (groupName) => {
     dispatch(filterByGroup(groupName));
+  };
+
+  const handleClearFilter = () => {
+    dispatch(clearFilters());
   };
 
   const handleAbcSort = (e) => {
@@ -90,6 +95,9 @@ const ProductFilters = () => {
                 </li>
               ))}
             </ul>
+
+            <h4 className={styles.limpiar} onClick={handleClearFilter} >Limpiar Filtros</h4>
+
           </span>
         </div>
       </div>

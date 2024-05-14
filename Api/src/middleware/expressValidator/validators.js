@@ -31,8 +31,8 @@ const productValidation = [
   body("productData.name")
     .trim()
     .exists({ checkFalsy: true, checkNull: true })
-    .isLength({ min: 2 })
-    .toLowerCase(),
+    .isLength({ min: 2 }),
+    
   body("productData.price")
     .exists({ checkFalsy: true, checkNull: true })
     .isNumeric()
@@ -49,7 +49,7 @@ const brandValidatino = [
     .exists({ checkFalsy: true, checkNull: true })
     .trim()
     .isLength({ min: 1 })
-    .toLowerCase()
+   
 ];
 
 const categoryValidation = [
@@ -57,7 +57,7 @@ const categoryValidation = [
     .exists({ checkFalsy: true, checkNull: true })
     .trim()
     .isLength({ min: 3 })
-    .toLowerCase(),
+
 ];
 
 const saleOrderValidation = [

@@ -7,16 +7,16 @@ import OutlinedButton from "../ui/OutlinedButton/OutlinedButton";
 import { parseItemForCart } from "../../utils/objects";
 
 import styles from "./productCard.module.css";
-const ProductCard = ({ product }) => {
 
+const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+
   const handleAddToCart = () => {
-    dispatch(addItem(parseItemForCart(product)))
-    toast.success("Producto agregado al carrito")
+    dispatch(addItem(parseItemForCart(product)));
+    toast.success("Producto agregado al carrito");
   };
 
   const handleAddToWishLIst = () => {};
-
 
   return (
     <>
@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
             {product.category.catName}
           </span>
           <h4>
-          <Link to={`detail/${product._id}`}>{product.name}</Link>
+            <Link to={`detail/${product._id}`}>{product.name}</Link>
           </h4>
           <p>{product.brand.brandName}</p>
           <div className={styles.productBottomDetails}>
@@ -38,11 +38,16 @@ const ProductCard = ({ product }) => {
               <p>{product.price}</p>
             </div>
             <div className={styles.productLinks}>
-      
-                <OutlinedButton> <i className="fa fa-heart"></i> </OutlinedButton>
-        
+              <OutlinedButton>
+                {" "}
+                <i className="fa fa-heart"></i>{" "}
+              </OutlinedButton>
+
               <div onClick={handleAddToCart}>
-                <OutlinedButton> <i className="fa fa-shopping-cart"></i> </OutlinedButton>
+                <OutlinedButton>
+                  {" "}
+                  <i className="fa fa-shopping-cart"></i>{" "}
+                </OutlinedButton>
               </div>
             </div>
           </div>

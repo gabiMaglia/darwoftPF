@@ -28,6 +28,11 @@
     max-width: 90%;
     overflow: scroll;
   }
+
+  .limpiar{
+    cursor: pointer;
+    padding-top: 1rem;
+  }
   @media screen and (min-width: 768px) {
     
     .filterBox {

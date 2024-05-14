@@ -2,17 +2,26 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { capitalizeFirstLetter } from "../../utils/strings";
-import styles from "./productDetail.module.css";
 import SimpleCarousel from "./SImpleCarusel/SimpleCarousel";
 import {
   clearProductDetail,
   getProductsByIdAsync,
 } from "../../redux/slices/productSlice";
+import OutlinedButton from "../../componenets/ui/OutlinedButton/OutlinedButton";
+import { parseItemForCart } from "../../utils/objects";
+import { addItem } from "../../redux/slices/cartSlice";
+import toast from "react-hot-toast";
+import styles from "./productDetail.module.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.productDetail);
+
+  const handleAddToCart = () => {
+    dispatch(addItem(parseItemForCart(product)));
+    toast.success("Producto agregado al carrito");
+  };
 
   useEffect(() => {
     const detailPopulate = async (id) => {
@@ -68,12 +77,12 @@ const ProductDetail = () => {
               </span>
             </div>
             <div className={styles.productActions}>
-              <a href="">
+              <OutlinedButton>
                 <i className="fa fa-heart"></i>
-              </a>
-              <a href="">
+              </OutlinedButton>
+              <OutlinedButton onClick={handleAddToCart}>
                 <i className="fa fa-shopping-cart"></i>
-              </a>
+              </OutlinedButton>
             </div>
           </div>
         </article>

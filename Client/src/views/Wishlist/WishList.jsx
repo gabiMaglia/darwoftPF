@@ -1,8 +1,7 @@
-import styles from './wishList.module.css'
-
+import ComingSoon from '../CoomingSoon/CoomingSoon'
 const WishList = () => {
   return (
-    <div>WishList</div>
+    <div><ComingSoon/></div>
   )
 }
 

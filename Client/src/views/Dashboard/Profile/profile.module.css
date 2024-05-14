@@ -28,7 +28,7 @@
 }
 .userDataChart article h3 {
   text-align: center;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
 }
 .userDataChart article span {
   display: flex;
@@ -92,7 +92,6 @@
   padding: 1rem;
 }
 .icon {
-  /* font-size: smaller; */
   position: absolute;
   width: 20px;
   top: 20px;

@@ -9,6 +9,7 @@ const PATH_ROUTES = {
   PERSONAL: '/dashboard',
   WISHLIST: 'wish',
   SHOPPINGCART: '/cart',
+  CHECKOUT: "/checkout",
   STOCK: 'stock',
   BRANDSCATEGORY: 'brandscat',
   DETAIL: '/detail/:id',
