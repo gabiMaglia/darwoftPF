@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require('express')
-const morgan = require('morgan')
+// const morgan = require('morgan')
 const cors = require('cors')
 
 const routes = require('./routes/mainRoutes.js');
@@ -11,7 +11,7 @@ const errorHandler = require("./middleware/errorHandler.js");
 const server = express()
 
 server.use(cors({ credentials: true, origin: `${process.env.FRONTEND_URL}` }))
-server.use(morgan('dev'))
+// server.use(morgan('dev'))
 server.use(express.json())
 
 

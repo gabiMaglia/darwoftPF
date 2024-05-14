@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
     "supertest": "^6.3.4",
     "supertest-session": "^5.0.1"
