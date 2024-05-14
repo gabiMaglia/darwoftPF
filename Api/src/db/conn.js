@@ -57,7 +57,13 @@ mongoose.set("debug", true);
 // CONNECTION
 const conn = () =>
   mongoose
-    .connect(process.env.MONGODB_URI)
+    .connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 10000,
+    })
     .then(() => console.log("Conectado a MongoDB"))
     .catch((err) => console.error("No se pudo conectar a MongoDB", err));
 
