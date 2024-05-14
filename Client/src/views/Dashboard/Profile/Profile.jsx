@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import Img from "../../../componenets/ui/Img/Img";
-import foto from "../../../assets/profile.jpg";
+import foto from "../../../assets/defaultAvatar.jpg";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 import styles from "./profile.module.css";

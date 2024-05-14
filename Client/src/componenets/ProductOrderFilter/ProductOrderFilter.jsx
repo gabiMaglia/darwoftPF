@@ -6,7 +6,7 @@ const ProductOrderFilter = ({ sorByName, sortByPrice }) => {
       <form className={styles.filter}>
         <div className={styles.dropdown}>
           <select onChange={sorByName} className={styles.dropdownselect}>
-            <option disabled value="">
+            <option disabled selected value="">
               Abc
             </option>
             <option value="asc">A-z</option>
@@ -15,7 +15,7 @@ const ProductOrderFilter = ({ sorByName, sortByPrice }) => {
         </div>
         <div className={styles.dropdown}>
           <select onChange={sortByPrice}  className={styles.dropdownselect}>
-            <option disabled value="">Precio</option>
+            <option disabled selected value="">Precio</option>
             <option value="mayor">MayorMenor</option>
             <option value="menor">MenorMayor</option>
           </select>

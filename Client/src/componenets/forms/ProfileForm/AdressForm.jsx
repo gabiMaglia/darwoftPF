@@ -37,7 +37,7 @@ const AdressForm = ({ onSubmit, onCancel, initialData }) => {
             <span className={styles.inputBoxes}>
               <label htmlFor="country">Pais</label>
               <Field as="select" name="country" id="country">
-                <option disabled value="">
+                <option value="">
                   Seleccione el pais donde vive
                 </option>
                 {countries.map((country) => (

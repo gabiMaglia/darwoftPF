@@ -24,18 +24,7 @@ import {
 import PATH_ROUTES from "../../helpers/routes.helper";
 
 const Auth = () => {
-  // const [isLoading, setIsLoading] = useState(false);
 
-  // const [
-  //   token,
-  //   auth,
-  //   handleLogInSubmit,
-  //   handleSignUpSubmit,
-  //   handleLogOutSubmit,
-  //   handleSubmitResetPassword,
-  // ] = useAuth();
-  // const dispatch = useDispatch();
-  
   const auth = useSelector((state) => state.auth);
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();

@@ -60,7 +60,7 @@ const CategoryForm = ({ onSubmit, initialData = {} }) => {
                   setFieldValue("group", e.target.value);  
                 }}
               >
-                <option disabled value="">
+                <option value="">
                   Seleccione el grupo al que pertenece
                 </option>
                 {categoriesGroups.map((group) => (

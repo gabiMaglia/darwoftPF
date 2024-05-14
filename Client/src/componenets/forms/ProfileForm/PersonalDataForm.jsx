@@ -59,7 +59,7 @@ const PersonalDataForm = ({ onSubmit, onCancel, initialData }) => {
             <div className={styles.inputBoxes}>
               <label htmlFor="nationality">Nacionalidad</label>
               <Field as="select" name="nationality" id="nationality">
-                <option disabled value="">
+                <option value="">
                   Seleccione su nacionalidad
                 </option>
                 {nacionalities.map((nationality) => (
