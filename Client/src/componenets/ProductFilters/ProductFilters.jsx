@@ -5,6 +5,8 @@ import {
   filterByBrand,
   filterByCategory,
   filterByGroup,
+  sortByName,
+  sortByPrice,
 } from "../../redux/slices/productSlice";
 
 import styles from "./productFilters.module.css";
@@ -26,12 +28,24 @@ const ProductFilters = () => {
     dispatch(filterByGroup(groupName));
   };
 
+  const handleAbcSort = (e) => {
+    const value = event.target.value;
+
+    dispatch(sortByName(value));
+  };
+
+  const handlePriceSort = (e) => {
+    const value = event.target.value;
+    console.log(value);
+    dispatch(sortByPrice(value));
+  };
+
   return (
     <>
       <div className={styles.filterBox}>
         <span className={styles.cont}>
           <h2>Orden</h2>
-          <ProductOrderFilter />
+          <ProductOrderFilter sorByName={handleAbcSort} sortByPrice={handlePriceSort} />
         </span>
 
         <div className={styles.cont}>

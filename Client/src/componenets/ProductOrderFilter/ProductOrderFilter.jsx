@@ -1,22 +1,23 @@
 import styles from "./productOrderFilter.module.css";
 
-const ProductOrderFilter = () => {
+const ProductOrderFilter = ({ sorByName, sortByPrice }) => {
   return (
     <>
       <form className={styles.filter}>
         <div className={styles.dropdown}>
-          <select className={styles.dropdownselect}>
-            <option value="">Abc</option>
-            <option value="1">A-z</option>
-            <option value="2">Z-a</option>
-         
+          <select onChange={sorByName} className={styles.dropdownselect}>
+            <option disabled value="">
+              Abc
+            </option>
+            <option value="asc">A-z</option>
+            <option value="dsc">Z-a</option>
           </select>
         </div>
         <div className={styles.dropdown}>
-          <select className={styles.dropdownselect}>
-            <option value="">Precio</option>
-            <option value="1">MayorMenor</option>
-            <option value="2">MenorMayor</option>   
+          <select onChange={sortByPrice}  className={styles.dropdownselect}>
+            <option disabled value="">Precio</option>
+            <option value="mayor">MayorMenor</option>
+            <option value="menor">MenorMayor</option>
           </select>
         </div>
       </form>

@@ -10,7 +10,7 @@ import PATH_ROUTES from "../../helpers/routes.helper";
 
 import styles from "./productCard.module.css";
 const ProductCard = ({ product }) => {
-  console.log(product)
+
   const dispatch = useDispatch();
   const handleAddToCart = () => {
     dispatch(addItem(parseItemForCart(product)))
@@ -40,7 +40,7 @@ const ProductCard = ({ product }) => {
           <p>{product.brand.brandName}</p>
           <div className={styles.productBottomDetails}>
             <div className={styles.productPrice}>
-              <p>$230.99</p>
+              <p>{product.price}</p>
             </div>
             <div className={styles.productLinks}>
       

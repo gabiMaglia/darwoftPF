@@ -65,25 +65,47 @@ const productSlice = createSlice({
     clearProductDetail: (state) => {
       state.productDetail = null;
     },
-    filterByCategory: (state, {payload}) => {
+    filterByCategory: (state, { payload }) => {
       state.productsToShow = state.products.filter(
         (product) => product.category.catName === payload
       );
-      console.log(state.productsToShow)
+      console.log(state.productsToShow);
     },
-    filterByBrand: (state, {payload}) => {
+    filterByBrand: (state, { payload }) => {
       state.productsToShow = state.products.filter(
         (product) => product.brand.brandName === payload
       );
-      console.log(state.productsToShow)
+      console.log(state.productsToShow);
     },
-    filterByGroup: (state, {payload}) => {
+    filterByGroup: (state, { payload }) => {
       state.productsToShow = state.products.filter(
         (product) => product.category.group === payload
       );
     },
+
     clearFilters: (state) => {
       state.productsToShow = state.products;
+    },
+
+    sortByName: (state, { payload }) => {
+      state.productsToShow = [...state.productsToShow].sort((a, b) => {
+        if (payload === "asc") {
+          return a.name.localeCompare(b.name);
+        } else {
+          return b.name.localeCompare(a.name);
+        }
+      });
+    },
+
+    sortByPrice: (state, { payload }) => {
+      console.log(payload)
+      state.productsToShow = [...state.productsToShow].sort((a, b) => {
+        if (payload === "mayor") {
+          return a.price < b.price;
+        } else {
+          return a.price > b.price;
+        }
+      });
     },
   },
 
@@ -120,5 +142,13 @@ const productSlice = createSlice({
     });
   },
 });
-export const { clearProductDetail, filterByCategory, filterByBrand, filterByGroup, clearFilters } = productSlice.actions;
+export const {
+  clearProductDetail,
+  filterByCategory,
+  filterByBrand,
+  filterByGroup,
+  sortByName,
+  sortByPrice,
+  clearFilters,
+} = productSlice.actions;
 export default productSlice.reducer;
