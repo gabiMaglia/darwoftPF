@@ -33,10 +33,11 @@
 .userDataChart article span {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  text-align: center;
+  margin-block: auto;
+  /* align-items: center; */
   border-radius: var(--border-radius-xl);
   border: 1px solid var(--bg);
+
 }
 .userDataChart article span label {
   text-align: center;
@@ -55,7 +56,6 @@
   background-color: var(--muted);
   margin-inline: auto;
   border-radius: var(--border-radius-xl);
-  /* border: 1px solid var(--bg); */
   padding: var(--spacing-md);
   margin-top: 1rem;
   -webkit-box-shadow: 0 15px 10px #777;
@@ -89,7 +89,7 @@
   display: flex;
   flex-direction: column;
   gap: .3rem;
-  padding: 1rem;
+  padding: .3rem;
 }
 .icon {
   position: absolute;

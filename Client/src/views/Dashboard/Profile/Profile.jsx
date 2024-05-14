@@ -2,8 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Img from "../../../componenets/ui/Img/Img";
 import foto from "../../../assets/defaultAvatar.jpg";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-
-import styles from "./profile.module.css";
 import Modal from "../../../componenets/ui/Modal/Modal";
 import useModal from "../../../hooks/useModal";
 import PersonalDataForm from "../../../componenets/forms/ProfileForm/PersonalDataForm";
@@ -12,15 +10,14 @@ import ChangePasswordForm from "../../../componenets/forms/ProfileForm/ChangePas
 import { updateUserAsync } from "../../../redux/slices/authSlice";
 import { formatInitialDateToShow } from "../../../utils/date";
 
+import styles from "./profile.module.css";
+import { capitalizeFirstLetter } from "../../../utils/strings";
+
 const Profile = () => {
   const  user  = useSelector((state) => state.auth.user);
   
   const dispatch = useDispatch();
-
-
   const [modalType, openModal, closeModal] = useModal();
-
-
 
   return (
     <>
@@ -49,7 +46,7 @@ const Profile = () => {
             </span>
             <span>
               <label>Nacionalidad</label>
-              <p>{user.nationality}</p>
+              <p>{capitalizeFirstLetter (user.nationality)}</p>
             </span>
             <PencilSquareIcon
               className={styles.icon}
