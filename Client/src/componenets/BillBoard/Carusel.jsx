@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
 import { parseItemForCart } from "../../utils/objects";
-
 import styles from "./carusel.module.css";
+
+
 const Carusel = ({ data }) => {
   const dispatch = useDispatch();
 
@@ -14,7 +15,7 @@ const Carusel = ({ data }) => {
     dispatch(addItem(parseItemForCart(data)));
     toast.success("Producto agregado al carrito");
   };
-
+ 
   return (
 
     <article className={styles.carousel}>

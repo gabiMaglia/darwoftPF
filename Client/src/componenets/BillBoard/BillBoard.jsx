@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Spinner from "../ui/LoadingSpinner/Spinner.jsx";
 
 const BillBoard = () => {
   const products = useSelector(state => state.products.products)
@@ -33,7 +34,7 @@ const BillBoard = () => {
   if (location.pathname !='/') {
     return null; 
   }
-
+  if (!products) return <Spinner/>
   return (
     <article className={styles.billboard}>
       <div className={styles.buttons}>

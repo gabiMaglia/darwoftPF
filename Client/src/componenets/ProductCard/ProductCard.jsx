@@ -9,6 +9,7 @@ import { parseItemForCart } from "../../utils/objects";
 import styles from "./productCard.module.css";
 
 const ProductCard = ({ product }) => {
+ 
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
