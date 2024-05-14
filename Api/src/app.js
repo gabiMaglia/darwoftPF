@@ -9,9 +9,7 @@ const errorHandler = require("./middleware/ErrorHandler.js");
 
 
 const server = express()
-
 server.use(cors({ credentials: true, origin: `${process.env.FRONTEND_URL}` }))
-// server.use(morgan('dev'))
 server.use(express.json())
 
 

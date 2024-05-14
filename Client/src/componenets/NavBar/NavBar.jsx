@@ -45,7 +45,7 @@ const NavBar = () => {
                 key={cat.id + Math.random().toString()}
               >
                 <Link to={PATH_ROUTES.HOME}>
-                  <span>{capitalizeFirstLetter(cat.name)}</span>
+                  <span onClick={handleOpenNav}>{capitalizeFirstLetter(cat.name)}</span>
                 </Link>
               </li>
             ))}
@@ -58,7 +58,7 @@ const NavBar = () => {
               <ThemeSwitcher />
 
               <span onClick={handleOpenNav}>
-                <Auth onClick={handleOpenNav} />
+                <Auth />
               </span>
             </div>
           </div>

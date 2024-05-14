@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { capitalizeFirstLetter } from "../../utils/strings";
 import SimpleCarousel from "./SImpleCarusel/SimpleCarousel";
@@ -12,6 +12,7 @@ import { parseItemForCart } from "../../utils/objects";
 import { addItem } from "../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
 import styles from "./productDetail.module.css";
+import PATH_ROUTES from "../../helpers/routes.helper";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -90,6 +91,9 @@ const ProductDetail = () => {
       <div className={styles.productDescription}>
         <p>{product?.productDescription}</p>
       </div>
+              <OutlinedButton>
+                <Link to={PATH_ROUTES.HOME}> Regresar</Link>
+              </OutlinedButton>
     </section>
   );
 };
