@@ -61,7 +61,7 @@ const ProductFilters = () => {
             <ul>
               {categories.groups?.map((e) => (
                 <li
-                  key={e._id + Math.random().toString()}
+                  key={e._id + Math.random()}
                   onClick={() => handleFilterByGroup(e._id)}
                 >
                   {capitalizeFirstLetter(e.name)}
@@ -74,7 +74,7 @@ const ProductFilters = () => {
             <ul>
               {categories.categories?.map((e) => (
                 <li
-                  key={e._id + Math.random().toString()}
+                  key={e._id + Math.random()}
                   onClick={() => handleFilterByCategory(e.catName)}
                 >
                   {capitalizeFirstLetter(e.catName)}
@@ -88,7 +88,7 @@ const ProductFilters = () => {
             <ul>
               {brands.brands?.map((e) => (
                 <li
-                  key={e._id + Math.random().toString()}
+                  key={e._id + Math.random()}
                   onClick={() => handleFilterByBrand(e.brandName)}
                 >
                   {capitalizeFirstLetter(e.brandName)}

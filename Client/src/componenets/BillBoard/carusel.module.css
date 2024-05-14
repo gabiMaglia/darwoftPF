@@ -12,11 +12,12 @@
 }
 .mainPic img {
   position: absolute;
+  object-fit: contain;
   top: 110px;
   left: 140px;
   transform: translate(-50%, -50%);
   width: 200px;
-  height: 150px;
+  height: 200px;
 }
 .text {
   display: flex;

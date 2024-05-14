@@ -36,7 +36,7 @@ const ProductCard = ({ product }) => {
           <p>{product.brand.brandName}</p>
           <div className={styles.productBottomDetails}>
             <div className={styles.productPrice}>
-              <p>{product.price}</p>
+              <p>${product.price}</p>
             </div>
             <div className={styles.productLinks}>
               <OutlinedButton>

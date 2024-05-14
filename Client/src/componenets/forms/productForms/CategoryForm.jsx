@@ -64,7 +64,7 @@ const CategoryForm = ({ onSubmit, initialData = {} }) => {
                   Seleccione el grupo al que pertenece
                 </option>
                 {categoriesGroups.map((group) => (
-                  <option key={group.name} value={group._id}>
+                  <option key={group.name + Math.random()} value={group._id}>
                     {group.name}
                   </option>
                 ))}

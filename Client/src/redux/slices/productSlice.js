@@ -67,13 +67,13 @@ const productSlice = createSlice({
       state.productsToShow = state.products.filter(
         (product) => product.category.catName === payload
       );
-      console.log(state.productsToShow);
+      
     },
     filterByBrand: (state, { payload }) => {
       state.productsToShow = state.products.filter(
         (product) => product.brand.brandName === payload
       );
-      console.log(state.productsToShow);
+   
     },
     filterByGroup: (state, { payload }) => {
       state.productsToShow = state.products.filter(
@@ -96,7 +96,7 @@ const productSlice = createSlice({
     },
 
     sortByPrice: (state, { payload }) => {
-      console.log(payload)
+   
       state.productsToShow = [...state.productsToShow].sort((a, b) => {
         if (payload === "mayor") {
           return a.price < b.price;
