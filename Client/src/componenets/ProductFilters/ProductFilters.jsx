@@ -49,7 +49,10 @@ const ProductFilters = () => {
       <div className={styles.filterBox}>
         <span className={styles.cont}>
           <h2>Orden</h2>
-          <ProductOrderFilter sorByName={handleAbcSort} sortByPrice={handlePriceSort} />
+          <ProductOrderFilter
+            sorByName={handleAbcSort}
+            sortByPrice={handlePriceSort}
+          />
         </span>
 
         <div className={styles.cont}>
@@ -61,7 +64,9 @@ const ProductFilters = () => {
               {categories.groups?.map((e) => (
                 <li
                   key={e._id + Math.random()}
-                  onClick={() => handleFilterByGroup({_id:e._id, name:e.name})}
+                  onClick={() =>
+                    handleFilterByGroup({ _id: e._id, name: e.name })
+                  }
                 >
                   {capitalizeFirstLetter(e.name)}
                 </li>
@@ -95,8 +100,9 @@ const ProductFilters = () => {
               ))}
             </ul>
 
-            <h4 className={styles.limpiar} onClick={handleClearFilter} >Limpiar Filtros</h4>
-
+            <h4 className={styles.limpiar} onClick={handleClearFilter}>
+              Limpiar Filtros
+            </h4>
           </span>
         </div>
       </div>
