@@ -34,7 +34,6 @@
   display: flex;
   justify-content: space-between;
   margin-block: auto;
-  /* align-items: center; */
   border-radius: var(--border-radius-xl);
   border: 1px solid var(--bg);
 

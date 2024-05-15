@@ -30,7 +30,6 @@ const getUserById = async (id) => {
 };
 // UPDATE
 const updateUser = async (id, userData) => {
-  // console.log({userDate :userData})
   const currentUser = await User.findById(id);
 
   const {

@@ -45,6 +45,9 @@
   font-weight: bold;
 }
 
+.buyBtn button{
+  margin-inline: auto;
+}
 @media screen and (max-width: 768px) {
   .carousel {
     flex-direction: column;
@@ -52,8 +55,5 @@
   }
   .buyBtn {
    padding: var(--spacing-md);
-  }
-  .buyBtn button{
-    margin-inline: auto;
   }
 }

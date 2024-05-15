@@ -50,8 +50,6 @@ const postNewProduct = async (productData) => {
       isFeatured,
     } = productData;
 
-    console.log(category);
-
     const newProduct = new Product({
       name,
       price,

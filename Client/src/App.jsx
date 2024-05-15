@@ -37,6 +37,8 @@ import Checkout from "./views/Checkout/Checkout.jsx";
 
 function App() {
   const isLogged = useSelector((state) => state.auth.isLogged);
+  const isAuthenticaded = useSelector((state) => state.auth.user?.role.role || state.auth.user?.role);
+
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -80,13 +82,10 @@ function App() {
           <Route path={PATH_ROUTES.DETAIL} element={<ProductDetail />} />
           <Route element={<ProtectedRoutes isLogged={isLogged} />}>
             <Route path={PATH_ROUTES.CHECKOUT} element={<Checkout />} />
-            <Route path={PATH_ROUTES.DASHBOARD} element={<Dashboard />}>
+            <Route path={PATH_ROUTES.DASHBOARD} element={<Dashboard isAuthenticaded={isAuthenticaded} />}>
               <Route index element={<Profile />} />
               <Route exact path={PATH_ROUTES.STOCK} element={<Stock />} />
-              <Route
-                path={PATH_ROUTES.BRANDSCATEGORY}
-                element={<BrandsCat />}
-              />
+              <Route path={PATH_ROUTES.BRANDSCATEGORY}element={<BrandsCat />}/>
               <Route path={PATH_ROUTES.WISHLIST} element={<WishList />} />
             </Route>
           </Route>

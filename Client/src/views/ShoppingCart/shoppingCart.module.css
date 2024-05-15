@@ -1,11 +1,14 @@
 .shoppingCartCont{
     padding: var(--spacing-xl);
+    border: 1px solid black;
     display: flex;
+    
+    height: 28rem;
     flex-direction: column;
     align-items: center;
-    background: #ffffff; /* Fondo blanco para el contenido */
-    border-radius: var(--border-radius-lg); /* Bordes redondeados */
-    box-shadow: var(--shadow-md); /* Sombra para darle profundidad */
+    background: #ffffff; 
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
 }
 .actions{
     display: flex;
@@ -13,8 +16,10 @@
 }
 .controls {
     display: flex;
+    align-items: end;
     width: 100%;
     gap: 1rem;
+    padding-top: 2rem;
     justify-content: end;
 }
 

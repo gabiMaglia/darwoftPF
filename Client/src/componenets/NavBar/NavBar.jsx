@@ -41,7 +41,7 @@ const NavBar = () => {
           <ul className={styles.navLinks}>
             {categoriesGroups?.map((cat) => (
               <li
-                onClick={() => handleFilterByGroup(cat._id)}
+                onClick={() => handleFilterByGroup({_id:cat._id, name:cat.name})}
                 key={cat.id + Math.random().toString()}
               >
                 <Link to={PATH_ROUTES.HOME}>

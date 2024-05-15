@@ -1,12 +1,20 @@
-/* eslint-disable react/prop-types */
-import { Navigate, Outlet } from "react-router-dom"
-import PATH_ROUTES from "./routes.helper"
+import { useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import toast from "react-hot-toast";
+import PATH_ROUTES from "./routes.helper";
 
-const ProtectedRoutes = ({ isLogged  }) => {
+const ProtectedRoutes = ({ isLogged }) => {
+  useEffect(() => {
+    if (!isLogged) {
+      toast.error("Inicia sesión para poder continuar");
+    }
+  }, [isLogged]);
 
-    return (
-        isLogged ? <Outlet /> : <Navigate to={PATH_ROUTES.HOME} />
-    )
-}
+  if (isLogged) {
+    return <Outlet />;
+  } else {
+    return <Navigate to={PATH_ROUTES.HOME} />;
+  }
+};
 
-export default ProtectedRoutes
+export default ProtectedRoutes;

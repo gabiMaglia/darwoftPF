@@ -2,13 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import OutlinedButton from "../../componenets/ui/OutlinedButton/OutlinedButton";
 import PATH_ROUTES from "../../helpers/routes.helper";
-import styles from "./shoppingCart.module.css";
 import {
   incrementAmount,
   removeItem,
   restAmount,
   clearCart,
 } from "../../redux/slices/cartSlice";
+import toast from "react-hot-toast";
+
+import styles from "./shoppingCart.module.css";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -37,20 +39,22 @@ const ShoppingCart = () => {
   );
 
   const handleCheckout = () => {
-    navigate(PATH_ROUTES.CHECKOUT);
+    totalAmount === 0
+      ? toast.error("Necesitas agregar productos al carrito para poder comprar")
+      : navigate(PATH_ROUTES.CHECKOUT);
   };
 
   return (
     <section className={styles.shoppingCartCont}>
       <h2>Carrito de Compras</h2>
-      {!!products ? (
+      {products ? (
         <table className={styles.shoppingCartTable}>
           <thead>
             <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Actions</th>
+              <th>Productos</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -94,8 +98,12 @@ const ShoppingCart = () => {
         <div className={styles.total}>
           <strong>TotalAmount:</strong> {totalAmount}
         </div>
-        <OutlinedButton onClick={handleClearCart}>Clear Cart</OutlinedButton>
-        <OutlinedButton onClick={handleCheckout}>Checkout</OutlinedButton>
+        <OutlinedButton onClick={handleClearCart}>
+          Limpiar Carrito
+        </OutlinedButton>
+
+        <OutlinedButton onClick={handleCheckout}>Comprar</OutlinedButton>
+
         <Link to={PATH_ROUTES.HOME}>
           <OutlinedButton>Volver</OutlinedButton>
         </Link>

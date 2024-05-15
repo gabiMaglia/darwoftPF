@@ -41,7 +41,6 @@ const ProductFilters = () => {
 
   const handlePriceSort = (e) => {
     const value = e.target.value;
-    console.log(value);
     dispatch(sortByPrice(value));
   };
 
@@ -62,7 +61,7 @@ const ProductFilters = () => {
               {categories.groups?.map((e) => (
                 <li
                   key={e._id + Math.random()}
-                  onClick={() => handleFilterByGroup(e._id)}
+                  onClick={() => handleFilterByGroup({_id:e._id, name:e.name})}
                 >
                   {capitalizeFirstLetter(e.name)}
                 </li>

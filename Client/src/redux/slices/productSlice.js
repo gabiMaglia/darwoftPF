@@ -57,6 +57,7 @@ const productSlice = createSlice({
   initialState: {
     products: null,
     productsToShow: null,
+    banerDescription : "Todos nuestros productos", 
     productDetail: null,
   },
   reducers: {
@@ -64,24 +65,29 @@ const productSlice = createSlice({
       state.productDetail = null;
     },
     filterByCategory: (state, { payload }) => {
+      state.banerDescription = payload
       state.productsToShow = state.products.filter(
         (product) => product.category.catName === payload
       );
       
     },
     filterByBrand: (state, { payload }) => {
+      state.banerDescription = payload
       state.productsToShow = state.products.filter(
         (product) => product.brand.brandName === payload
       );
    
     },
     filterByGroup: (state, { payload }) => {
+      state.banerDescription = payload.name
+      console.log(payload)
       state.productsToShow = state.products.filter(
-        (product) => product.category.group === payload
+        (product) => product.category.group === payload._id
       );
     },
 
     clearFilters: (state) => {
+      state.banerDescription = "Todos nuestros productos"
       state.productsToShow = state.products;
     },
 
