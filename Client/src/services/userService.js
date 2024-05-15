@@ -18,3 +18,16 @@ export const updateUser = async (id, userData) => {
     return { error: true };
   }
 };
+export const deleteUser = async () => {
+  try {
+    const { data } = await axiosAuthInstance.delete(`${URL}/user`);
+    if (!data.error) {
+      toast.success("Usuario Eliminado");
+
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+    return { error: true };
+  }
+};

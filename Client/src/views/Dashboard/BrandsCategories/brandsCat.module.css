@@ -3,7 +3,11 @@
     padding-inline: var(--spacing-xl);
 }
 .section article {
-    padding-inline: var(--spacing-xxl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
     
 }
 .section h2 {

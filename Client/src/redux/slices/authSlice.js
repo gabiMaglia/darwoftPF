@@ -4,7 +4,7 @@ import {
   logOutUser,
   persistanceCheck,
 } from "../../services/authServices/authServices";
-import { updateUser } from "../../services/userService";
+import { deleteUser, updateUser } from "../../services/userService";
 // TODO SIGN IN ASYNC
 export const logInAsync = createAsyncThunk(
   "auth/logInAsync",
@@ -17,37 +17,41 @@ export const logInAsync = createAsyncThunk(
 export const checkPersistanceAsync = createAsyncThunk(
   "auth/checkPersistanceAsync",
   async () => {
-
     const { data } = await persistanceCheck();
 
     if (!data) return { error: true };
     return data.response;
   }
 );
-export const logOutAsync = createAsyncThunk(
-  "auth/logOutAsync",
-  async () => {
-    const { response } = await logOutUser();
-    if (!response) return { error: true };
+export const logOutAsync = createAsyncThunk("auth/logOutAsync", async () => {
+  const { response } = await logOutUser();
+  if (!response) return { error: true };
 
-    return response;
-  }
-);
+  return response;
+});
 export const updateUserAsync = createAsyncThunk(
   "auth/updateUserAsync",
-  async ({id, userData}) => {
-    const  response = await updateUser(id, userData);
+  async ({ id, userData }) => {
+    const response = await updateUser(id, userData);
     if (!response) return { error: true };
     return response;
   }
 );
+export const deleteUserAsync = createAsyncThunk(
+  "auth/deleteUserAsync",
+  async () => {
+    const response = await deleteUser();
+    if (!response) return { error: true };
 
+    return true;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    isLogged: null
+    isLogged: null,
   },
 
   reducers: {},
@@ -73,7 +77,14 @@ const authSlice = createSlice({
     });
     builder.addCase(updateUserAsync.fulfilled, (state, { payload }) => {
       if (!payload.error) {
-        state.user = {...state.user, ...payload.message};
+        state.user = { ...state.user, ...payload.message };
+      }
+    });
+    builder.addCase(deleteUserAsync.fulfilled, (state, { payload }) => {
+      if (!payload.error) {
+        console.log(payload);
+        state.user = null;
+        state.isLogged = null;
       }
     });
   },

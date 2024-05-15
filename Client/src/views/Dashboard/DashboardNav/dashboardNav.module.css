@@ -1,10 +1,15 @@
+.navCont{
+  width: 100%;
+  background-color: var(--nav-bg);
+  padding-inline: var(--spacing-xl);
+}
 .navBar {
   display: flex;
   justify-content: space-between;
   gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  padding-inline: var(--spacing-xl);
-  background-color: var(--nav-bg);
+  padding:  var(--spacing-md) ;
+  max-width: 1468px;
+  margin-inline: auto;
 }
 .navBar h3 {
   font-size: large;

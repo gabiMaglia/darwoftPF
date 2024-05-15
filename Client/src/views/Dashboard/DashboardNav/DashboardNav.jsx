@@ -6,6 +6,7 @@ import styles from "./dashboardNav.module.css";
 
 const DashboardNav = ({ isAuthenticaded }) => {
   return (
+    <div className={styles.navCont}>
     <nav className={styles.navBar}>
       <Link to={PATH_ROUTES.PERSONAL}>
         <OutlinedButton>Mi Cuenta</OutlinedButton>
@@ -30,6 +31,7 @@ const DashboardNav = ({ isAuthenticaded }) => {
         <OutlinedButton>Regresar</OutlinedButton>
       </Link>
     </nav>
+    </div>
   );
 };
 

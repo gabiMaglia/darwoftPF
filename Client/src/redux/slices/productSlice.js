@@ -80,7 +80,6 @@ const productSlice = createSlice({
     },
     filterByGroup: (state, { payload }) => {
       state.banerDescription = payload.name
-      console.log(payload)
       state.productsToShow = state.products.filter(
         (product) => product.category.group === payload._id
       );

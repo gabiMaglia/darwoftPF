@@ -3,7 +3,7 @@ import { cloudinaryUpload } from "../services/productServices/imageUploadService
 
 const useCloudinary = () => {
   const [files, setFiles] = useState([]);
-
+  
   const uploadImagesToCloudinary = async (event) => {
     const uploadedFiles = event.currentTarget.files;
     if (uploadedFiles.length) {
@@ -19,6 +19,7 @@ const useCloudinary = () => {
           console.error("Failed to upload image: ", error);
         }
       }
+      
       setFiles(urls);
     }
   };

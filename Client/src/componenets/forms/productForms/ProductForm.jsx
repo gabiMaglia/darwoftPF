@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import SubmitBtns from "../SubmitBtns";
@@ -5,6 +6,7 @@ import styles from "../forms.module.css";
 import { useSelector } from "react-redux";
 import useCloudinary from "../../../hooks/useCloudinary";
 import { isAnEmptyObject } from "../../../utils/objects";
+import Spinner from "../../ui/LoadingSpinner/Spinner";
 
 const productSchema = Yup.object({
   name: Yup.string().required("Debes ingresar un nombre de producto"),
@@ -22,8 +24,27 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
   const categories = useSelector((state) => state.categories.categories);
   const { brands } = useSelector((state) => state.brands);
   const [setFiles, files, uploadImagesToCloudinary] = useCloudinary();
+  const [loading, setLoading] = useState(false);
 
   const isUpdate = !isAnEmptyObject(initialData);
+
+  useEffect(() => {
+    if (isUpdate && initialData.images) {
+      setFiles(initialData.images);
+    }
+  }, [isUpdate, initialData.images, setFiles]);
+
+  const handleFileChange = async (event, setFieldValue) => {
+    setLoading(true);
+    setFieldValue("images", [...event.currentTarget.files]);
+    await uploadImagesToCloudinary(event);
+    setLoading(false);
+  };
+
+  const handleRemoveImage = (index) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
   return (
     <Formik
       initialValues={{
@@ -39,7 +60,6 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
       }}
       validationSchema={productSchema}
       onSubmit={(values, actions) => {
-        values.category;
         onSubmit({ ...values, images: files });
         actions.setSubmitting(false);
         actions.resetForm();
@@ -71,21 +91,30 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
               type="file"
               accept="image/*"
               multiple
-              onChange={(event) => {
-                setFieldValue("images", [...event.currentTarget.files]);
-                uploadImagesToCloudinary(event);
-              }}
+              onChange={(event) => handleFileChange(event, setFieldValue)}
             />
-            <div className={styles.thumbnailCont}>
-              {files.map((file, index) => (
-                <img
-                  key={index}
-                  className={styles.thumbnail}
-                  src={file}
-                  alt={`Uploaded-${index}`}
-                />
-              ))}
-            </div>
+            {loading ? (
+              <Spinner />
+            ) : (
+              <div className={styles.thumbnailCont}>
+                {files.map((file, index) => (
+                  <div key={index} className={styles.thumbnailWrapper}>
+                    <img
+                      className={styles.thumbnail}
+                      src={typeof file === "string" ? file : URL.createObjectURL(file)}
+                      alt={`Uploaded-${index}`}
+                    />
+                    <button
+                      type="button"
+                      className={styles.removeButton}
+                      onClick={() => handleRemoveImage(index)}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
             {errors.images && touched.images && (
               <div className={styles.error}>{errors.images}</div>
             )}
@@ -142,7 +171,6 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
               okTitle="Ingresar datos"
               canceTitle="Salir"
               handleCancelForm={() => resetForm()}
-              resetForm={resetForm}
             />
           </div>
         </Form>

@@ -16,6 +16,7 @@ const ShoppingCart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.cartSlice.cartItems);
+  const user = useSelector((state) => state.user);
   const totalAmount = useSelector((state) => state.cartSlice.cartTotalItems);
 
   const handleAddItem = (id) => {
@@ -39,8 +40,9 @@ const ShoppingCart = () => {
   );
 
   const handleCheckout = () => {
+    if (!user.isActive) toast.error("Debes activar tu usario para poder continuar comprando");
     totalAmount === 0
-      ? toast.error("Necesitas agregar productos al carrito para poder comprar")
+    ? toast.error("Necesitas agregar productos al carrito para poder comprar")
       : navigate(PATH_ROUTES.CHECKOUT);
   };
 

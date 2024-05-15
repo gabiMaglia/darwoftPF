@@ -1,5 +1,6 @@
 .tableCont {
   overflow-x: auto; 
+  width: 93%;
 }
 
 input{
@@ -82,4 +83,14 @@ th:last-child, td:last-child {
   display: flex;
   justify-content: space-between;
   flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 768px) {
+  .buttons span {
+    flex-wrap: wrap;
+   width: 100%;
+  }
+  .buttons  {
+    flex-wrap: wrap;
+  }
 }

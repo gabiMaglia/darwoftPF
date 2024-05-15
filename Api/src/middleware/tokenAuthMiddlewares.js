@@ -9,6 +9,7 @@ const isAutenticated = async (req, res, next) => {
   try {
     if (!req.headers.authorization) throw new Error(errors.auth.unauthorized);
     const token = extractJwtToken(req.headers.authorization);
+   
     
     const isTokenListed = await checkWhiteListedToken(token);
     if (!isTokenListed) throw new Error(errors.auth.wrongCredentials);
@@ -20,7 +21,6 @@ const isAutenticated = async (req, res, next) => {
     req.token = token
     req.userId = tokenData.id;
     req.role = tokenData.role;
-    
     next();
   } catch (error) {
   

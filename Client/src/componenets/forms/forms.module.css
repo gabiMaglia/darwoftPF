@@ -34,28 +34,41 @@ select {
 .errors {
   color: red !important;
 }
-.thumbnailCont{
+.thumbnailCont {
   display: flex;
   flex-direction: column;
-  gap: .3rem;
+  gap: 0.3rem;
   justify-content: center;
   margin-inline: auto;
   width: 100%;
 }
-.thumbnailCont button{
-border-radius: var(--border-radius-xl);
-border: 1px solid black;
-background: none;
-  padding: .2rem;
+.thumbnailCont button {
+  border-radius: var(--border-radius-xl);
+  border: 1px solid black;
+  background: none;
+  padding: 0.2rem;
 }
 
-.thumbnail{
+.thumbnail {
   width: 80px;
   margin-inline: auto;
 }
+.thumbnailWrapper {
+  position: relative;
+  display: flex;
+}
 
-
-.checkboxes{
+.removeButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.checkboxes {
   display: flex;
   justify-content: space-evenly;
 }

@@ -42,7 +42,6 @@ export const postProduct = async (productData) => {
 };
 export const updateProduct = async (id, productData) => {
   try {
-    console.log(id, productData)
     const { data } = await axiosAuthInstance.patch(`${URL}/product/${id}`, {
       productData,
     });

@@ -82,6 +82,8 @@ const updateUser = async (id, userData) => {
 };
 // DELETE
 const deleteUser = async (id) => {
+
+console.log(id)
   const user = await User.findById(id);
 
   const { deletedCount } = await User.deleteOne({ _id: id });
@@ -105,7 +107,7 @@ const deleteUser = async (id) => {
     throw new Error(errors.user.userNotFound);
   }
 
-  return { error: false, response: "User successfully deleted" };
+  return { error: false, response: "Usuario correctamente eliminado" };
 };
 module.exports = {
   getUser,
