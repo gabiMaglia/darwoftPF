@@ -8,6 +8,7 @@ import {
   getProductsByIdAsync,
 } from "../../redux/slices/productSlice";
 import OutlinedButton from "../../componenets/ui/OutlinedButton/OutlinedButton";
+import Spinner from "../../componenets/ui/LoadingSpinner/Spinner";
 import { parseItemForCart } from "../../utils/objects";
 import { addItem } from "../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
@@ -44,7 +45,7 @@ const ProductDetail = () => {
   }, [dispatch, id]);
 
   if (!product) {
-    return <p>Loading...</p>;
+    return <Spinner/>
   }
 
   return (
