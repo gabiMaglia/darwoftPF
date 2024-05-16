@@ -5,9 +5,10 @@
   flex: 1 1 20%;
   min-width: 240px;
   max-height: 440px;
-  box-shadow: 0 2px 7px #dfdfdf;
+  box-shadow: 0 1px 1px #dfdfdf;
   border-radius: var(--spacing-md);
-  background: #fafafa;
+
+  background: var(--bg);
 }
 
 .badge {
@@ -30,7 +31,8 @@
   padding: 50px;
   border-top-left-radius: var(--spacing-md);
   border-top-right-radius: var(--spacing-md);
-  background: #f0f0f0;
+  background: var(--nav-bg);
+  /* background: #f0f0f0; */
 }
 
 .productTumb img {
