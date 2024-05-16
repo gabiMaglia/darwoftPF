@@ -17,7 +17,7 @@ const ShoppingCart = () => {
   const navigate = useNavigate();
   const products = useSelector((state) => state.cartSlice.cartItems);
   const user = useSelector((state) => state.auth.user);
- 
+  const isLogged = useSelector((state) => state.auth.isLogged);
   const totalAmount = useSelector((state) => state.cartSlice.cartTotalItems);
  
   const handleAddItem = (id) => {
@@ -37,7 +37,7 @@ const ShoppingCart = () => {
     0
   );
   const handleCheckout = () => {
-    if (!user?.isLogged) {
+    if (!isLogged) {
       toast.error("Debes iniciar sesion para seguir comprando");
       return;
     }
