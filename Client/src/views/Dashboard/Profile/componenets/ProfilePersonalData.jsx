@@ -28,15 +28,15 @@ const ProfilePersonalData = () => {
       <div className={styles.content}>
         <span>
           <label>Documento de identidad</label>
-          <i>{user.dni}</i>
+          <i>{user?.dni}</i>
         </span>
         <span>
           <label>Fecha de Nacimiento</label>
-          <i>{formatInitialDateToShow(user.birthday)}</i>
+          <i>{formatInitialDateToShow(user?.birthday)}</i>
         </span>
         <span>
           <label>Nacionalidad</label>
-          <i>{capitalizeFirstLetter(user.nationality)}</i>
+          <i>{capitalizeFirstLetter(user?.nationality)}</i>
         </span>
       </div>
 

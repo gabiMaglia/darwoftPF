@@ -33,8 +33,6 @@ const getCategoryById = async (id) => {
 // POST
 const postNewCategory = async (categoryData) => {
   const { catName, group } = categoryData;
-  console.log(group);
-
   const newCategory = new ProductCategory({
     catName,
   });
@@ -46,7 +44,6 @@ const postNewCategory = async (categoryData) => {
 };
 
 const postNewCategoryGroup = async ({ name }) => {
-  console.log(name);
   const newCategoryGroup = new ProductCategoryGroup({
     name,
   });
@@ -56,23 +53,18 @@ const postNewCategoryGroup = async ({ name }) => {
 };
 // UPDATE
 const updateCategory = async (id, categoryData) => {
-  console.log({catego: categoryData})
   const { catName, group } = categoryData;
-  console.log("group")
-  const catGroup = await ProductCategoryGroup.findById( group );
-  console.log("CAT")
-  console.log(catGroup)
-  
+
+  const catGroup = await ProductCategoryGroup.findById(group);
+
   const response = await ProductCategory.findByIdAndUpdate(
     id,
     {
       catName,
-      catGroup,
+      group: catGroup._id,
     },
     { new: true }
-  ).populate('group');
-  
-  console.log(response)
+  ).populate("group");
   return response;
 };
 const updateCategoryGroup = async (id, UpdateCategoryGroupData) => {
@@ -105,7 +97,6 @@ const deleteCategoryGroup = async (id) => {
   const areCategoriesThatBelongsToThisGroup = await ProductCategory.find({
     group: id,
   });
-  console.log(areCategoriesThatBelongsToThisGroup);
 
   if (areCategoriesThatBelongsToThisGroup.length !== 0) {
     throw new Error(errors.product.remainingCategoriesInGroup);

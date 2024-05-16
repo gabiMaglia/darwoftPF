@@ -10,11 +10,11 @@ const ProtectedRoutes = ({ isLogged }) => {
     }
   }, [isLogged]);
 
-  if (isLogged) {
-    return <Outlet />;
-  } else {
-    return <Navigate to={PATH_ROUTES.HOME} />;
+  if (!isLogged) {
+    return null;
   }
+
+  return isLogged ? <Outlet /> : <Navigate to={PATH_ROUTES.HOME} />;
 };
 
 export default ProtectedRoutes;

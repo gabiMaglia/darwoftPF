@@ -4,19 +4,19 @@ import OutlinedButton from "../../../componenets/ui/OutlinedButton/OutlinedButto
 import PATH_ROUTES from "../../../helpers/routes.helper";
 import styles from "./dashboardNav.module.css";
 
-const DashboardNav = ({ isAuthenticaded }) => {
+const DashboardNav = ({ isAuthenticated }) => {
   return (
     <div className={styles.navCont}>
     <nav className={styles.navBar}>
       <Link to={PATH_ROUTES.PERSONAL}>
         <OutlinedButton>Mi Cuenta</OutlinedButton>
       </Link>
-      {isAuthenticaded === "USER" && (
+      {isAuthenticated === "USER" && (
         <Link to={PATH_ROUTES.WISHLIST}>
           <OutlinedButton>WishList</OutlinedButton>
         </Link>
       )}
-      {isAuthenticaded === "ADMIN" && (
+      {isAuthenticated === "ADMIN" && (
         <>
           <Link to={PATH_ROUTES.STOCK}>
             <OutlinedButton>Stock</OutlinedButton>

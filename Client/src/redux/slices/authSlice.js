@@ -47,6 +47,26 @@ export const deleteUserAsync = createAsyncThunk(
   }
 );
 
+export const addToWishListAsync = createAsyncThunk(
+  "auth/addToWishListAsync",
+  async () => {
+    const response = await deleteUser();
+    if (!response) return { error: true };
+
+    return true;
+  }
+);
+export const removeFromWishlistAsync = createAsyncThunk(
+  "auth/removeFromWishlistAsync",
+  async () => {
+    const response = await deleteUser();
+    if (!response) return { error: true };
+
+    return true;
+  }
+);
+
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -74,6 +94,7 @@ const authSlice = createSlice({
       state.isLogged = false;
       state.user = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("cart")
     });
     builder.addCase(updateUserAsync.fulfilled, (state, { payload }) => {
       if (!payload.error) {

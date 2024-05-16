@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "./componenets/layout/Layout";
-
 import Home from "./views/Home/Home";
 import ProductDetail from "./views/ProductDetail/ProductDetail";
 import Dashboard from "./views/Dashboard/Dashboard.jsx";
@@ -36,20 +35,18 @@ import BrandsCat from "./views/Dashboard/BrandsCategories/BrandsCat.jsx";
 import Profile from "./views/Dashboard/Profile/Profile.jsx";
 import { getProductsAsync } from "./redux/slices/productSlice.js";
 import Checkout from "./views/Checkout/Checkout.jsx";
+import ConfirmationPage from "./views/ConfirmationSucces/ConfirmationPage.jsx";
 
 import "./App.css";
-import ConfirmationPage from "./views/ConfirmationSucces/ConfirmationPage.jsx";
-function App() {
-  const isLogged = useSelector((state) => state.auth.isLogged);
-  const isAuthenticaded = useSelector(
-    (state) => state.auth.user?.role.role || state.auth.user?.role
-  );
 
+function App() {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
+  const isLogged = useSelector((state) => state.auth.isLogged);
+  const userRole = useSelector((state) => state.auth?.user?.role);
+
   useEffect(() => {
-    setIsLoading(true);
     const token = localStorage.getItem("token");
     const initialWorks = async () => {
       try {
@@ -57,11 +54,9 @@ function App() {
         await dispatch(getCategoriesAsync());
         await dispatch(getAllBrandsAsync());
         await dispatch(getProductsAsync());
-        if (!token) {
-          setIsLoading(false);
-          return;
+        if (token) {
+          await dispatch(checkPersistanceAsync(token));
         }
-        await dispatch(checkPersistanceAsync(token));
       } catch (error) {
         console.log(error);
       } finally {
@@ -69,8 +64,7 @@ function App() {
       }
     };
     initialWorks();
-    setIsLoading(false);
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) return <Spinner />;
 
@@ -79,11 +73,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path={PATH_ROUTES.HOME} element={<Home />} />
-          <Route
-            path={PATH_ROUTES.CHANGEPASSWORD}
-            element={<ChangePassword />}
-          />
-          <Route path={PATH_ROUTES.ACOUNTCONFIRMED} element={<ConfirmationPage/>} />
+          <Route path={PATH_ROUTES.CHANGEPASSWORD} element={<ChangePassword />} />
+          <Route path={PATH_ROUTES.ACOUNTCONFIRMED} element={<ConfirmationPage />} />
           <Route path={PATH_ROUTES.SHOPPINGCART} element={<ShoppingCart />} />
           <Route path={PATH_ROUTES.ABOUT} element={<About />} />
           <Route path={PATH_ROUTES.DETAIL} element={<ProductDetail />} />
@@ -91,7 +82,7 @@ function App() {
             <Route path={PATH_ROUTES.CHECKOUT} element={<Checkout />} />
             <Route
               path={PATH_ROUTES.DASHBOARD}
-              element={<Dashboard isAuthenticaded={isAuthenticaded} />}
+              element={<Dashboard isAuthenticated={userRole.role} />}
             >
               <Route path="" element={<Profile />}>
                 <Route index path="" element={<ProfilePersonalData />} />
@@ -99,10 +90,7 @@ function App() {
                 <Route path="credentials" element={<ProfileCredentials />} />
               </Route>
               <Route exact path={PATH_ROUTES.STOCK} element={<Stock />} />
-              <Route
-                path={PATH_ROUTES.BRANDSCATEGORY}
-                element={<BrandsCat />}
-              />
+              <Route path={PATH_ROUTES.BRANDSCATEGORY} element={<BrandsCat />} />
               <Route path={PATH_ROUTES.WISHLIST} element={<WishList />} />
             </Route>
           </Route>

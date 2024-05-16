@@ -12,7 +12,7 @@ import PATH_ROUTES from "../../../helpers/routes.helper";
 import styles from "./profile.module.css";
 
 const Profile = () => {
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state?.auth?.user);
 
   const dispatch = useDispatch();
   const [modalType, openModal, closeModal] = useModal();
@@ -23,13 +23,13 @@ const Profile = () => {
         <div className={styles.col1}>
           <div>
             <span className={styles.photo}>
-              <Img img={user.photo || foto} alt={user.firstName} />
+              <Img img={user?.photo || foto} alt={user?.firstName} />
               <PencilSquareIcon
                 onClick={() => openModal("changePicture")}
                 className={styles.icon}
               />
             </span>
-              <h2>{user.firstName} {user.lastName}</h2>
+              <h2>{user?.firstName} {user?.lastName}</h2>
           </div>
           <nav>
             <ul className={styles.links}>

@@ -10,7 +10,7 @@ const signUpUser = async (userData) => {
       return false;
     }
     toast(
-      `Usuario ${data.response.user} creado correctamente, chekea la casilla${data.response.email} para activar tu cuenta y poder empezar a comprar`
+      `Usuario ${data.response.user} creado correctamente, checkea la casilla ${data.response.email} para activar tu cuenta y poder empezar a comprar`
     );
     return true;
   } catch (error) {

@@ -1,11 +1,10 @@
-import {Outlet} from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 import DashboardNav from "./DashboardNav/DashboardNav";
 
-
-const Dashboard = ({isAuthenticaded}) => {
+const Dashboard = ({ isAuthenticated }) => {
   return (
     <>
-      <DashboardNav isAuthenticaded={isAuthenticaded} />
+      <DashboardNav isAuthenticated={isAuthenticated} />
       <Outlet />
     </>
   );

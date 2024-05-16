@@ -38,7 +38,7 @@ const ShoppingCart = () => {
   );
   const handleCheckout = () => {
     if (!user?.isLogged) {
-      toast.error("Debes activar tu usuario para poder continuar comprando");
+      toast.error("Debes iniciar sesion para seguir comprando");
       return;
     }
     if (!user?.isActive) {

@@ -2,133 +2,130 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import SubmitBtns from "./SubmitBtns";
-import {nacionalities} from "../../utils/paises";
+import { nacionalities } from "../../utils/paises";
 
 import styles from "./forms.module.css";
 
 const signUpSchema = Yup.object({
   firstName: Yup.string().min(3).required("Debes ingresar un nombre"),
   lastName: Yup.string().min(3).required("Debes ingresar un apellido"),
-  nationality: Yup.string(),
-  // .min(3)
-  // .required("Debes ingresar un nacionalidad"),
+  nationality: Yup.string().required("Debes seleccionar una nacionalidad"),
+  dni:Yup.string().required(),
   email: Yup.string()
-    .email("Email invalido")
+    .email("Email inválido")
     .required("Debes ingresar un email"),
   password: Yup.string()
-    // .min(6)
-    // .matches(
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-    //   "La contrasena debe tener al menos una letra mayuscula, una minuscula y un numero"
-    // )
     .required("Debes ingresar un password"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "El password debe coincidir")
-    .required("Debes confirmar la contrasena"),
+    .required("Debes confirmar la contraseña"),
 });
 
 const SignUpForm = ({ onSubmit }) => {
   const [nationality, setNationality] = useState("");
-  const handleResetForm = (formik) => {
-    formik.resetForm();
+
+  const handleResetForm = (resetForm) => {
+    resetForm();
     setNationality("");
   };
+
   return (
-    <>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          photo: "",
-          birthday: new Date("1990-01-01"),
-          nationality: "",
-          dni: "",
-          password: "",
-          confirmPassword: "",
-          adress: {},
-        }}
-        validationSchema={signUpSchema}
-        onSubmit={(values) => {
-          values = { ...values, nationality: nationality };
-          onSubmit(values);
-        }}
-      >
-        {({ errors, touched, resetForm }) => (
-          <Form className={styles.form}>
-            <span className={styles.inputBoxes}>
-              <label htmlFor="firstName">Nombre</label>
-              <Field name="firstName" />
-              {errors.firstName && errors.firstName ? (
-                <p className={styles.errors}>{errors.firstName}</p>
-              ) : null}
-            </span>
+    <Formik
+      initialValues={{
+        firstName: "",
+        lastName: "",
+        email: "",
+        photo: "",
+        birthday: new Date("1990-01-01"),
+        nationality: "",
+        dni: "",
+        password: "",
+        confirmPassword: "",
+        adress: {},
+      }}
+      validationSchema={signUpSchema}
+      onSubmit={(values) => {
+        values = { ...values, nationality: nationality };
+        onSubmit(values);
+      }}
+    >
+      {({ errors, touched, resetForm, setFieldValue }) => (
+        <Form className={styles.form}>
+          <span className={styles.inputBoxes}>
+            <label htmlFor="firstName">Nombre</label>
+            <Field
+              name="firstName"
+              className={errors.firstName && touched.firstName ? styles.errorInput : ""}
+            />
+          </span>
 
-            <span className={styles.inputBoxes}>
-              <label htmlFor="lastName">Apellido</label>
-              <Field name="lastName" />
-              {errors.lastName && touched.lastName ? (
-                <p className={styles.errors}>{errors.lastName}</p>
-              ) : null}
-            </span>
+          <span className={styles.inputBoxes}>
+            <label htmlFor="lastName">Apellido</label>
+            <Field
+              name="lastName"
+              className={errors.lastName && touched.lastName ? styles.errorInput : ""}
+            />
+          </span>
 
-            <span className={styles.inputBoxes}>
-              <label htmlFor="nationality">Nacionalidad</label>
-              <Field
-                as="select"
-                name="nationality"
-                onChange={(e) => {
-                  setNationality(e.target.value);
-                }}
-              >
-                <option disabled value="">
-                  Seleccione su nacionalidad
+          <span className={styles.inputBoxes}>
+            <label htmlFor="nationality">Nacionalidad</label>
+            <Field
+              as="select"
+              name="nationality"
+              onChange={(e) => {
+                setNationality(e.target.value);
+                setFieldValue("nationality", e.target.value);
+              }}
+              value={nationality}
+              className={errors.nationality && touched.nationality ? styles.errorInput : ""}
+            >
+              <option disabled value="">
+                Seleccione su nacionalidad
+              </option>
+              {nacionalities.map((nationality) => (
+                <option key={nationality} value={nationality}>
+                  {nationality}
                 </option>
-                {nacionalities.map((nationality) => (
-                  <option key={Math.random()} value={nationality.toString()}>
-                    {nationality}
-                  </option>
-                ))}
-              </Field>
-              {errors.nationality && touched.nationality ? (
-                <p className={styles.errors}>{errors.nationality}</p>
-              ) : null}
-            </span>
+              ))}
+            </Field>
+          </span>
 
-            <span className={styles.inputBoxes}>
-              <label htmlFor="dni">Documento de Identidad</label>
-              <Field name="dni" />
-              {errors.dni && touched.dni ? (
-                <p className={styles.errors}>{errors.dni}</p>
-              ) : null}
-            </span>
+          <span className={styles.inputBoxes}>
+            <label htmlFor="dni">Documento de Identidad</label>
+            <Field
+              name="dni"
+              className={errors.dni && touched.dni ? styles.errorInput : ""}
+            />
+          </span>
 
-            {/* CRED */}
-            <span className={styles.inputBoxes}>
-              <label htmlFor="email">Email</label>
-              <Field name="email" type="email" />
-              {errors.email && touched.email ? (
-                <p className={styles.errors}>{errors.email}</p>
-              ) : null}
-            </span>
+          <span className={styles.inputBoxes}>
+            <label htmlFor="email">Email</label>
+            <Field
+              name="email"
+              type="email"
+              className={errors.email && touched.email ? styles.errorInput : ""}
+            />
+          </span>
 
-            <span className={styles.inputBoxes}>
-              <label htmlFor="password">Password</label>
-              <Field name="password" type="password" />
-              {errors.password && touched.password ? (
-                <p className={styles.errors}>{errors.password}</p>
-              ) : null}
-            </span>
+          <span className={styles.inputBoxes}>
+            <label htmlFor="password">Password</label>
+            <Field
+              name="password"
+              type="password"
+              className={errors.password && touched.password ? styles.errorInput : ""}
+            />
+          </span>
 
-            <span className={styles.inputBoxes}>
-              <label htmlFor="confirmPassword">Confirmar Password</label>
-              <Field name="confirmPassword" type="password" />
-              {errors.confirmPassword && touched.confirmPassword ? (
-                <p className={styles.errors}>{errors.confirmPassword}</p>
-              ) : null}
-            </span>
+          <span className={styles.inputBoxes}>
+            <label htmlFor="confirmPassword">Confirmar Password</label>
+            <Field
+              name="confirmPassword"
+              type="password"
+              className={errors.confirmPassword && touched.confirmPassword ? styles.errorInput : ""}
+            />
+          </span>
 
-            <div className={styles.submitButtons}>
+          <div className={styles.submitButtons}>
               <SubmitBtns
                 okTitle="Registrarse"
                 canceTitle="Limpiar Datos"
@@ -136,10 +133,9 @@ const SignUpForm = ({ onSubmit }) => {
                 resetForm={resetForm}
               />
             </div>
-          </Form>
-        )}
-      </Formik>
-    </>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

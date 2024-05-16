@@ -21,27 +21,27 @@ const ProfilePersonalAddress = () => {
         
         <span>
           <label>Pais</label>
-          <i>{`${user.adress?.country || "Completar"}`}</i>
+          <i>{`${user?.adress?.country || "Completar"}`}</i>
         </span>
         <span>
           <label>Estado/Provincia</label>
-          <i>{`${user.adress?.state || "Completar"}`}</i>
+          <i>{`${user?.adress?.state || "Completar"}`}</i>
         </span>
         <span>
           <label>Ciudad</label>
-          <i>{`${user.adress?.city || "Completar"}`}</i>
+          <i>{`${user?.adress?.city || "Completar"}`}</i>
         </span>
         <span>
           <label>Calle</label>
-          <i>{`${user.adress?.street || "Completar"}`}</i>
+          <i>{`${user?.adress?.street || "Completar"}`}</i>
         </span>
         <span>
           <label>Altura</label>
-          <i>{`${user.adress?.number || "Completar"}`}</i>
+          <i>{`${user?.adress?.number || "Completar"}`}</i>
         </span>
         <span>
           <label>Codigo Postal</label>
-          <i>{`${user.adress?.zipCOde || "Completar"}`}</i>
+          <i>{`${user?.adress?.zipCOde || "Completar"}`}</i>
         </span>
       </div>
       <PencilSquareIcon
