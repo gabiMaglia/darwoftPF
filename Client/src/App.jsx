@@ -83,7 +83,7 @@ function App() {
             <Route path={PATH_ROUTES.CHECKOUT} element={<Checkout />} />
             <Route
               path={PATH_ROUTES.DASHBOARD}
-              element={<Dashboard isAuthenticated={userRole.role} />}
+              element={<Dashboard isAuthenticated={userRole?.role} />}
             >
               <Route path="" element={<Profile />}>
                 <Route index path="" element={<ProfilePersonalData />} />
