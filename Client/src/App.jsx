@@ -44,8 +44,8 @@ function App() {
   const dispatch = useDispatch();
 
   const isLogged = useSelector((state) => state.auth.isLogged);
-  const userRole = useSelector((state) => state.auth?.user?.role);
-  console.log(userRole)
+  const user = useSelector((state) => state.auth.user);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -83,7 +83,7 @@ function App() {
             <Route path={PATH_ROUTES.CHECKOUT} element={<Checkout />} />
             <Route
               path={PATH_ROUTES.DASHBOARD}
-              element={<Dashboard isAuthenticated={userRole?.role} />}
+              element={<Dashboard isAuthenticated={user} />}
             >
               <Route path="" element={<Profile />}>
                 <Route index path="" element={<ProfilePersonalData />} />

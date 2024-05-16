@@ -22,6 +22,7 @@ import {
   signUpUser,
 } from "../../services/authServices/authServices";
 import PATH_ROUTES from "../../helpers/routes.helper";
+import { clearCart } from "../../redux/slices/cartSlice";
 
 const Auth = () => {
 
@@ -57,9 +58,10 @@ const Auth = () => {
   const handleLogOutSubmit = (token) => {
     setIsLoading(true);
     navigate(PATH_ROUTES.HOME);
+    dispatch(clearCart())
     dispatch(logOutAsync(token)).then(() => {
-      setIsLoading(false);
       closeModal();
+      setIsLoading(false);
     }).catch((error) => {
       console.log(error);
     });
