@@ -5,6 +5,7 @@ import PATH_ROUTES from "../../../helpers/routes.helper";
 import styles from "./dashboardNav.module.css";
 
 const DashboardNav = ({ isAuthenticated }) => {
+  console.log(isAuthenticated)
   return (
     <div className={styles.navCont}>
     <nav className={styles.navBar}>
