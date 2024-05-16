@@ -53,7 +53,7 @@ const ShoppingCart = () => {
     
     navigate(PATH_ROUTES.CHECKOUT);
   };
-
+console.log(products)
   return (
     <section className={styles.shoppingCartCont}>
       <h2>Carrito de Compras</h2>
@@ -71,14 +71,10 @@ const ShoppingCart = () => {
             {products.map((product) => (
               <tr key={product._id}>
                 <td>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    style={{ width: "100px" }}
-                  />
+                 <strong>{product.name}</strong>
                 </td>
-                <td>${product.price.toFixed(2)}</td>
-                <td>{product.quantity}</td>
+                <td><strong>${product.price.toFixed(2)}</strong></td>
+                <td><strong>{product.quantity}</strong></td>
                 <td className={styles.actions}>
                   <OutlinedButton onClick={() => handleAddItem(product._id)}>
                     +
