@@ -17,7 +17,6 @@ export const postBrand = async (brandData) => {
     });
     if (!data.error) {
       toast.success("Marca Creada");
-      console.log(data)
       return data.message;
     }
   } catch ({ response }) {
@@ -26,13 +25,11 @@ export const postBrand = async (brandData) => {
 };
 export const updateBrand = async (id, brandData) => {
   try {
-    console.log(id, brandData)
     const { data } = await axiosAuthInstance.put(`${URL}/brand/${id}`, {
       brandData,
     });
     if (!data.error) {
       toast.success("Marca Actualizada");
-      console.log(data)
       return data.message;
     }
   } catch ({ response }) {

@@ -69,7 +69,7 @@ const singUp = async (userData) => {
     number = "",
     zipCode = "",
   } = adress;
-  console.log(userData);
+  
   const userCart = [];
   const userWishList = [];
 
@@ -188,8 +188,6 @@ const resetPassword = async (token, { password }) => {
 };
 
 const logOutUser = async (token) => {
-  console.log("object");
-  console.log(token);
   await TokenWhiteList.deleteOne({ token: token });
   return true;
 };

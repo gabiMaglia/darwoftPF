@@ -1,24 +1,33 @@
 export const formatInitialDate = (date) => {
-    if (!date) return '';
-    const d = new Date(date);
-    let month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+  if (!date) return '';
+  const d = new Date(Date.UTC(
+    new Date(date).getUTCFullYear(),
+    new Date(date).getUTCMonth(),
+    new Date(date).getUTCDate()
+  ));
 
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
+  if (isNaN(d)) return '';
 
-    return [year, month, day].join('-');
-  };
+  const year = d.getUTCFullYear();
+  const month = (d.getUTCMonth() + 1).toString().padStart(2, '0');
+  const day = d.getUTCDate().toString().padStart(2, '0');
+
+  return [year, month, day].join('-');
+};
+
 export const formatInitialDateToShow = (date) => {
-    if (!date) return '';
-    const d = new Date(date);
-    let month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+  if (!date) return '';
+  const d = new Date(Date.UTC(
+    new Date(date).getUTCFullYear(),
+    new Date(date).getUTCMonth(),
+    new Date(date).getUTCDate()
+  ));
 
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
+  if (isNaN(d)) return '';
 
-    return [day, month, year].join("-");
-  };
+  const day = d.getUTCDate().toString().padStart(2, '0');
+  const month = (d.getUTCMonth() + 1).toString().padStart(2, '0');
+  const year = d.getUTCFullYear();
+
+  return [day, month, year].join('-');
+};

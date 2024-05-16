@@ -74,8 +74,6 @@ const postNewProduct = async (productData) => {
 };
 // UPDATE
 const updateProduct = async (id, productData) => {
-  console.log("Updating product with data:", id, productData);
-
   const currentProduct = await Product.findById(id);
   if (!currentProduct) {
     throw new Error("Product not found");

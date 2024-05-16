@@ -1,7 +1,7 @@
 const { ProductBrand, Product, ProductCategoryGroup, ProductCategory } = require("../db/conn");
 
 const getInitialData = async () => {
-    console.log("llego")
+  
   const brands = await ProductBrand.find();
   const categoryGroup = await ProductCategoryGroup.find();
   const products = await Product.find()

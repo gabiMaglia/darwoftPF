@@ -183,7 +183,6 @@ li {
 }
 
 
-/* Establecimiento de la familia de fuentes base */
 .shanti-regular,
 .poiret-one-regular,
 .kanit-style {
@@ -201,12 +200,11 @@ li {
   font-weight: 400;
 }
 
-/* Configuración genérica para Kanit con diferentes pesos y estilos */
+
 .kanit-style {
   font-family: "Kanit", sans-serif;
 }
 
-/* Clases para cada peso y estilo de Kanit */
 .kanit-thin {
   font-weight: 100;
 }
@@ -235,7 +233,7 @@ li {
   font-weight: 900;
 }
 
-/* Clases para estilos itálicos de Kanit */
+
 .kanit-thin-italic,
 .kanit-extralight-italic,
 .kanit-light-italic,

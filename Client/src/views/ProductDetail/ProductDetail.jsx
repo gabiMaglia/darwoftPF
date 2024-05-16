@@ -11,8 +11,9 @@ import OutlinedButton from "../../componenets/ui/OutlinedButton/OutlinedButton";
 import { parseItemForCart } from "../../utils/objects";
 import { addItem } from "../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
-import styles from "./productDetail.module.css";
 import PATH_ROUTES from "../../helpers/routes.helper";
+
+import styles from "./productDetail.module.css";
 
 const ProductDetail = () => {
   const { id } = useParams();

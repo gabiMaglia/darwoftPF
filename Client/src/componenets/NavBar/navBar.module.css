@@ -101,7 +101,7 @@
   .navToogle span {
     width: 30px;
     height: 4px;
-    background: white;
+    background: var(--txt);
     margin-bottom: 5px;
     border-radius: 2px;
     transform-origin: 5px 0px;

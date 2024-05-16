@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import ThemeSwitcher from "../ui/ThemeSwitcher/ThemeSwitcher";
@@ -5,16 +7,12 @@ import ShoppintCart from "../ShoppingCart/ShoppintCart";
 import SearchBar from "../SearchBar/SearchBar";
 import Auth from "../Auth/Auth";
 import Img from "../ui/Img/Img";
-import styles from "./navBar.module.css";
-
 import { capitalizeFirstLetter } from "../../utils/strings";
-
 import mainLogoColor from "../../assets/logos_png/logos folk-02.png";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import PATH_ROUTES from "../../helpers/routes.helper";
 import { filterByGroup } from "../../redux/slices/productSlice";
 
+import styles from "./navBar.module.css";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const categoriesGroups = useSelector((state) => state.categories.groups);

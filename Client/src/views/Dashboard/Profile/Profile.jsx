@@ -65,7 +65,6 @@ const Profile = () => {
           <ChangePictureForm
             okTitle="Subir imagen"
             onSubmit={(value) => {
-              console.log({ ...user, value });
               dispatch(updateUserAsync({ id: user._id, userData: value }));
               closeModal();
             }}

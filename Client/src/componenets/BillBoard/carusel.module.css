@@ -8,6 +8,7 @@
 .mainPic {
   position: relative;
   width: 300px;
+  /* mix-blend-mode:lighten; */
   height: 250px;
 }
 .mainPic img {

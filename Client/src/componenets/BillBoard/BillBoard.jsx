@@ -12,10 +12,11 @@ import { useSelector } from "react-redux";
 import Spinner from "../ui/LoadingSpinner/Spinner.jsx";
 
 const BillBoard = () => {
-  const products = useSelector(state => state.products.products)
-  const limit = products?.length;
+  let products = useSelector(state => state.products.products)
   const [currentSlide, setCurrentSlide] = useState(0);
   const location = useLocation()
+  const productsToSlide = products.filter(e => e.isFeatured === true)
+  const limit = productsToSlide?.length;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -34,7 +35,7 @@ const BillBoard = () => {
   if (location.pathname !='/') {
     return null; 
   }
-  if (!products) return <Spinner/>
+  if (!productsToSlide) return <Spinner/>
   return (
     <article className={styles.billboard}>
       <div className={styles.buttons}>
@@ -43,7 +44,7 @@ const BillBoard = () => {
           Prev
         </div>
 
-        <Carusel data={products[currentSlide]} />
+        <Carusel data={productsToSlide[currentSlide]} />
 
         <div className={styles.controls} onClick={nextSlide}>
           <ChevronDoubleRightIcon />
@@ -52,7 +53,7 @@ const BillBoard = () => {
       </div>
 
       <div className={styles.pagintionDots}>
-        {products.map((e, i) => (
+        {productsToSlide.map((e, i) => (
           <div
             className={i === currentSlide ? styles.active : "none"}
             key={i}

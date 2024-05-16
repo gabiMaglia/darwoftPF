@@ -82,8 +82,6 @@ const updateUser = async (id, userData) => {
 };
 // DELETE
 const deleteUser = async (id) => {
-
-console.log(id)
   const user = await User.findById(id);
 
   const { deletedCount } = await User.deleteOne({ _id: id });

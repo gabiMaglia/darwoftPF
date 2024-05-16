@@ -103,7 +103,6 @@ const authSlice = createSlice({
     });
     builder.addCase(deleteUserAsync.fulfilled, (state, { payload }) => {
       if (!payload.error) {
-        console.log(payload);
         state.user = null;
         state.isLogged = null;
       }

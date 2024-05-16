@@ -41,7 +41,6 @@ const useAuth = () => {
     });
   };
   const handleLogOutSubmit = (token) => {
-    console.log('llego')
     setIsLoading(true);
     navigate('/')
     dispatch(logOutAsync(token)).then(() => {

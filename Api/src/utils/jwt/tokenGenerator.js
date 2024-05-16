@@ -25,7 +25,6 @@ const verifyToken = async (token) => {
 };
 
 const extractJwtToken = (inputString) => {
-  console.log(inputString);
   const jwt = inputString.split(" ").pop();
   return jwt;
 };
