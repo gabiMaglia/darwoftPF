@@ -129,6 +129,7 @@ const productSlice = createSlice({
     builder.addCase(postProductAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
       state.products = [...state.products, payload];
+      state.productsToShow = state.products
     });
     // UPDATE
     builder.addCase(updateProductAsync.fulfilled, (state, { payload }) => {
@@ -157,6 +158,7 @@ const productSlice = createSlice({
     builder.addCase(deleteProductsAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
       state.products = state.products.filter((e) => e._id !== payload);
+      state.productsToShow = state.products
     });
   },
 });
