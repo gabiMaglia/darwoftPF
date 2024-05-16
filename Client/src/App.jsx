@@ -38,6 +38,7 @@ import { getProductsAsync } from "./redux/slices/productSlice.js";
 import Checkout from "./views/Checkout/Checkout.jsx";
 
 import "./App.css";
+import ConfirmationPage from "./views/ConfirmationSucces/ConfirmationPage.jsx";
 function App() {
   const isLogged = useSelector((state) => state.auth.isLogged);
   const isAuthenticaded = useSelector(
@@ -82,6 +83,7 @@ function App() {
             path={PATH_ROUTES.CHANGEPASSWORD}
             element={<ChangePassword />}
           />
+          <Route path={PATH_ROUTES.ACOUNTCONFIRMED} element={<ConfirmationPage/>} />
           <Route path={PATH_ROUTES.SHOPPINGCART} element={<ShoppingCart />} />
           <Route path={PATH_ROUTES.ABOUT} element={<About />} />
           <Route path={PATH_ROUTES.DETAIL} element={<ProductDetail />} />

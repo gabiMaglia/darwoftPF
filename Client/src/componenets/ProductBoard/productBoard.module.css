@@ -7,13 +7,21 @@
   gap: var(--spacing-md);
   padding: var(--spacing-md);
 }
+.noProductsAdvice h3 {
+  padding: 4rem;
+}
 @media screen and (min-width: 768px) {
   .products {
     width: 70%;
     min-width: 30%;
     display: flex;
+  
     flex-wrap: wrap;
     gap: var(--spacing-md);
     padding: var(--spacing-md);
   }
+  .noProductsAdvice h3 {
+    padding: 14rem;
+  }
 }
+

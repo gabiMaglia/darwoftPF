@@ -74,42 +74,26 @@ const postNewProduct = async (productData) => {
 };
 // UPDATE
 const updateProduct = async (id, productData) => {
-  const {
-    name,
-    price,
-    images,
-    productDescription,
-    warranty,
-    stock,
-    category,
-    brand,
-    soldCount,
-    isActive,
-    isFeatured,
-  } = productData;
+  console.log("Updating product with data:", id, productData);
 
-  const product = await Product.findByIdAndUpdate(
+  const currentProduct = await Product.findById(id);
+  if (!currentProduct) {
+    throw new Error("Product not found");
+  }
+
+  const updatedProduct = await Product.findByIdAndUpdate(
     id,
     {
-      name,
-      price,
-      images,
-      productDescription,
-      warranty,
-      stock,
-      category,
-      brand,
-      soldCount,
-      isActive,
-      isFeatured,
+      $set: productData,
     },
-    { new: true }
+    { new: true, runValidators: true }
   )
     .populate("category")
     .populate("brand");
 
-  return product;
+  return updatedProduct;
 };
+
 // DELETE
 const toggleProductState = async (id) => {
   const dbProduct = await Product.findById(id);

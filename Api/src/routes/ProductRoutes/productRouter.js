@@ -39,8 +39,6 @@ porductRouter
   .get(getProductByIdHandler)
   .patch(
     isAutenticated,
-    productValidation,
-    validateResults,
     updateProductHandler
   )
   .delete(isAutenticated, isAuthorized, deleteProductHandler);

@@ -6,6 +6,7 @@ import {
   deleteProduct,
   updateProduct,
 } from "../../services/productServices/productServices";
+
 // GET
 export const getProductsAsync = createAsyncThunk(
   "prod/getProducts",
@@ -16,6 +17,7 @@ export const getProductsAsync = createAsyncThunk(
     return response.message;
   }
 );
+
 export const getProductsByIdAsync = createAsyncThunk(
   "prod/getProductsByIdAsync",
   async (id) => {
@@ -24,25 +26,31 @@ export const getProductsByIdAsync = createAsyncThunk(
     return response.message;
   }
 );
+
 // POST
 export const postProductAsync = createAsyncThunk(
   "prod/postProductAsync",
   async (productData) => {
     const response = await postProduct(productData);
     if (response.error) return { error: true };
-    const category = response.message;
-    return category;
-  }
-);
-// POST
-export const updateProductAsync = createAsyncThunk(
-  "prod/updateProductAsync",
-  async ({ id, value }) => {
-    const response = await updateProduct(id, value);
-    if (response.error) return { error: true };
     return response.message;
   }
 );
+
+// UPDATE
+export const updateProductAsync = createAsyncThunk(
+  "prod/updateProductAsync",
+  async (data) => {
+      const { id, productData } = data;
+      const response = await updateProduct(id, productData);
+      if (response.error) return { error: true };
+
+      
+      return response.message;
+    
+  }
+);
+
 // DELETE
 export const deleteProductsAsync = createAsyncThunk(
   "prod/deleteProducts",
@@ -52,12 +60,13 @@ export const deleteProductsAsync = createAsyncThunk(
     return id;
   }
 );
+
 const productSlice = createSlice({
   name: "products",
   initialState: {
     products: null,
     productsToShow: null,
-    banerDescription : "Todos nuestros productos", 
+    banerDescription: "Todos nuestros productos",
     productDetail: null,
   },
   reducers: {
@@ -65,31 +74,27 @@ const productSlice = createSlice({
       state.productDetail = null;
     },
     filterByCategory: (state, { payload }) => {
-      state.banerDescription = payload
+      state.banerDescription = payload;
       state.productsToShow = state.products.filter(
         (product) => product.category.catName === payload
       );
-      
     },
     filterByBrand: (state, { payload }) => {
-      state.banerDescription = payload
+      state.banerDescription = payload;
       state.productsToShow = state.products.filter(
         (product) => product.brand.brandName === payload
       );
-   
     },
     filterByGroup: (state, { payload }) => {
-      state.banerDescription = payload.name
+      state.banerDescription = payload.name;
       state.productsToShow = state.products.filter(
         (product) => product.category.group === payload._id
       );
     },
-
     clearFilters: (state) => {
-      state.banerDescription = "Todos nuestros productos"
+      state.banerDescription = "Todos nuestros productos";
       state.productsToShow = state.products;
     },
-
     sortByName: (state, { payload }) => {
       state.productsToShow = [...state.productsToShow].sort((a, b) => {
         if (payload === "asc") {
@@ -99,9 +104,7 @@ const productSlice = createSlice({
         }
       });
     },
-
     sortByPrice: (state, { payload }) => {
-   
       state.productsToShow = [...state.productsToShow].sort((a, b) => {
         if (payload === "mayor") {
           return a.price < b.price;
@@ -111,7 +114,6 @@ const productSlice = createSlice({
       });
     },
   },
-
   extraReducers: (builder) => {
     // GET
     builder.addCase(getProductsAsync.fulfilled, (state, { payload }) => {
@@ -131,20 +133,34 @@ const productSlice = createSlice({
     // UPDATE
     builder.addCase(updateProductAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      const index = state.products.findIndex(
-        (product) => product._id === payload._id
-      );
-      if (index !== -1) {
-        state.products[index] = payload;
+      if (Array.isArray(payload)) {
+        payload.forEach((updatedProduct) => {
+          const index = state.products.findIndex(
+            (product) => product._id === updatedProduct._id
+          );
+          if (index !== -1) {
+            state.products[index] = updatedProduct;
+            state.productsToShow = state.products
+          }
+        });
+      } else {
+        const index = state.products.findIndex(
+          (product) => product._id === payload._id
+        );
+        if (index !== -1) {
+          state.products[index] = payload;
+          state.productsToShow = state.products
+        }
       }
     });
     // DELETE
     builder.addCase(deleteProductsAsync.fulfilled, (state, { payload }) => {
       if (payload.error) return;
-      state.products = state.products.filter((e) => e._id != payload);
+      state.products = state.products.filter((e) => e._id !== payload);
     });
   },
 });
+
 export const {
   clearProductDetail,
   filterByCategory,
@@ -154,4 +170,5 @@ export const {
   sortByPrice,
   clearFilters,
 } = productSlice.actions;
+
 export default productSlice.reducer;

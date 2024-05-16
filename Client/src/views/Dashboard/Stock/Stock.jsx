@@ -28,6 +28,10 @@ const productColumns = [
     accessorKey: "price",
   },
   {
+    header: "Stock",
+    accessorKey: "stock",
+  },
+  {
     header: "Total Vendidos",
     accessorKey: "soldCount",
   },
@@ -75,7 +79,7 @@ const Stock = () => {
   return (
     <section className={styles.section}>
       <article>
-        <h2>Product Groups List</h2>
+        <h2>Lista de Productos en stock</h2>
         <Table
           data={products.products}
           columns={productColumns}
@@ -110,7 +114,7 @@ const Stock = () => {
           initialData = {currentDataToUpdate}
           okTitle="Si"
           onSubmit={(value) => {
-            dispatch(updateProductAsync({id : currentDataToUpdate._id, value}));
+            dispatch(updateProductAsync({id : currentDataToUpdate._id, productData: value}));
             closeModal();
           }}
           canceTitle="no"

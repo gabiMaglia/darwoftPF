@@ -52,7 +52,7 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
         price: (isUpdate && initialData.price) || 0,
         images: (isUpdate && initialData.images) || [],
         productDescription: (isUpdate && initialData.productDescription) || "",
-        isActive: (isUpdate && initialData.isActive) || false,
+        isActive: (isUpdate && initialData.isActive) || true,
         isFeatured: (isUpdate && initialData.isFeatured) || false,
         stock: (isUpdate && initialData.stock) || 0,
         category: (isUpdate && initialData.category._id) || "",
@@ -101,7 +101,11 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
                   <div key={index} className={styles.thumbnailWrapper}>
                     <img
                       className={styles.thumbnail}
-                      src={typeof file === "string" ? file : URL.createObjectURL(file)}
+                      src={
+                        typeof file === "string"
+                          ? file
+                          : URL.createObjectURL(file)
+                      }
                       alt={`Uploaded-${index}`}
                     />
                     <button
@@ -119,6 +123,7 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
               <div className={styles.error}>{errors.images}</div>
             )}
           </div>
+
 
           <div className={styles.inputBoxes}>
             <label htmlFor="productDescription">Descripción</label>
@@ -164,6 +169,22 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
             {errors.brand && touched.brand && (
               <div className={styles.error}>{errors.brand}</div>
             )}
+          </div>
+          <div className={styles.checkboxes}>
+            {/* <div className={styles.inputBoxes}>
+              <label htmlFor="isActive">Activo?</label>
+              <Field name="isActive" type="checkbox" />
+              {errors.isActive && touched.isActive && (
+                <div className={styles.error}>{errors.isActive}</div>
+              )}
+            </div> */}
+            <div className={styles.inputBoxes}>
+              <label htmlFor="isFeatured">Producto destacado?</label>
+              <Field name="isFeatured" type="checkbox" />
+              {errors.isFeatured && touched.isFeatured && (
+                <div className={styles.error}>{errors.isFeatured}</div>
+              )}
+            </div>
           </div>
 
           <div className={styles.submitButtons}>

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const {
   login,
   confirmAccount,
@@ -7,7 +9,6 @@ const {
   logOutUser,
 } = require("../controllers/auth/authController");
 const { getUserById } = require("../controllers/users/userController");
-
 const loginHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -44,8 +45,7 @@ const confirmAccountHandler = async (req, res, next) => {
 
     await confirmAccount(token);
     return res
-      .status(200)
-      .json({ error: false, response: "Email succesfully activated" });
+      .redirect(`${process.env.FRONTEND_URL}/account_confirmed`)
   } catch (error) {
     next(error);
   }

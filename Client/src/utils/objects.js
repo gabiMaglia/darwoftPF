@@ -8,6 +8,7 @@ export const parseItemForCart = (item) => {
     name:item.name,
     price: item.price,
     stock: item.stock,
+    soldCount: item.soldCount,
     quantity: 0,
   };
 };

@@ -26,8 +26,8 @@ const storeData = {
 const Footer = () => {
   return (
     <>
+        <SimpleMap />
       <div className={styles.footer}>
-        {/* <SimpleMap /> */}
         <section className={styles.data}>
           <article className={styles.about}>
             <h2>{storeData.name.toUpperCase()}</h2>

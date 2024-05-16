@@ -18,6 +18,7 @@ const PATH_ROUTES = {
   DETAIL: '/detail/:id',
   ABOUT: '/about',
   CHANGEPASSWORD: '/changepassword/:token',
+  ACOUNTCONFIRMED: '/account_confirmed',
   ERROR404: '/*'
 }
 

@@ -43,6 +43,7 @@ select {
   width: 100%;
 }
 .thumbnailCont button {
+  width: 20px;
   border-radius: var(--border-radius-xl);
   border: 1px solid black;
   background: none;

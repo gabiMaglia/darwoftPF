@@ -3,7 +3,6 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
-  // flexRender le da idea de cuanto debe ocupar cada col
   getPaginationRowModel,
   getSortedRowModel,
   getFilteredRowModel,
@@ -31,6 +30,7 @@ const Table = ({ data, columns, tableName, handleActionClick }) => {
     onSortingChange: setSorting,
     onGlobalFilterChange: setFiltering,
   });
+
   return (
     <div className={styles.tableCont}>
       <i>Buscar :</i>{" "}
@@ -44,35 +44,32 @@ const Table = ({ data, columns, tableName, handleActionClick }) => {
       {isData && (
         <table>
           <thead>
-            {table.getHeaderGroups().map((headerGroup, key) => (
-              <tr key={key + Math.random()}>
-                {headerGroup.headers.map((header, key) => (
-                  <>
-                    <th
-                      key={key + Math.random()}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {
-                        { asc: "⬆️", desc: "⬇️" }[
-                          header.column.getIsSorted() ?? null
-                        ]
-                      }
-                    </th>
-                  </>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {{
+                      asc: "⬆️",
+                      desc: "⬇️",
+                    }[header.column.getIsSorted() ?? null]}
+                  </th>
                 ))}
                 <th>Acciones</th>
               </tr>
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row, key) => (
-              <tr key={key + Math.random()}>
-                {row.getVisibleCells().map((cell, key) => (
-                  <td key={key + Math.random()}>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}

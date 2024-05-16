@@ -16,34 +16,42 @@ const ShoppingCart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.cartSlice.cartItems);
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth.user);
+ 
   const totalAmount = useSelector((state) => state.cartSlice.cartTotalItems);
-
+ 
   const handleAddItem = (id) => {
     dispatch(incrementAmount({ _id: id }));
   };
-
   const handleDecrementItem = (id) => {
     dispatch(restAmount({ _id: id }));
   };
   const handleRemoveItem = (id) => {
     dispatch(removeItem({ _id: id }));
   };
-
   const handleClearCart = () => {
     dispatch(clearCart());
   };
-
   const total = products.reduce(
     (acc, product) => acc + product.price * product.quantity,
     0
   );
-
   const handleCheckout = () => {
-    if (!user.isActive) toast.error("Debes activar tu usario para poder continuar comprando");
-    totalAmount === 0
-    ? toast.error("Necesitas agregar productos al carrito para poder comprar")
-      : navigate(PATH_ROUTES.CHECKOUT);
+    if (!user?.isLogged) {
+      toast.error("Debes activar tu usuario para poder continuar comprando");
+      return;
+    }
+    if (!user?.isActive) {
+      toast.error("Debes activar tu usuario para poder continuar comprando");
+      return;
+    }
+  
+    if (totalAmount === 0) {
+      toast.error("Necesitas agregar productos al carrito para poder comprar");
+      return;
+    }
+    
+    navigate(PATH_ROUTES.CHECKOUT);
   };
 
   return (
@@ -83,7 +91,7 @@ const ShoppingCart = () => {
                   <OutlinedButton
                     onClick={() => handleRemoveItem(product._id, true)}
                   >
-                    Remove
+                    Eliminar
                   </OutlinedButton>
                 </td>
               </tr>
@@ -98,7 +106,7 @@ const ShoppingCart = () => {
           <strong>Total:</strong> ${total.toFixed(2)}
         </div>
         <div className={styles.total}>
-          <strong>TotalAmount:</strong> {totalAmount}
+          <strong>Unidades Totales:</strong> {totalAmount}
         </div>
         <OutlinedButton onClick={handleClearCart}>
           Limpiar Carrito
