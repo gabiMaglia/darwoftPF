@@ -5,6 +5,7 @@ import paymentBannerDesktop from "../../../assets/paymentMethodsBanner/desktop.j
 import paymentBannerMobile from "../../../assets/paymentMethodsBanner/mobile.jpg";
 
 import styles from "./footer.module.css";
+import { useLocation } from "react-router-dom";
 
 const storeData = {
   name: "Folk Tecnotienda",
@@ -24,9 +25,12 @@ const storeData = {
 };
 
 const Footer = () => {
+  const {pathname} = useLocation()
+  console.log(pathname)
+  const isHome = pathname === '/'
   return (
     <>
-        <SimpleMap />
+     { isHome &&  <SimpleMap />}
       <div className={styles.footer}>
         <section className={styles.data}>
           <article className={styles.about}>

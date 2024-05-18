@@ -34,15 +34,13 @@ const login = async (email, password) => {
       updatedAt: 0,
       __v: 0,
     })
-    .populate("adress");
+    .populate("adress")
+    .populate('role');
   const { role } = await UserRole.findById(user.role);
   const accesToken = await tokenSign({ id: user._id, role }, "2h", false);
 
   return {
-    user: {
-      ...user.toObject(),
-      role: role,
-    },
+  user,
     accesToken,
   };
 };

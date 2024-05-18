@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import useCloudinary from "../../../hooks/useCloudinary";
 import SubmitBtns from "../SubmitBtns";
 import Spinner from "../../ui/LoadingSpinner/Spinner";
 import styles from "../forms.module.css";
+import toast from "react-hot-toast";
 
 const productSchema = Yup.object({
   images: Yup.array().of(
@@ -21,6 +22,7 @@ const ChangePictureForm = ({
 }) => {
   const [setFiles, files, uploadImagesToCloudinary] = useCloudinary();
   const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (existingPhoto) {
@@ -28,9 +30,24 @@ const ChangePictureForm = ({
     }
   }, [existingPhoto, setFiles]);
 
-  const handleFileChange = async (event, setFieldValue) => {
+  const handleFileChange = async (event, setFieldValue, setValues) => {
     setLoading(true);
-    setFieldValue("photo", [...event.currentTarget.files]);
+    const selectedFiles = [...event.currentTarget.files];
+
+    const allowedExtensions = ["image/jpeg", "image/png", "image/gif"];
+    const imageFiles = selectedFiles.filter(file =>
+      allowedExtensions.includes(file.type)
+    );
+
+    if (imageFiles.length !== selectedFiles.length) {
+      setLoading(false);
+      toast("Todos los archivos deben ser imágenes con formato JPG, PNG o GIF.");
+      setValues("photo", null);
+      fileInputRef.current.value = null; // Clear the input field
+      return;
+    }
+
+    setFieldValue("photo", imageFiles);
     await uploadImagesToCloudinary(event);
     setLoading(false);
   };
@@ -50,7 +67,7 @@ const ChangePictureForm = ({
           actions.resetForm();
         }}
       >
-        {({ setFieldValue, errors }) => (
+        {({ setValues, setFieldValue, errors }) => (
           <Form className={styles.form}>
             <div className={styles.inputBoxes}>
               <label htmlFor="photo">Imágenes</label>
@@ -59,7 +76,8 @@ const ChangePictureForm = ({
                 name="photo"
                 type="file"
                 accept="image/*"
-                onChange={(event) => handleFileChange(event, setFieldValue)}
+                ref={fileInputRef}
+                onChange={(event) => handleFileChange(event, setFieldValue, setValues)}
               />
               {loading ? (
                 <Spinner />

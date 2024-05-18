@@ -12,12 +12,12 @@ console.log(isAuthenticated)
       <Link to={PATH_ROUTES.PERSONAL}>
         <OutlinedButton>Mi Cuenta</OutlinedButton>
       </Link>
-      {isAuthenticated === "USER" && (
+      {isAuthenticated.role === "USER" && (
         <Link to={PATH_ROUTES.WISHLIST}>
           <OutlinedButton>WishList</OutlinedButton>
         </Link>
       )}
-      {isAuthenticated === "ADMIN" && (
+      {isAuthenticated.role === "ADMIN" && (
         <>
           <Link to={PATH_ROUTES.STOCK}>
             <OutlinedButton>Stock</OutlinedButton>

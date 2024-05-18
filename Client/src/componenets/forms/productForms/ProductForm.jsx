@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import SubmitBtns from "../SubmitBtns";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import useCloudinary from "../../../hooks/useCloudinary";
 import { isAnEmptyObject } from "../../../utils/objects";
 import Spinner from "../../ui/LoadingSpinner/Spinner";
+import toast from "react-hot-toast";
 
 const productSchema = Yup.object({
   name: Yup.string().required("Debes ingresar un nombre de producto"),
@@ -25,7 +26,7 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
   const { brands } = useSelector((state) => state.brands);
   const [setFiles, files, uploadImagesToCloudinary] = useCloudinary();
   const [loading, setLoading] = useState(false);
-
+  const fileInputRef = useRef(null);
   const isUpdate = !isAnEmptyObject(initialData);
 
   useEffect(() => {
@@ -36,7 +37,21 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
 
   const handleFileChange = async (event, setFieldValue) => {
     setLoading(true);
-    setFieldValue("images", [...event.currentTarget.files]);
+    const selectedFiles = [...event.currentTarget.files];
+    const allowedExtensions = ["image/jpeg", "image/png", "image/gif"];
+    const imageFiles = selectedFiles.filter(file =>
+      allowedExtensions.includes(file.type)
+    );
+    if (imageFiles.length !== selectedFiles.length) {
+      setLoading(false);
+      toast("Todos los archivos deben ser imágenes con formato JPG, PNG o GIF.");
+      setFieldValue("images", []);
+      setFiles([]);
+      fileInputRef.current.value = null;
+      return;
+    }
+
+    setFieldValue("images", [...imageFiles]);
     await uploadImagesToCloudinary(event);
     setLoading(false);
   };
@@ -92,38 +107,40 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
               accept="image/*"
               multiple
               onChange={(event) => handleFileChange(event, setFieldValue)}
+              ref={fileInputRef}
             />
             {loading ? (
               <Spinner />
             ) : (
-              <div className={styles.thumbnailCont}>
-                {files.map((file, index) => (
-                  <div key={index} className={styles.thumbnailWrapper}>
-                    <img
-                      className={styles.thumbnail}
-                      src={
-                        typeof file === "string"
-                          ? file
-                          : URL.createObjectURL(file)
-                      }
-                      alt={`Uploaded-${index}`}
-                    />
-                    <button
-                      type="button"
-                      className={styles.removeButton}
-                      onClick={() => handleRemoveImage(index)}
-                    >
-                      X
-                    </button>
-                  </div>
-                ))}
-              </div>
+              files.length > 0 && (
+                <div className={styles.thumbnailCont}>
+                  { files.map((file, index) => (
+                    <div key={index} className={styles.thumbnailWrapper}>
+                      <img
+                        className={styles.thumbnail}
+                        src={
+                          typeof file === "string"
+                            ? file
+                            : URL.createObjectURL(file)
+                        }
+                        alt={`Uploaded-${index}`}
+                      />
+                      <button
+                        type="button"
+                        className={styles.removeButton}
+                        onClick={() => handleRemoveImage(index)}
+                      >
+                        X
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )
             )}
             {errors.images && touched.images && (
               <div className={styles.error}>{errors.images}</div>
             )}
           </div>
-
 
           <div className={styles.inputBoxes}>
             <label htmlFor="productDescription">Descripción</label>
@@ -171,13 +188,6 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
             )}
           </div>
           <div className={styles.checkboxes}>
-            {/* <div className={styles.inputBoxes}>
-              <label htmlFor="isActive">Activo?</label>
-              <Field name="isActive" type="checkbox" />
-              {errors.isActive && touched.isActive && (
-                <div className={styles.error}>{errors.isActive}</div>
-              )}
-            </div> */}
             <div className={styles.inputBoxes}>
               <label htmlFor="isFeatured">Producto destacado?</label>
               <Field name="isFeatured" type="checkbox" />
