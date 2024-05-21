@@ -4,7 +4,13 @@ import {
   logOutUser,
   persistanceCheck,
 } from "../../services/authServices/authServices";
-import { deleteUser, updateUser } from "../../services/userService";
+import {
+  addToWishlist,
+  deleteUser,
+  removeFromWishlist,
+  updateUser,
+} from "../../services/userService";
+import { Navigate } from "react-router-dom";
 // TODO SIGN IN ASYNC
 export const logInAsync = createAsyncThunk(
   "auth/logInAsync",
@@ -18,8 +24,8 @@ export const checkPersistanceAsync = createAsyncThunk(
   "auth/checkPersistanceAsync",
   async () => {
     const { data } = await persistanceCheck();
-
     if (!data) return { error: true };
+
     return data.response;
   }
 );
@@ -49,23 +55,22 @@ export const deleteUserAsync = createAsyncThunk(
 
 export const addToWishListAsync = createAsyncThunk(
   "auth/addToWishListAsync",
-  async () => {
-    const response = await deleteUser();
+  async (productId) => {
+    const response = await addToWishlist(productId);
     if (!response) return { error: true };
 
-    return true;
+    return response;
   }
 );
 export const removeFromWishlistAsync = createAsyncThunk(
   "auth/removeFromWishlistAsync",
-  async () => {
-    const response = await deleteUser();
+  async (productId) => {
+    const response = await removeFromWishlist(productId);
     if (!response) return { error: true };
 
-    return true;
+    return productId;
   }
 );
-
 
 const authSlice = createSlice({
   name: "auth",
@@ -85,7 +90,9 @@ const authSlice = createSlice({
     builder.addCase(checkPersistanceAsync.fulfilled, (state, { payload }) => {
       if (payload.error || !payload) {
         localStorage.removeItem("token");
+        state.user = null;
         state.isLogged = false;
+        Navigate("/");
       }
       state.user = payload;
       state.isLogged = true;
@@ -94,7 +101,7 @@ const authSlice = createSlice({
       state.isLogged = false;
       state.user = null;
       localStorage.removeItem("token");
-      localStorage.removeItem("cart")
+      localStorage.removeItem("cart");
     });
     builder.addCase(updateUserAsync.fulfilled, (state, { payload }) => {
       if (!payload.error) {
@@ -105,6 +112,16 @@ const authSlice = createSlice({
       if (!payload.error) {
         state.user = null;
         state.isLogged = null;
+      }
+    });
+    builder.addCase(addToWishListAsync.fulfilled, (state, { payload }) => {
+      if (!payload.error) {
+        state.user.wishlist = payload.message.wishlist;
+      }
+    });
+    builder.addCase(removeFromWishlistAsync.fulfilled, (state, { payload }) => {
+      if (!payload.error) {
+        state.user.wishlist = state.user.wishlist.filter((e) => e !== payload);
       }
     });
   },

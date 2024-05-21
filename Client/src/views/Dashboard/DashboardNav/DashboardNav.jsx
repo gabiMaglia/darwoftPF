@@ -5,7 +5,7 @@ import PATH_ROUTES from "../../../helpers/routes.helper";
 import styles from "./dashboardNav.module.css";
 
 const DashboardNav = ({ isAuthenticated }) => {
-console.log(isAuthenticated)
+
   return (
     <div className={styles.navCont}>
     <nav className={styles.navBar}>
@@ -19,11 +19,11 @@ console.log(isAuthenticated)
       )}
       {isAuthenticated.role === "ADMIN" && (
         <>
-          <Link to={PATH_ROUTES.STOCK}>
+          <Link to={PATH_ROUTES.admin.STOCK}>
             <OutlinedButton>Stock</OutlinedButton>
           </Link>
 
-          <Link to={PATH_ROUTES.BRANDSCATEGORY}>
+          <Link to={PATH_ROUTES.admin.BRANDSCATEGORY}>
             <OutlinedButton>Marcas/Categorias</OutlinedButton>
           </Link>
         </>

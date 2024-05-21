@@ -90,8 +90,8 @@ function App() {
                 <Route path="contact" element={<ProfilePersonalAddress />} />
                 <Route path="credentials" element={<ProfileCredentials />} />
               </Route>
-              <Route exact path={PATH_ROUTES.STOCK} element={<Stock />} />
-              <Route path={PATH_ROUTES.BRANDSCATEGORY} element={<BrandsCat />} />
+              <Route exact path={PATH_ROUTES.admin.STOCK} element={<Stock />} />
+              <Route path={PATH_ROUTES.admin.BRANDSCATEGORY} element={<BrandsCat />} />
               <Route path={PATH_ROUTES.WISHLIST} element={<WishList />} />
             </Route>
           </Route>

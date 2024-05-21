@@ -15,17 +15,21 @@ import toast from "react-hot-toast";
 import PATH_ROUTES from "../../helpers/routes.helper";
 
 import styles from "./productDetail.module.css";
+import useWishList from "../../hooks/useWishList";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.productDetail);
+  
+  const [handleWishList, isListed, handleSetListed] = useWishList(product)
 
   const handleAddToCart = () => {
     dispatch(addItem(parseItemForCart(product)));
     toast.success("Producto agregado al carrito");
   };
-
+  
+  
   useEffect(() => {
     const detailPopulate = async (id) => {
       try {
@@ -34,21 +38,21 @@ const ProductDetail = () => {
         console.error("Failed to fetch product details:", error);
       }
     };
-
+    
     if (id) {
       detailPopulate(id);
     }
-
+    
     return () => {
       dispatch(clearProductDetail());
     };
   }, [dispatch, id]);
-
+  
   if (!product) {
     return <Spinner/>
   }
-
   return (
+
     <section className={styles.productDetailContainer}>
       <div className={styles.productDetailMain}>
         <article className={styles.productThumbnails}>
@@ -80,12 +84,19 @@ const ProductDetail = () => {
               </span>
             </div>
             <div className={styles.productActions}>
+              <OutlinedButton
+              onClick={() => {
+                handleSetListed()
+                handleWishList(product._id);
+              }}
+            >
+             { !isListed? "🖤" : "❤️" }
+            </OutlinedButton>
+            <div onClick={handleAddToCart}>
               <OutlinedButton>
-                <i className="fa fa-heart"></i>
-              </OutlinedButton>
-              <OutlinedButton onClick={handleAddToCart}>
                 <i className="fa fa-shopping-cart"></i>
               </OutlinedButton>
+            </div>
             </div>
           </div>
         </article>

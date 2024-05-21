@@ -1,22 +1,33 @@
-const { User } = require("../../db/conn");
+const { User, Product } = require("../../db/conn");
+const errors = require("../../utils/errors");
 
-const addProductToWishList = async (userId, productArr) => {
+const addProductToWishList = async (userId, productId) => {
+
+  const newProduct = await Product.findById(productId)
+  if (!newProduct) {
+    throw new Error(errors.product.productNotFound);
+  }
   const response = await User.findByIdAndUpdate(
     {_id: userId},
-    { $addToSet: { wishlist: { $each: productArr } } },
+    { $addToSet: { wishlist:  newProduct } },
     { new: true, select: 'wishlist' }
   );
   
+  console.log({response:response})
   return response;
 };
-const deleteProductFromWishList = async (userId, productArr) => {
+const deleteProductFromWishList = async (userId, productId) => {
+  const newProduct = await Product.findById(productId)
+  if (!newProduct) {
+    throw new Error(errors.product.productNotFound);
+  }
   const response = await User.findByIdAndUpdate(
     userId,
-    { $pullAll: { wishlist: productArr } },
+    { $pull:  { wishlist:  productId } },
     { new: true, select: 'wishlist' }
   );
 
-  return response;
+  return true;
 };
 
 module.exports = {

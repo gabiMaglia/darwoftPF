@@ -31,3 +31,30 @@ export const deleteUser = async () => {
     return { error: true };
   }
 };
+export const addToWishlist = async (productId) => {
+  try {
+
+    const { data } = await axiosAuthInstance.patch(`${URL}/wish/add`, {productId: productId});
+    if (!data.error) {
+      toast.success("Producto agregado a tu lista de deseos");
+
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+    return { error: true };
+  }
+};
+export const removeFromWishlist = async (productId) => {
+  try {
+    const { data } = await axiosAuthInstance.patch(`${URL}/wish/remove`, {productId: productId});
+    if (!data.error) {
+      toast.success("Producto eliminado de tu lista de deseos");
+
+      return data;
+    }
+  } catch ({ response }) {
+    toast.error(response?.data?.message || "error");
+    return { error: true };
+  }
+};

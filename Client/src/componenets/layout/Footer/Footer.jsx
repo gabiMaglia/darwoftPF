@@ -26,7 +26,6 @@ const storeData = {
 
 const Footer = () => {
   const {pathname} = useLocation()
-  console.log(pathname)
   const isHome = pathname === '/'
   return (
     <>
