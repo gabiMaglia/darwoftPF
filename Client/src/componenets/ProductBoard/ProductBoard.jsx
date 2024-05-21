@@ -3,12 +3,9 @@ import ProductCard from "../ProductCard/ProductCard";
 import styles from "./productBoard.module.css";
 
 const ProductBoard = ({ products }) => {
-  const userWishlist = useSelector((state) => state.auth.user.wishlist);
-
-  // Crear un Set de IDs de la wishlist para búsqueda rápida
+  const userWishlist = useSelector((state) => state.auth.user?.wishlist);
   const wishlistSet = new Set(userWishlist);
 
-  // Mapear los productos y añadir isListed: true si están en la wishlist
   const listedProducts = products.map(product => {
     if (wishlistSet.has(product._id)) {
       return { ...product, isListed: true };

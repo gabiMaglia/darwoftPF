@@ -11,7 +11,7 @@ import styles from "./productCard.module.css";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  // const [isListed, setIsListed] = useState(product?.isListed)
+  
   const handleAddToCart = () => {
     dispatch(addItem(parseItemForCart(product)));
     toast.success("Producto agregado al carrito");
