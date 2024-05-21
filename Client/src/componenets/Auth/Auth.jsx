@@ -24,6 +24,7 @@ import {
 import PATH_ROUTES from "../../helpers/routes.helper";
 import { clearCart } from "../../redux/slices/cartSlice";
 
+
 const Auth = () => {
 
   const auth = useSelector((state) => state.auth);
