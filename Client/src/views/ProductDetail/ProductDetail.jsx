@@ -21,7 +21,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.productDetail);
-  const [handleWishList, isListed, handleSetListed] = useWishList(product);
+  const [handleWishList, isListed] = useWishList(product);
 
   const handleAddToCart = () => {
     dispatch(addItem(parseItemForCart(product)));
