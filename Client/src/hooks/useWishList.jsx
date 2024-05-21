@@ -5,11 +5,11 @@ import { addToWishListAsync, removeFromWishlistAsync } from "../redux/slices/aut
 const useWishList = (product) => {
   const dispatch = useDispatch();
   const userWishlist = useSelector((state) => state.auth.user?.wishlist);
-  const [isListed, setIsListed] = useState(userWishlist?.includes(product._id));
+  const [isListed, setIsListed] = useState(userWishlist?.includes(product?._id));
 
   useEffect(() => {
-    setIsListed(userWishlist?.includes(product._id));
-  }, [userWishlist, product._id]);
+    setIsListed(userWishlist?.includes(product?._id));
+  }, [userWishlist, product?._id]);
 
   const handleWishList = async (productId) => {
     if (!isListed) {
