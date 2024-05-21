@@ -1,6 +1,6 @@
 import SimpleMap from "../../GoogleMap/GoogleMap";
 import Img from "../../ui/Img/Img";
-import footerLogo from "../../../assets/logos_png/logos folk-06.png";
+// import footerLogo from "../../../assets/logos_png/logos folk-06.png";
 import paymentBannerDesktop from "../../../assets/paymentMethodsBanner/desktop.jpg";
 import paymentBannerMobile from "../../../assets/paymentMethodsBanner/mobile.jpg";
 
@@ -8,9 +8,9 @@ import styles from "./footer.module.css";
 import { useLocation } from "react-router-dom";
 
 const storeData = {
-  name: "Folk Tecnotienda",
+  name: "Fake Tecnotienda",
   address: {
-    street: "Av. Alberdi 1582",
+    street: "Av. Los Alamos 1582",
     country: "Argentina",
     state: "Santa Fe",
     city: "Rosario",
@@ -56,7 +56,7 @@ const Footer = () => {
             <p>INSTAGRAM</p>
           </article>
           <div className={styles.logo}>
-            <Img img={footerLogo} alt="Folk tecnotienda" />
+            {/* <Img img={footerLogo} alt="Folk tecnotienda" /> */}
           </div>
         </section>
 
