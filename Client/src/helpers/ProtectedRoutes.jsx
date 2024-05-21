@@ -20,7 +20,7 @@ const ProtectedRoutes = ({ isLogged }) => {
     if (!isLogged) {
       toast.error("Inicia sesión para poder continuar");
     }
-    if (isProtected && userRole.role !== "ADMIN")
+    if (isProtected && (!userRole || userRole.role !== "ADMIN") )
       navigate(`${PATH_ROUTES.HOME}`);
   }, [isLogged]);
 
