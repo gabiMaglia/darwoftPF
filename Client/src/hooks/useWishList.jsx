@@ -13,11 +13,11 @@ const useWishList = (product) => {
 
     const handleWishList = async (productId) => {
         !product.isListed
-          ? await dispatch(addToWishListAsync(productId))
-          : await dispatch(removeFromWishlistAsync(productId));
+          ?  dispatch(addToWishListAsync(productId)).then(()=> {handleSetListed})
+          :  dispatch(removeFromWishlistAsync(productId)).then(()=> {handleSetListed});
       };
 
-  return [handleWishList, isListed, handleSetListed]
+  return [handleWishList, isListed ]
 }
 
 export default useWishList

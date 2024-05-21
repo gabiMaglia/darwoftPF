@@ -41,7 +41,7 @@ export const addToWishlist = async (productId) => {
       return data;
     }
   } catch ({ response }) {
-    toast.error(response?.data?.message || "error");
+    toast.error(`${response?.data?.message || "error"}, inicia sesion para realizar esta tarea` );
     return { error: true };
   }
 };
@@ -54,7 +54,7 @@ export const removeFromWishlist = async (productId) => {
       return data;
     }
   } catch ({ response }) {
-    toast.error(response?.data?.message || "error");
+    toast.error(`${response?.data?.message || "error"}, inicia sesion para realizar esta tarea` );
     return { error: true };
   }
 };

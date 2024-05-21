@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
     toast.success("Producto agregado al carrito");
   };
 
-  const [handleWishList, isListed, handleSetListed] = useWishList(product)
+  const [handleWishList, isListed] = useWishList(product)
   
   return (
     <div className={styles.productCard}>
@@ -40,7 +40,7 @@ const ProductCard = ({ product }) => {
           <div className={styles.productLinks}>
             <OutlinedButton
               onClick={() => {
-                handleSetListed()
+              
                 handleWishList(product._id);
               }}
             >
